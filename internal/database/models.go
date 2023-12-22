@@ -24,8 +24,8 @@ type TotalCalorieIntake struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Calories  int32
-	UserID    uuid.UUID
 	Program   string
+	UserID    uuid.UUID
 }
 
 type User struct {

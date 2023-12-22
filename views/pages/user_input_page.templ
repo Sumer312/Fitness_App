@@ -1,0 +1,36 @@
+package main
+
+templ user_input() {
+	<html>
+		<head>
+			<title>UserInput</title>
+			<script src="https://unpkg.com/htmx.org@1.9.9"></script>
+		</head>
+		<body>
+			<form hx-post="/user-input" hx-request='{"credentials": "include"}'>
+				<label for="height">Height</label>
+				<br/>
+				<input type="text" id="height"/>
+				<br/>
+				<label for="weight">Weight</label>
+				<br/>
+				<input type="text" id="weight"/>
+				<br/>
+				<label for="program">Program</label>
+				<br/>
+				<input type="text" id="program"/>
+				<br/>
+				<label for="bmi">BMI</label>
+				<br/>
+				<input type="text" id="bmi"/>
+				<br/>
+				<label for="CurrKal">CurrKal</label>
+				<br/>
+				<input type="text" id="CurrKal"/>
+				<br/>
+				<br/>
+				<button type="submit">chick me</button>
+			</form>
+		</body>
+	</html>
+}

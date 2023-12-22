@@ -32,45 +32,43 @@ func createJWT(expiresIn time.Duration, subject string) (string, error) {
 }
 
 func (apiCfg *apiConfig) loginHandler(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	type parameters struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}
-	params := parameters{}
-	err := decoder.Decode(&params)
-	if err != nil {
-		log.Fatal("line 41", err)
-	}
-	if params.Email == "" {
-		log.Fatalln("enter a valid email")
-		return
-	}
+	r.ParseForm()
+	email := r.FormValue("email")
+	password := r.FormValue("password")
 	user, err := apiCfg.DB.GetUserByEmail(
 		r.Context(),
-		sql.NullString{String: params.Email, Valid: true},
+		sql.NullString{String: email, Valid: true},
 	)
 	if err != nil {
-		log.Fatalln("line 52", err)
+		log.Fatalln("line 54", err)
 	}
 	fmt.Println(user)
-	passwordCheck := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(params.Password))
+	passwordCheck := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if passwordCheck != nil {
-		log.Fatalln("error storing passoword")
+		log.Printf("wrong password")
 		return
 	}
-	accesstoken, err := createJWT(time.Minute*5, user.Name)
+	accessToken, err := createJWT(time.Minute*5, user.Name)
 	if err != nil {
-		log.Fatalln("line 62", err)
+		log.Fatalln("line 64", err)
 	}
 	refreshToken, err := createJWT(time.Hour*840, user.Name)
 	if err != nil {
-		log.Fatalln("line 66", err)
+		log.Fatalln("line 68", err)
 	}
-	cookie := http.Cookie{Name: "access-token", Value: accesstoken, HttpOnly: true}
-	w.Header().Add("refresh-token", refreshToken)
-	w.Write([]byte(user.ID.String()))
-	http.SetCookie(w, &cookie)
+	access_cookie := http.Cookie{Name: "access-token", Value: accessToken, HttpOnly: true, SameSite: http.SameSiteNoneMode}
+	refresh_cookie := http.Cookie{Name: "refresh-token", Value: refreshToken, HttpOnly: true, SameSite: http.SameSiteNoneMode}
+	w.Header().Add("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	http.SetCookie(w, &access_cookie)
+	http.SetCookie(w, &refresh_cookie)
+	values := map[string]string{"userID": user.ID.String()}
+	json_values, err := json.Marshal(values)
+	if err != nil {
+		fmt.Println("line 80", err)
+	}
+	w.Write(json_values)
 }
 
 func (apiCfg *apiConfig) signupHandler(w http.ResponseWriter, r *http.Request) {
@@ -83,7 +81,7 @@ func (apiCfg *apiConfig) signupHandler(w http.ResponseWriter, r *http.Request) {
 	params := parameters{}
 	err := decoder.Decode(&params)
 	if err != nil {
-		log.Fatalln("line 84", err)
+		log.Fatalln("line 95", err)
 		return
 	}
 
@@ -105,19 +103,27 @@ func (apiCfg *apiConfig) signupHandler(w http.ResponseWriter, r *http.Request) {
 		Password:  string(hashedPassword),
 	})
 	if err != nil {
-		log.Fatalln("line 106", err)
+		log.Fatalln("line 117", err)
 	}
-	accesstoken, err := createJWT(time.Minute*5, user.ID.String())
+	accessToken, err := createJWT(time.Minute*5, user.Name)
 	if err != nil {
-		log.Fatalln("line 110", err)
+		log.Fatalln("line 64", err)
 	}
-	refreshToken, err := createJWT(time.Hour*840, user.ID.String())
+	refreshToken, err := createJWT(time.Hour*840, user.Name)
 	if err != nil {
-		log.Fatalln("line 114", err)
+		log.Fatalln("line 68", err)
+		access_cookie := http.Cookie{Name: "access-token", Value: accessToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteNoneMode}
+		refresh_cookie := http.Cookie{Name: "refresh-token", Value: refreshToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteNoneMode}
+		w.Header().Add("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+		http.SetCookie(w, &access_cookie)
+		http.SetCookie(w, &refresh_cookie)
+		values := map[string]string{"userID": user.ID.String()}
+		json_values, err := json.Marshal(values)
+		if err != nil {
+			fmt.Println("line 80", err)
+		}
+		w.Write(json_values)
 	}
-	fmt.Println(user)
-	cookie := http.Cookie{Name: "access-token", Value: accesstoken, HttpOnly: true}
-	w.Header().Add("refresh-token", refreshToken)
-	w.Write([]byte(user.ID.String()))
-	http.SetCookie(w, &cookie)
 }

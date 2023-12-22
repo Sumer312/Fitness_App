@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -55,8 +54,13 @@ func validateJWT(next func(w http.ResponseWriter, r *http.Request)) http.Handler
 	godotenv.Load()
 	var SECRET = []byte(os.Getenv("JWT_SECRET"))
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+    fmt.Println(r)
 		accessToken, err := r.Cookie("access-token")
-		if err != nil {
+		cookies := r.Cookies()
+		for _, cookie := range cookies {
+			fmt.Printf("Name: %s, Value: %s\n", cookie.Name, cookie.Value)
+		}
+		if accessToken == nil || err != nil {
 			w.WriteHeader(http.StatusUnauthorized)
 			w.Write([]byte("no access token found"))
 			fmt.Println(err)
@@ -73,13 +77,12 @@ func validateJWT(next func(w http.ResponseWriter, r *http.Request)) http.Handler
 			})
 			if err != nil {
 				fmt.Println(err)
-				fmt.Println(r.Header["Authorization"])
-				if r.Header["Authorization"] != nil {
-					auth_header := r.Header.Get("Authorization")
-					split_arr := strings.Split(auth_header, " ")
-					refreshToken := split_arr[1]
-					fmt.Print(refreshToken)
-					status_ok, err := refresh(w, refreshToken)
+				refresh_token, err := r.Cookie("refresh-token")
+				if err != nil {
+					log.Printf("line 77 %s", err)
+				}
+				if refresh_token != nil {
+					status_ok, err := refresh(w, refresh_token.Value)
 					if status_ok == false || err != nil {
 						w.WriteHeader(http.StatusUnauthorized)
 						w.Write([]byte(err.Error()))

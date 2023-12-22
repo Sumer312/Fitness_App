@@ -2,9 +2,9 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/google/uuid"
@@ -12,36 +12,68 @@ import (
 )
 
 func (apiCfg *apiConfig) input_handler(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
 	type parameters struct {
 		UserId         uuid.UUID `json:"user_id"`
 		Height         int       `json:"height"`
-		Weight         int       `json:"weitht"`
+		Weight         int       `json:"weight"`
 		Desired_Weight *int      `json:"desired_weight"`
 		TimeFrame      *int      `json:"time-frame"`
 		Bmi            int       `json:"bmi"`
 		Program        string    `json:"program"`
 		Curr_Kcal      int       `json:"curr_kcal"`
 	}
-	params := parameters{}
-	err := decoder.Decode(&params)
+	var DesiredWeightIsEmpty bool = false
+	var TimeFrameIsEmpty bool = false
+	r.ParseForm()
+	userId, err := uuid.Parse(r.FormValue("userId"))
 	if err != nil {
-		log.Fatal("line 28", err)
+		log.Fatalln(err)
 	}
-	if params.Desired_Weight != nil && params.TimeFrame != nil && *params.TimeFrame != 0 {
-		deficit := deficit_calc(params.Weight, *params.Desired_Weight, *params.TimeFrame)
+	height, err := strconv.ParseInt(r.FormValue("height"), 10, 32)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	weight, err := strconv.ParseInt(r.FormValue("weight"), 10, 32)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	desiredWeight, err := strconv.ParseInt(r.FormValue("desired_weight"), 10, 32)
+	if err != nil {
+		if err != strconv.ErrSyntax {
+			log.Fatalln(err)
+		}
+		DesiredWeightIsEmpty = true
+	}
+	timeFrame, err := strconv.ParseInt(r.FormValue("time_frame"), 10, 32)
+	if err != nil {
+		if err != strconv.ErrSyntax {
+			log.Fatalln(err)
+		}
+		TimeFrameIsEmpty = true
+	}
+	bmi, err := strconv.ParseInt(r.FormValue("bmi"), 10, 32)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	currKcal, err := strconv.ParseInt(r.FormValue("curr_kcal"), 10, 32)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	program := r.FormValue("program")
+	if DesiredWeightIsEmpty == true && TimeFrameIsEmpty == true {
+		deficit := deficit_calc(int(weight), int(desiredWeight), int(timeFrame))
 		apiCfg.DB.CreateUserInput(r.Context(), database.CreateUserInputParams{
 			ID:            uuid.New(),
 			CreatedAt:     time.Now().UTC(),
 			UpdatedAt:     time.Now().UTC(),
-			UserID:        params.UserId,
-			Height:        int32(params.Height),
-			Weight:        int32(params.Weight),
-			DesiredWeight: sql.NullInt32{Int32: int32(*params.Desired_Weight), Valid: true},
-			TimeFrame:     sql.NullInt32{Int32: int32(*params.TimeFrame), Valid: true},
-			CurrKcal:      int32(params.Curr_Kcal),
-			Bmi:           int32(params.Bmi),
-			Program:       params.Program,
+			UserID:        userId,
+			Height:        int32(height),
+			Weight:        int32(weight),
+			DesiredWeight: sql.NullInt32{Int32: int32(desiredWeight), Valid: true},
+			TimeFrame:     sql.NullInt32{Int32: int32(timeFrame), Valid: true},
+			CurrKcal:      int32(currKcal),
+			Bmi:           int32(bmi),
+			Program:       program,
 			Deficit:       deficit,
 		})
 	} else {
@@ -49,12 +81,12 @@ func (apiCfg *apiConfig) input_handler(w http.ResponseWriter, r *http.Request) {
 			ID:        uuid.New(),
 			CreatedAt: time.Now().UTC(),
 			UpdatedAt: time.Now().UTC(),
-			UserID:    params.UserId,
-			Height:    int32(params.Height),
-			Weight:    int32(params.Weight),
-			CurrKcal:  int32(params.Curr_Kcal),
-			Bmi:       int32(params.Bmi),
-			Program:   params.Program,
+			UserID:    userId,
+			Height:    int32(height),
+			Weight:    int32(weight),
+			CurrKcal:  int32(currKcal),
+			Bmi:       int32(bmi),
+			Program:   program,
 		})
 	}
 }

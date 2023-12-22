@@ -15,7 +15,7 @@ import (
 const createTotalCalorieIntake = `-- name: CreateTotalCalorieIntake :one
 INSERT INTO total_calorie_intake(id, user_id, calories, program, created_at, updated_at)
 VALUES ($1, $2, $3, $4, $5, $6)
-RETURNING id, created_at, updated_at, calories, user_id, program
+RETURNING id, created_at, updated_at, calories, program, user_id
 `
 
 type CreateTotalCalorieIntakeParams struct {
@@ -42,8 +42,8 @@ func (q *Queries) CreateTotalCalorieIntake(ctx context.Context, arg CreateTotalC
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Calories,
-		&i.UserID,
 		&i.Program,
+		&i.UserID,
 	)
 	return i, err
 }
@@ -58,7 +58,7 @@ func (q *Queries) DeleteRedundantRows(ctx context.Context) error {
 }
 
 const getMostRecentUserKcal = `-- name: GetMostRecentUserKcal :one
-SELECT id, created_at, updated_at, calories, user_id, program FROM total_calorie_intake WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1
+SELECT id, created_at, updated_at, calories, program, user_id FROM total_calorie_intake WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1
 `
 
 func (q *Queries) GetMostRecentUserKcal(ctx context.Context, userID uuid.UUID) (TotalCalorieIntake, error) {
@@ -69,14 +69,14 @@ func (q *Queries) GetMostRecentUserKcal(ctx context.Context, userID uuid.UUID) (
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Calories,
-		&i.UserID,
 		&i.Program,
+		&i.UserID,
 	)
 	return i, err
 }
 
 const getTotalCalories = `-- name: GetTotalCalories :many
-SELECT id, created_at, updated_at, calories, user_id, program FROM total_calorie_intake WHERE user_id = $1
+SELECT id, created_at, updated_at, calories, program, user_id FROM total_calorie_intake WHERE user_id = $1
 `
 
 func (q *Queries) GetTotalCalories(ctx context.Context, userID uuid.UUID) ([]TotalCalorieIntake, error) {
@@ -93,8 +93,8 @@ func (q *Queries) GetTotalCalories(ctx context.Context, userID uuid.UUID) ([]Tot
 			&i.CreatedAt,
 			&i.UpdatedAt,
 			&i.Calories,
-			&i.UserID,
 			&i.Program,
+			&i.UserID,
 		); err != nil {
 			return nil, err
 		}

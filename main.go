@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/a-h/templ"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
@@ -19,6 +20,8 @@ type apiConfig struct {
 }
 
 func main() {
+	loginPage := login()
+	userInputPage := user_input()
 	godotenv.Load()
 	port := "5000"
 	router := chi.NewRouter()
@@ -36,19 +39,19 @@ func main() {
 	apiCfg := apiConfig{DB: db}
 	router.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"https://*", "http://*"},
-		AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
 		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-		ExposedHeaders:   []string{"Link"},
-		AllowCredentials: false,
-		MaxAge:           300,
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+		MaxAge:           3600,
 	}))
 
-	authRouter.HandleFunc("/login", apiCfg.loginHandler)
-	router.HandleFunc("/user-input", validateJWT(apiCfg.input_handler))
+	router.Handle("/login_page", templ.Handler(loginPage))
+	router.Handle("/user_input_page", templ.Handler(userInputPage))
+	authRouter.Post("/login", apiCfg.loginHandler)
+	authRouter.Post("/signup", apiCfg.signupHandler)
+	router.Post("/calorie-tracker", validateJWT(apiCfg.calorie_input_handler))
+	router.Post("/user-input", validateJWT(apiCfg.input_handler))
 	router.HandleFunc("/profile", validateJWT(apiCfg.profile))
-	authRouter.HandleFunc("/signup", apiCfg.signupHandler)
-	authRouter.HandleFunc("/calorie-tracker", validateJWT(apiCfg.calorie_input_handler))
 
 	router.Mount("/auth", authRouter)
 	srv := &http.Server{
