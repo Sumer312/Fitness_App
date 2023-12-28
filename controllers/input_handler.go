@@ -1,17 +1,17 @@
-package main
+package controllers
 
 import (
 	"database/sql"
+	"fmt"
+	"github.com/google/uuid"
+	"github.com/sumer312/Health-App-Backend/internal/database"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
-
-	"github.com/google/uuid"
-	"github.com/sumer312/Health-App-Backend/internal/database"
 )
 
-func (apiCfg *apiConfig) input_handler(w http.ResponseWriter, r *http.Request) {
+func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	type parameters struct {
 		UserId         uuid.UUID `json:"user_id"`
 		Height         int       `json:"height"`
@@ -22,10 +22,19 @@ func (apiCfg *apiConfig) input_handler(w http.ResponseWriter, r *http.Request) {
 		Program        string    `json:"program"`
 		Curr_Kcal      int       `json:"curr_kcal"`
 	}
-	var DesiredWeightIsEmpty bool = false
-	var TimeFrameIsEmpty bool = false
 	r.ParseForm()
-	userId, err := uuid.Parse(r.FormValue("userId"))
+	DesiredWeightIsEmpty := false
+	TimeFrameIsEmpty := false
+	for k, vs := range r.Form {
+		for _, v := range vs {
+			fmt.Printf("%s => %s\n", k, v)
+		}
+	}
+	cookieVal, err := r.Cookie("user-id")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -37,16 +46,16 @@ func (apiCfg *apiConfig) input_handler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	desiredWeight, err := strconv.ParseInt(r.FormValue("desired_weight"), 10, 32)
+	desiredWeight, err := strconv.ParseInt(r.FormValue("desiredWeight"), 10, 32)
 	if err != nil {
-		if err != strconv.ErrSyntax {
+		if r.Form.Has("desiredWeight") {
 			log.Fatalln(err)
 		}
 		DesiredWeightIsEmpty = true
 	}
-	timeFrame, err := strconv.ParseInt(r.FormValue("time_frame"), 10, 32)
+	timeFrame, err := strconv.ParseInt(r.FormValue("timeFrame"), 10, 32)
 	if err != nil {
-		if err != strconv.ErrSyntax {
+		if r.Form.Has("timeFrame") {
 			log.Fatalln(err)
 		}
 		TimeFrameIsEmpty = true
@@ -55,13 +64,17 @@ func (apiCfg *apiConfig) input_handler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	currKcal, err := strconv.ParseInt(r.FormValue("curr_kcal"), 10, 32)
+	currKcal, err := strconv.ParseInt(r.FormValue("CurrKcal"), 10, 32)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	program := r.FormValue("program")
-	if DesiredWeightIsEmpty == true && TimeFrameIsEmpty == true {
-		deficit := deficit_calc(int(weight), int(desiredWeight), int(timeFrame))
+	if DesiredWeightIsEmpty == false && TimeFrameIsEmpty == false {
+		TempChan := make(chan sql.NullInt32)
+		go func(w int, dw int, tf int) {
+			TempChan <- DeficitCalc(w, dw, tf)
+		}(int(weight), int(desiredWeight), int(timeFrame))
+		deficit := <-TempChan
 		apiCfg.DB.CreateUserInput(r.Context(), database.CreateUserInputParams{
 			ID:            uuid.New(),
 			CreatedAt:     time.Now().UTC(),

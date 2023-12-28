@@ -1,4 +1,4 @@
-package main
+package controllers
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (apiCfg *apiConfig) profile(w http.ResponseWriter, r *http.Request) {
+func (apiCfg *Api) Profile(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	type parameters struct {
 		UserId uuid.UUID `json:"user_id"`

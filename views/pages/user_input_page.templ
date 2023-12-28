@@ -1,32 +1,40 @@
-package main
+package pages
 
-templ user_input() {
+templ UserInput() {
 	<html>
 		<head>
 			<title>UserInput</title>
 			<script src="https://unpkg.com/htmx.org@1.9.9"></script>
 		</head>
 		<body>
-			<form hx-post="/user-input" hx-request='{"credentials": "include"}'>
+			<form hx-post="/user-input">
 				<label for="height">Height</label>
 				<br/>
-				<input type="text" id="height"/>
+				<input type="text" id="height" name="height"/>
 				<br/>
 				<label for="weight">Weight</label>
 				<br/>
-				<input type="text" id="weight"/>
+				<input type="text" id="weight" name="weight"/>
+				<br/>
+				<label for="desiredWeight">Desired Weight</label>
+				<br/>
+				<input type="text" id="desiredWeight" name="desiredWeight"/>
+				<br/>
+				<label for="timeFrame">Time Frame</label>
+				<br/>
+				<input type="text" id="timeFrame" name="timeFrame"/>
 				<br/>
 				<label for="program">Program</label>
 				<br/>
-				<input type="text" id="program"/>
+				<input type="text" id="program" name="program"/>
 				<br/>
 				<label for="bmi">BMI</label>
 				<br/>
-				<input type="text" id="bmi"/>
+				<input type="text" id="bmi" name="bmi"/>
 				<br/>
 				<label for="CurrKal">CurrKal</label>
 				<br/>
-				<input type="text" id="CurrKal"/>
+				<input type="text" id="CurrKcal" name="CurrKcal"/>
 				<br/>
 				<br/>
 				<button type="submit">chick me</button>

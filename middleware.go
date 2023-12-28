@@ -3,13 +3,13 @@ package main
 import (
 	"errors"
 	"fmt"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/joho/godotenv"
+	"github.com/sumer312/Health-App-Backend/controllers"
 	"log"
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/golang-jwt/jwt/v5"
-	"github.com/joho/godotenv"
 )
 
 func refresh(w http.ResponseWriter, refreshToken string) (bool, error) {
@@ -35,13 +35,13 @@ func refresh(w http.ResponseWriter, refreshToken string) (bool, error) {
 			log.Printf("lint 32 %s", err)
 			return false, err
 		}
-		newAccessToken, err := createJWT(time.Minute*5, subject)
+		newAccessToken, err := controllers.CreateJWT(time.Minute*5, subject)
 		if err != nil {
 			log.Fatal("error creating new access token")
 			return false, err
 		}
 		fmt.Println(newAccessToken)
-		cookie := http.Cookie{Name: "access-token", Value: newAccessToken, HttpOnly: true}
+		cookie := http.Cookie{Name: "access-token", Value: newAccessToken, Path: "/", HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 		http.SetCookie(w, &cookie)
 	} else {
 		log.Fatal("Login again")
@@ -54,7 +54,6 @@ func validateJWT(next func(w http.ResponseWriter, r *http.Request)) http.Handler
 	godotenv.Load()
 	var SECRET = []byte(os.Getenv("JWT_SECRET"))
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    fmt.Println(r)
 		accessToken, err := r.Cookie("access-token")
 		cookies := r.Cookies()
 		for _, cookie := range cookies {

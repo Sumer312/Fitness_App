@@ -1,4 +1,4 @@
-package main
+package controllers
 
 import (
 	"database/sql"
@@ -12,7 +12,7 @@ import (
 	"github.com/sumer312/Health-App-Backend/internal/database"
 )
 
-func (apicfg *apiConfig) calorie_input_handler(w http.ResponseWriter, r *http.Request) {
+func (apicfg *Api) CalorieInputHandler(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	type parameters struct {
 		UserID   uuid.UUID `json:"user_id"`
