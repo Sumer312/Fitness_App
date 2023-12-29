@@ -21,7 +21,8 @@ func main() {
 	port := "5000"
 	router := chi.NewRouter()
 	fmt.Println("using chi")
-	authRouter := chi.NewRouter()
+	viewRouter := chi.NewRouter()
+	serverRouter := chi.NewRouter()
 	dbConnString := os.Getenv("DB_URL")
 	log.Println(dbConnString)
 	conn, connerr := sql.Open("postgres",
@@ -40,15 +41,21 @@ func main() {
 		MaxAge:           3600,
 	}))
 
-	router.Handle("/login_page", templ.Handler(pages.Login()))
-	router.Handle("/user_input_page", templ.Handler(pages.UserInput()))
-	authRouter.Post("/login", apiCfg.LoginHandler)
-	authRouter.Post("/signup", apiCfg.SignupHandler)
-	router.Post("/calorie-tracker", validateJWT(apiCfg.CalorieInputHandler))
-	router.Post("/user-input", validateJWT(apiCfg.InputHandler))
-	router.HandleFunc("/profile", validateJWT(apiCfg.Profile))
+	viewRouter.Handle("/login", templ.Handler(pages.Login()))
+	viewRouter.Handle("/signup", templ.Handler(pages.Signup()))
+	viewRouter.Handle("/user-input/fatloss", templ.Handler(pages.UserInputFatloss()))
+	viewRouter.Handle("/user-input/muscle", templ.Handler(pages.UserInputMuscle()))
+	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
 
-	router.Mount("/auth", authRouter)
+	serverRouter.Post("/login", apiCfg.LoginHandler)
+	serverRouter.Post("/signup", apiCfg.SignupHandler)
+	serverRouter.Post("/user-input", validateJWT(apiCfg.InputHandler))
+	serverRouter.Post("/calorie-tracker", validateJWT(apiCfg.CalorieInputHandler))
+	serverRouter.HandleFunc("/profile", validateJWT(apiCfg.Profile))
+
+	router.Mount("/view", viewRouter)
+	router.Mount("/server", serverRouter)
+
 	srv := &http.Server{
 		Handler: router,
 		Addr:    ":" + port,

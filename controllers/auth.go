@@ -36,11 +36,6 @@ func CreateJWT(expiresIn time.Duration, subject string) (string, error) {
 
 func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	for k, vs := range r.Form {
-		for _, v := range vs {
-			fmt.Printf("%s => %s\n", k, v)
-		}
-	}
 	email := r.FormValue("email")
 	password := r.FormValue("password")
 	user, err := apiCfg.DB.GetUserByEmail(
