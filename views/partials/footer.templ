@@ -1,7 +1,7 @@
 package partials
 
 templ Footer() {
-	<footer class="footer p-10 bg-base-300 text-accent-content" data-theme="retro" >
+	<footer class="footer -mt-12 p-10 bg-base-200 text-accent-content" data-theme={ currentTheme }>
 		<div>
 			<img
  				src="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png"
@@ -18,13 +18,16 @@ templ Footer() {
 				Htmx
 			</a>
 			<a class="link link-hover flex">
+				Go + Templ
+			</a>
+			<a class="link link-hover flex">
 				Tailwind
 			</a>
 		</div>
 		<div>
 			<span class="footer-title">BackEnd</span>
 			<a class="link link-hover flex">
-				Go
+				Go + chi 
 			</a>
 			<a class="link link-hover flex">
 				JWT

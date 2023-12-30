@@ -69,26 +69,41 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln(err)
 	}
 	program := r.FormValue("program")
-	if DesiredWeightIsEmpty == false && TimeFrameIsEmpty == false {
-		TempChan := make(chan sql.NullInt32)
-		go func(w int, dw int, tf int) {
-			TempChan <- DeficitCalc(w, dw, tf)
-		}(int(weight), int(desiredWeight), int(timeFrame))
-		deficit := <-TempChan
-		apiCfg.DB.CreateUserInput(r.Context(), database.CreateUserInputParams{
-			ID:            uuid.New(),
-			CreatedAt:     time.Now().UTC(),
-			UpdatedAt:     time.Now().UTC(),
-			UserID:        userId,
-			Height:        int32(height),
-			Weight:        int32(weight),
-			DesiredWeight: sql.NullInt32{Int32: int32(desiredWeight), Valid: true},
-			TimeFrame:     sql.NullInt32{Int32: int32(timeFrame), Valid: true},
-			CurrKcal:      int32(currKcal),
-			Bmi:           int32(bmi),
-			Program:       program,
-			Deficit:       deficit,
-		})
+	if DesiredWeightIsEmpty == false {
+		if TimeFrameIsEmpty == false {
+			TempChan := make(chan sql.NullInt32)
+			go func(w int, dw int, tf int) {
+				TempChan <- DeficitCalc(w, dw, tf)
+			}(int(weight), int(desiredWeight), int(timeFrame))
+			deficit := <-TempChan
+			apiCfg.DB.CreateUserInput(r.Context(), database.CreateUserInputParams{
+				ID:            uuid.New(),
+				CreatedAt:     time.Now().UTC(),
+				UpdatedAt:     time.Now().UTC(),
+				UserID:        userId,
+				Height:        int32(height),
+				Weight:        int32(weight),
+				DesiredWeight: sql.NullInt32{Int32: int32(desiredWeight), Valid: true},
+				TimeFrame:     sql.NullInt32{Int32: int32(timeFrame), Valid: true},
+				CurrKcal:      int32(currKcal),
+				Bmi:           int32(bmi),
+				Program:       program,
+				Deficit:       deficit,
+			})
+		} else {
+			apiCfg.DB.CreateUserInput(r.Context(), database.CreateUserInputParams{
+				ID:        uuid.New(),
+				CreatedAt: time.Now().UTC(),
+				UpdatedAt: time.Now().UTC(),
+				UserID:    userId,
+				Height:    int32(height),
+				Weight:    int32(weight),
+				TimeFrame: sql.NullInt32{Int32: int32(timeFrame), Valid: true},
+				CurrKcal:  int32(currKcal),
+				Bmi:       int32(bmi),
+				Program:   program,
+			})
+		}
 	} else {
 		apiCfg.DB.CreateUserInput(r.Context(), database.CreateUserInputParams{
 			ID:        uuid.New(),

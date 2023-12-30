@@ -1,11 +1,12 @@
 package partials
 
+var currentTheme string = "retro"
+
 templ Header(title string) {
 	<head>
 		<title>{ title }</title>
 		<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css"/>
 		<script src="https://unpkg.com/htmx.org@1.9.9"></script>
-		<script src="https://cdn.tailwindcss.com"></script>
 		<script src="https://cdn.tailwindcss.com"></script>
 		<script defer>
     let current_theme = "retro"

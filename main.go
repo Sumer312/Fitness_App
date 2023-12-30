@@ -53,6 +53,7 @@ func main() {
 	serverRouter.Post("/calorie-tracker", validateJWT(apiCfg.CalorieInputHandler))
 	serverRouter.HandleFunc("/profile", validateJWT(apiCfg.Profile))
 
+	router.Handle("/", templ.Handler(pages.Home()))
 	router.Mount("/view", viewRouter)
 	router.Mount("/server", serverRouter)
 

@@ -37,7 +37,7 @@ func Login() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"min-h-screen py-6 flex flex-col justify-center sm:py-12\" data-theme=\"retro\"><div class=\"relative py-3 sm:max-w-xl sm:mx-auto\"><div class=\"relative px-4 py-10 bg-primary shadow-lg sm:rounded-3xl sm:p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"retro\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -73,7 +73,7 @@ func Login() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><button type=\"submit\" data-theme=\"retro\" class=\"btn btn-secondary mt-4 mb-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><button type=\"submit\" class=\"btn btn-secondary mt-4 mb-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -144,7 +144,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"min-h-screen py-6 flex flex-col justify-center sm:py-12\" data-theme=\"retro\"><div class=\"relative py-3 sm:max-w-xl sm:mx-auto\"><div class=\"relative px-4 py-10 bg-primary shadow-lg sm:rounded-3xl sm:p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"retro\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -198,7 +198,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><button type=\"submit\" data-theme=\"retro\" class=\"btn btn-secondary mt-4 mb-4\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><br><button type=\"submit\" class=\"btn btn-secondary mt-4 mb-4\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

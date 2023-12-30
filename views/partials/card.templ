@@ -1,0 +1,12 @@
+package partials
+
+templ Card(title string, imageUrl string) {
+	<div class="card h-96 w-96 image-full" data-theme={ currentTheme }>
+		<figure class="border-4 border-base-content hover:border-primary-focus">
+			<img src={ imageUrl } width="400" height="100" alt="image!"/>
+		</figure>
+		<div class="card-body">
+			<h2 class="card-title font-sans text-[24px] font-semibold">{ title }</h2>
+		</div>
+	</div>
+}
