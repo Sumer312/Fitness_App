@@ -57,6 +57,8 @@ func main() {
 	router.Mount("/view", viewRouter)
 	router.Mount("/server", serverRouter)
 
+	router.Handle("/*", templ.Handler(pages.NotFound()))
+
 	srv := &http.Server{
 		Handler: router,
 		Addr:    ":" + port,

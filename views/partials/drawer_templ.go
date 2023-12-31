@@ -10,7 +10,7 @@ import "context"
 import "io"
 import "bytes"
 
-func Navbar() templ.Component {
+func Drawer() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -23,34 +23,25 @@ func Navbar() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"fixed z-40 navbar h-20 bg-base-300/30 backdrop-filter backdrop-blur-lg\" data-theme=\"\"><div class=\"navbar-start\"><label for=\"my-drawer\" class=\"btn btn-primary btn-outline btn-sm btn-square drawer-button\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"drawer-side z-50\"><label for=\"my-drawer\" aria-label=\"close sidebar\" class=\"drawer-overlay\"></label><ul class=\"menu p-4 w-72 h-full bg-base-100/50 text-base-content backdrop-blur-lg\"><button class=\"btn btn-sm btn-circle btn-primary place-self-end mb-4\" onclick=\"DrawerClose()\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var2 := `M`
+		templ_7745c5c3_Var2 := `X`
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var2)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label></div><div class=\"navbar-center\"><div class=\"flex-1\"><a class=\"btn btn-ghost normal-case text-[24px] text-accent-content font-sans font-bold\" href=\"/\"><img src=\"https://img.icons8.com/?size=512&amp;id=X3XGYoBQVt1Q&amp;format=png\" width=\"30\" height=\"10\"> ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button><li><a href=\"/view/login\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var3 := `Fitness App`
+		templ_7745c5c3_Var3 := `Login`
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var3)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div><div class=\"navbar-end\"><button class=\"btn btn-primary btn-outline btn-sm btn-square drawer-button\" onclick=\"ChangeTheme()\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var4 := `T`
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></div></nav>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></li></ul></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

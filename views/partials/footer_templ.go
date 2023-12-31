@@ -23,7 +23,7 @@ func Footer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer class=\"footer -mt-12 p-10 bg-base-300 text-accent-content\" data-theme=\"\"><div><img src=\"https://img.icons8.com/?size=512&amp;id=X3XGYoBQVt1Q&amp;format=png\" width=\"70\" height=\"50\"><p class=\"font-extrabold text-[18px]\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer class=\"footer -mt-2 p-10 bg-base-300 text-accent-content\" data-theme=\"\"><div><img src=\"https://img.icons8.com/?size=512&amp;id=X3XGYoBQVt1Q&amp;format=png\" width=\"70\" height=\"50\"><p class=\"font-extrabold text-[18px]\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -127,6 +127,9 @@ func Footer() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Var13 := `
+  function DrawerClose(){
+   document.getElementById("my-drawer").checked = false
+  }
   function SetTheme(){
     const elements = document.querySelectorAll("[data-theme]")
     elements.forEach(element => {
