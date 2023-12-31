@@ -1,7 +1,7 @@
 package partials
 
 templ Footer() {
-	<footer class="footer -mt-12 p-10 bg-base-300 text-accent-content" data-theme={ currentTheme }>
+	<footer class="footer -mt-12 p-10 bg-base-300 text-accent-content" data-theme="">
 		<div>
 			<img
  				src="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png"
@@ -43,4 +43,26 @@ templ Footer() {
 			</a>
 		</div>
 	</footer>
+	<script>
+  function SetTheme(){
+    const elements = document.querySelectorAll("[data-theme]")
+    elements.forEach(element => {
+        const theme = window.localStorage.getItem("theme") || "retro"
+        element.setAttribute("data-theme", theme)
+    })
+  }
+    function ChangeTheme(){
+      if(window.localStorage.getItem("theme") == "retro"){
+        current_theme = "coffee"
+      } else {
+        current_theme = "retro"
+      }
+      window.localStorage.setItem("theme", current_theme)
+      const elements = document.querySelectorAll("[data-theme]")
+      elements.forEach(element => {
+          const theme = window.localStorage.getItem("theme") || "luxury"
+          element.setAttribute("data-theme", theme)
+      })
+    }
+  </script>
 }

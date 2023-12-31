@@ -33,11 +33,15 @@ func Login() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = partials.Navbar().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"retro\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -46,7 +50,7 @@ func Login() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><div class=\"divide-y divide-gray-200\"><div class=\"py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7\"><form hx-post=\"/server/login\"><div class=\"relative\"><input id=\"email\" name=\"email\" type=\"text\" class=\"peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-secondary text-primary-content focus:outline-none focus:borer-rose-600 mb-4\" placeholder=\"Email address\"> <label for=\"email\" class=\"absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><div class=\"divide-y divide-gray-200\"><div class=\"py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7\"><form data-hx-post=\"/server/login\"><div class=\"relative\"><input id=\"email\" name=\"email\" type=\"text\" class=\"peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-secondary text-primary-content focus:outline-none focus:borer-rose-600 mb-4\" placeholder=\"Email address\"> <label for=\"email\" class=\"absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -140,11 +144,15 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Err = partials.Navbar().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"retro\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

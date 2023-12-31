@@ -5,136 +5,142 @@ import "github.com/sumer312/Health-App-Backend/views/partials"
 templ UserInputFatloss() {
 	<html>
 		@partials.Header("Fat Loss")
-		@partials.Navbar()
-		<form hx-post="/server/user-input" class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="retro">
-			<label for="height">Height (in cm)</label>
-			<input
- 				type="number"
- 				id="height"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="weight">Weight (in kg)</label>
-			<input
- 				type="number"
- 				id="weight"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="desired_weight">Desired Weight (in kg)</label>
-			<input
- 				type="number"
- 				id="desired_weight"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="time_frame">Time Frame (in weeks)</label>
-			<input
- 				type="number"
- 				id="time_frame"
- 				class="input input-bordered input-accent w-full max-w-xs"
-			/>
-			<label for="bmi">BMI</label>
-			<input
- 				type="number"
- 				id="bmi"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="curr_kcal">Maintaince Kcal</label>
-			<input
- 				type="number"
- 				id="curr_kcal"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="100"
-			/>
-			<button type="submit" class="btn btn-accent btn-lg">Submit</button>
-		</form>
-		@partials.Footer()
+		<body onload="SetTheme()">
+			@partials.Navbar()
+			<form hx-post="/server/user-input" class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
+				<label for="height">Height (in cm)</label>
+				<input
+ 					type="number"
+ 					id="height"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="weight">Weight (in kg)</label>
+				<input
+ 					type="number"
+ 					id="weight"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="desired_weight">Desired Weight (in kg)</label>
+				<input
+ 					type="number"
+ 					id="desired_weight"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="time_frame">Time Frame (in weeks)</label>
+				<input
+ 					type="number"
+ 					id="time_frame"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+				/>
+				<label for="bmi">BMI</label>
+				<input
+ 					type="number"
+ 					id="bmi"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="curr_kcal">Maintaince Kcal</label>
+				<input
+ 					type="number"
+ 					id="curr_kcal"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="100"
+				/>
+				<button type="submit" class="btn btn-accent btn-lg">Submit</button>
+			</form>
+			@partials.Footer()
+		</body>
 	</html>
 }
 
 templ UserInputMuscle() {
 	<html>
 		@partials.Header("Muscle Gain")
-		@partials.Navbar()
-		<form hx-post="/server/user-input" class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="retro">
-			<label for="height">Height (in cm)</label>
-			<input
- 				type="number"
- 				id="height"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="weight">Weight (in kg)</label>
-			<input
- 				type="number"
- 				id="weight"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="time_frame">Time Frame (in weeks)</label>
-			<input
- 				type="number"
- 				id="time_frame"
- 				class="input input-bordered input-accent w-full max-w-xs"
-			/>
-			<label for="bmi">BMI</label>
-			<input
- 				type="number"
- 				id="bmi"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="curr_kcal">Maintaince Kcal</label>
-			<input
- 				type="number"
- 				id="curr_kcal"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="100"
-			/>
-			<button type="submit" class="btn btn-accent btn-lg">Submit</button>
-			<p class="text-netural text-sm font-mono -mb-12">*Amount of muscle gained in a time frame varies from person to person.</p>
-		</form>
-		@partials.Footer()
+		<body onload="SetTheme()">
+			@partials.Navbar()
+			<form hx-post="/server/user-input" class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
+				<label for="height">Height (in cm)</label>
+				<input
+ 					type="number"
+ 					id="height"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="weight">Weight (in kg)</label>
+				<input
+ 					type="number"
+ 					id="weight"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="time_frame">Time Frame (in weeks)</label>
+				<input
+ 					type="number"
+ 					id="time_frame"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+				/>
+				<label for="bmi">BMI</label>
+				<input
+ 					type="number"
+ 					id="bmi"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="curr_kcal">Maintaince Kcal</label>
+				<input
+ 					type="number"
+ 					id="curr_kcal"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="100"
+				/>
+				<button type="submit" class="btn btn-accent btn-lg">Submit</button>
+				<p class="text-netural text-sm font-mono -mb-12">*Amount of muscle gained in a time frame varies from person to person.</p>
+			</form>
+			@partials.Footer()
+		</body>
 	</html>
 }
 
 templ UserInputMaintain() {
 	<html>
 		@partials.Header("Maintaince")
-		@partials.Navbar()
-		<form hx-post="/server/user-input" class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="retro">
-			<label for="height">Height (in cm)</label>
-			<input
- 				type="number"
- 				id="height"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="weight">Weight (in kg)</label>
-			<input
- 				type="number"
- 				id="weight"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="bmi">BMI</label>
-			<input
- 				type="number"
- 				id="bmi"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="10"
-			/>
-			<label for="curr_kcal">Maintaince Kcal</label>
-			<input
- 				type="number"
- 				id="curr_kcal"
- 				class="input input-bordered input-accent w-full max-w-xs"
- 				step="100"
-			/>
-			<button type="submit" class="btn btn-accent btn-lg">Submit</button>
-		</form>
-		@partials.Footer()
+		<body onload="SetTheme()">
+			@partials.Navbar()
+			<form hx-post="/server/user-input" class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
+				<label for="height">Height (in cm)</label>
+				<input
+ 					type="number"
+ 					id="height"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="weight">Weight (in kg)</label>
+				<input
+ 					type="number"
+ 					id="weight"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="bmi">BMI</label>
+				<input
+ 					type="number"
+ 					id="bmi"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="10"
+				/>
+				<label for="curr_kcal">Maintaince Kcal</label>
+				<input
+ 					type="number"
+ 					id="curr_kcal"
+ 					class="input input-bordered input-accent w-full max-w-xs"
+ 					step="100"
+				/>
+				<button type="submit" class="btn btn-accent btn-lg">Submit</button>
+			</form>
+			@partials.Footer()
+		</body>
 	</html>
 }

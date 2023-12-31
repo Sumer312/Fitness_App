@@ -23,15 +23,7 @@ func Footer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer class=\"footer -mt-12 p-10 bg-base-300 text-accent-content\" data-theme=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(currentTheme))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div><img src=\"https://img.icons8.com/?size=512&amp;id=X3XGYoBQVt1Q&amp;format=png\" width=\"70\" height=\"50\"><p class=\"font-extrabold text-[18px]\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<footer class=\"footer -mt-12 p-10 bg-base-300 text-accent-content\" data-theme=\"\"><div><img src=\"https://img.icons8.com/?size=512&amp;id=X3XGYoBQVt1Q&amp;format=png\" width=\"70\" height=\"50\"><p class=\"font-extrabold text-[18px]\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -130,7 +122,37 @@ func Footer() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></footer>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></footer><script>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Var13 := `
+  function SetTheme(){
+    const elements = document.querySelectorAll("[data-theme]")
+    elements.forEach(element => {
+        const theme = window.localStorage.getItem("theme") || "retro"
+        element.setAttribute("data-theme", theme)
+    })
+  }
+    function ChangeTheme(){
+      if(window.localStorage.getItem("theme") == "retro"){
+        current_theme = "coffee"
+      } else {
+        current_theme = "retro"
+      }
+      window.localStorage.setItem("theme", current_theme)
+      const elements = document.querySelectorAll("[data-theme]")
+      elements.forEach(element => {
+          const theme = window.localStorage.getItem("theme") || "luxury"
+          element.setAttribute("data-theme", theme)
+      })
+    }
+  `
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var13)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

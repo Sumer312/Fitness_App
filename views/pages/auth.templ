@@ -5,16 +5,16 @@ import "github.com/sumer312/Health-App-Backend/views/partials"
 templ Login() {
 	<html>
 		@partials.Header("Login")
-		@partials.Navbar()
-		<body>
-			<div class="min-h-screen flex flex-col justify-center py-12" data-theme="retro">
+		<body onload="SetTheme()">
+			@partials.Navbar()
+			<div class="min-h-screen flex flex-col justify-center py-12" data-theme="">
 				<div class="relative mx-auto py-3 sm:max-w-xl">
 					<div class="relative bg-primary shadow-lg rounded-xl p-20">
 						<div class="max-w-md mx-auto">
 							<h1 class="text-2xl text-primary-content font-semibold">Login</h1>
 							<div class="divide-y divide-gray-200">
 								<div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-									<form hx-post="/server/login">
+									<form data-hx-post="/server/login">
 										<div class="relative">
 											<input
  												id="email"
@@ -73,9 +73,9 @@ templ Login() {
 templ Signup() {
 	<html>
 		@partials.Header("Signup")
-		@partials.Navbar()
-		<body>
-			<div class="min-h-screen flex flex-col justify-center py-12" data-theme="retro">
+		<body onload="SetTheme()">
+			@partials.Navbar()
+			<div class="min-h-screen flex flex-col justify-center py-12" data-theme="">
 				<div class="relative mx-auto py-3 sm:max-w-xl">
 					<div class="relative bg-primary shadow-lg rounded-xl p-20">
 						<div class="max-w-md mx-auto">

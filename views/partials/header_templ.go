@@ -10,8 +10,6 @@ import "context"
 import "io"
 import "bytes"
 
-var currentTheme string = "retro"
-
 func Header(title string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -49,28 +47,6 @@ func Header(title string) templ.Component {
 		}
 		templ_7745c5c3_Var4 := ``
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</script><script defer>")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Var5 := `
-    let current_theme = "retro"
-    function ChangeTheme(){
-      if(current_theme == "retro"){
-        current_theme = "coffee"
-      } else {
-        current_theme = "retro"
-      }
-      const elements = document.querySelectorAll("[data-theme]")
-      for(let i = 0; i < elements.length; i++){
-        elements[i].setAttribute("data-theme", current_theme)
-      }
-    }
-    `
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var5)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
