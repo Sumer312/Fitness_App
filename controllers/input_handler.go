@@ -46,16 +46,16 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	desiredWeight, err := strconv.ParseInt(r.FormValue("desiredWeight"), 10, 32)
+	desiredWeight, err := strconv.ParseInt(r.FormValue("desired_weight"), 10, 32)
 	if err != nil {
-		if r.Form.Has("desiredWeight") {
+		if r.Form.Has("desired_weight") {
 			log.Fatalln(err)
 		}
 		DesiredWeightIsEmpty = true
 	}
-	timeFrame, err := strconv.ParseInt(r.FormValue("timeFrame"), 10, 32)
+	timeFrame, err := strconv.ParseInt(r.FormValue("time_frame"), 10, 32)
 	if err != nil {
-		if r.Form.Has("timeFrame") {
+		if r.Form.Has("time_frame") {
 			log.Fatalln(err)
 		}
 		TimeFrameIsEmpty = true
@@ -64,13 +64,13 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	currKcal, err := strconv.ParseInt(r.FormValue("CurrKcal"), 10, 32)
+	currKcal, err := strconv.ParseInt(r.FormValue("curr_kcal"), 10, 32)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	program := r.FormValue("program")
-	if DesiredWeightIsEmpty == false {
-		if TimeFrameIsEmpty == false {
+	if DesiredWeightIsEmpty == true {
+		if TimeFrameIsEmpty == true {
 			TempChan := make(chan sql.NullInt32)
 			go func(w int, dw int, tf int) {
 				TempChan <- DeficitCalc(w, dw, tf)
@@ -117,4 +117,6 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 			Program:   program,
 		})
 	}
+	w.Header().Add("Hx-Redirect", "http://localhost:5000")
+  w.WriteHeader(200)
 }

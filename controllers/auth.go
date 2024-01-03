@@ -2,8 +2,6 @@ package controllers
 
 import (
 	"database/sql"
-	"encoding/json"
-	"fmt"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
 	"github.com/joho/godotenv"
@@ -38,6 +36,12 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	email := r.FormValue("email")
 	password := r.FormValue("password")
+
+	if len(email) == 0 || len(password) == 0 {
+		w.Header().Add("HX-Trigger", "EmptyFields")
+		w.WriteHeader(400)
+		return
+	}
 	user, err := apiCfg.DB.GetUserByEmail(
 		r.Context(),
 		sql.NullString{String: email, Valid: true},
@@ -45,10 +49,10 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	fmt.Println(user)
 	passwordCheck := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if passwordCheck != nil {
-		log.Printf("wrong password")
+		w.Header().Add("HX-Trigger", "WrongPassword")
+		w.WriteHeader(401)
 		return
 	}
 	accessToken, err := CreateJWT(time.Minute*5, user.Name)
@@ -62,34 +66,33 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	access_cookie := http.Cookie{Name: "access-token", Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 	refresh_cookie := http.Cookie{Name: "refresh-token", Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 	user_id := http.Cookie{Name: "user-id", Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	w.Header().Add("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-	w.Header().Set("Access-Control-Allow-Credentials", "true")
+	w.Header().Add("HX-Redirect", "http://localhost:5000")
+	w.WriteHeader(200)
 	http.SetCookie(w, &access_cookie)
 	http.SetCookie(w, &refresh_cookie)
 	http.SetCookie(w, &user_id)
 }
 
 func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-	type parameters struct {
-		Name     string `json:"name"`
-		Email    string `json:"email"`
-		Password string `json:"password"`
-	}
-	params := parameters{}
-	err := decoder.Decode(&params)
-	if err != nil {
-		log.Fatalln("line 95", err)
+	r.ParseForm()
+	name := r.FormValue("name")
+	email := r.FormValue("email")
+	password := r.FormValue("password")
+	confirmPassword := r.FormValue("confirm_password")
+
+	if len(name) == 0 || len(email) == 0 || len(password) == 0 || len(confirmPassword) == 0 {
+		w.Header().Add("HX-Trigger", "EmptyFields")
+		w.WriteHeader(400)
 		return
 	}
 
-	if params.Email == "" {
-		log.Fatalln("enter a valid email")
+	if confirmPassword != password {
+		w.Header().Add("HX-Trigger", "PasswordsNoMatch")
+		w.WriteHeader(401)
 		return
 	}
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(params.Password), bcrypt.DefaultCost)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		log.Fatal("error storing password")
 	}
@@ -97,8 +100,8 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 		ID:        uuid.New(),
 		CreatedAt: time.Now().UTC(),
 		UpdatedAt: time.Now().UTC(),
-		Name:      params.Name,
-		Email:     sql.NullString{String: params.Email, Valid: true},
+		Name:      name,
+		Email:     sql.NullString{String: email, Valid: true},
 		Password:  string(hashedPassword),
 	})
 	if err != nil {
@@ -111,14 +114,13 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	refreshToken, err := CreateJWT(time.Hour*840, user.Name)
 	if err != nil {
 		log.Fatalln("refresh token signup err ", err)
-		access_cookie := http.Cookie{Name: "access-token", Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-		refresh_cookie := http.Cookie{Name: "refresh-token", Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-		user_id := http.Cookie{Name: "user_id", Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-		w.Header().Add("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-		w.Header().Set("Access-Control-Allow-Credentials", "true")
-		http.SetCookie(w, &access_cookie)
-		http.SetCookie(w, &refresh_cookie)
-		http.SetCookie(w, &user_id)
 	}
+	access_cookie := http.Cookie{Name: "access-token", Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	refresh_cookie := http.Cookie{Name: "refresh-token", Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	user_id := http.Cookie{Name: "user_id", Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	w.Header().Add("HX-Redirect", "http://localhost:5000")
+	w.WriteHeader(200)
+	http.SetCookie(w, &access_cookie)
+	http.SetCookie(w, &refresh_cookie)
+	http.SetCookie(w, &user_id)
 }

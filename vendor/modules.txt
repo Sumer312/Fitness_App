@@ -1,4 +1,4 @@
-# github.com/a-h/templ v0.2.476
+# github.com/a-h/templ v0.2.513
 ## explicit; go 1.20
 github.com/a-h/templ
 github.com/a-h/templ/safehtml

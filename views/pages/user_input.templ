@@ -15,42 +15,49 @@ templ UserInputFatloss() {
 						<input
  							type="number"
  							id="height"
+ 							name="height"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="weight">Weight (in kg)</label>
 						<input
  							type="number"
  							id="weight"
+ 							name="weight"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="desired_weight">Desired Weight (in kg)</label>
 						<input
  							type="number"
  							id="desired_weight"
+ 							name="desired_weight"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="time_frame">Time Frame (in weeks)</label>
 						<input
  							type="number"
  							id="time_frame"
+ 							name="time_frame"
  							class="input input-bordered input-accent w-full max-w-xs"
 						/>
 						<label for="bmi">BMI</label>
 						<input
  							type="number"
  							id="bmi"
+ 							name="bmi"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="curr_kcal">Maintaince Kcal</label>
 						<input
  							type="number"
  							id="curr_kcal"
+ 							name="curr_kcal"
  							class="input input-bordered input-accent w-full max-w-xs"
  							step="100"
+						/>
+						<input
+ 							type="hidden"
+ 							name="program"
+ 							value="fatloss"
 						/>
 						<button type="submit" class="btn btn-accent btn-lg">Submit</button>
 					</form>
@@ -75,35 +82,42 @@ templ UserInputMuscle() {
 						<input
  							type="number"
  							id="height"
+ 							name="height"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="weight">Weight (in kg)</label>
 						<input
  							type="number"
  							id="weight"
+ 							name="weight"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="time_frame">Time Frame (in weeks)</label>
 						<input
  							type="number"
  							id="time_frame"
+ 							name="time_frame"
  							class="input input-bordered input-accent w-full max-w-xs"
 						/>
 						<label for="bmi">BMI</label>
 						<input
  							type="number"
  							id="bmi"
+ 							name="bmi"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="curr_kcal">Maintaince Kcal</label>
 						<input
  							type="number"
  							id="curr_kcal"
+ 							name="curr_kcal"
  							class="input input-bordered input-accent w-full max-w-xs"
  							step="100"
+						/>
+						<input
+ 							type="hidden"
+ 							name="program"
+ 							value="musclegain"
 						/>
 						<button type="submit" class="btn btn-accent btn-lg">Submit</button>
 						<p class="text-netural text-sm font-mono -mb-12">*Amount of muscle gained in a time frame varies from person to person.</p>
@@ -129,29 +143,35 @@ templ UserInputMaintain() {
 						<input
  							type="number"
  							id="height"
+ 							name="height"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="weight">Weight (in kg)</label>
 						<input
  							type="number"
  							id="weight"
+ 							name="weight"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="bmi">BMI</label>
 						<input
  							type="number"
  							id="bmi"
+ 							name="bmi"
  							class="input input-bordered input-accent w-full max-w-xs"
- 							step="10"
 						/>
 						<label for="curr_kcal">Maintaince Kcal</label>
 						<input
  							type="number"
  							id="curr_kcal"
+ 							name="curr_kcal"
  							class="input input-bordered input-accent w-full max-w-xs"
  							step="100"
+						/>
+						<input
+ 							type="hidden"
+ 							name="program"
+ 							value="maintaince"
 						/>
 						<button type="submit" class="btn btn-accent btn-lg">Submit</button>
 					</form>

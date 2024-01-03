@@ -12,7 +12,7 @@ import "bytes"
 
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
-func Home() templ.Component {
+func KcalCalc() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -29,11 +29,11 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Header("Home").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.Header("Calories-Calc").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,31 +41,16 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen\" data-theme=\"\"><div class=\"xl:mt-36\"><div hx-boost=\"false\" class=\"grid gap-16 xl:grid-cols-3 xl:gap-8 xs:grid-col-1 sm:grid-cols-1 sm:gap-16 md:grid-cols-1 md:gap-16 lg:grid-cols-2 lg:gap-16\"><a href=\"view/user-input/fatloss\" class=\"border-4 rounded-2xl border-neutral hover:border-primary\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\"><div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen\" data-theme=\"\"><form hx-post=\"\" class=\"flex flex-col\"><textarea class=\"mt-4 textarea textarea-md textarea-accent border-2\" rows=\"5\" placeholder=\"Enter a list of your meal, like &#39;1 cup rice, 10 oz chickpeas&#39;, etc.\nEnter each ingredient on a new line.\"></textarea> <button class=\"mt-12 btn btn-lg btn-wide btn-outline btn-primary\" type=\"submit\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Card("Fat Loss", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUq7MMS-iz1-0S8yDmZojm9ig1jWk5c4Wtgg").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Var2 := `Submit`
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var2)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a> <a href=\"view/user-input/muscle\" class=\"border-4 rounded-2xl border-neutral hover:border-primary\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = partials.Card("Muscle Gain", "https://cdn.fitnesspassion.it/image/original/cbum-shoulders.jpg").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a> <a href=\"view/user-input/maintain\" class=\"border-4 rounded-2xl border-neutral hover:border-primary\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = partials.Card("Maintain", "https://www.greatestphysiques.com/wp-content/uploads/2017/06/Courtney-King-10.jpg").Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></form></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -46,6 +46,7 @@ func main() {
 	viewRouter.Handle("/user-input/fatloss", templ.Handler(pages.UserInputFatloss()))
 	viewRouter.Handle("/user-input/muscle", templ.Handler(pages.UserInputMuscle()))
 	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
+	viewRouter.Handle("/kcal-calc", templ.Handler(pages.KcalCalc()))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
@@ -63,7 +64,7 @@ func main() {
 		Handler: router,
 		Addr:    ":" + port,
 	}
-	log.Println("Server starting on port:" + port)
+	log.Println("Server starting on port " + port)
 	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatal("OOPs something went wrong")

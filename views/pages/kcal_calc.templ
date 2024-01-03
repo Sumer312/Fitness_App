@@ -1,0 +1,30 @@
+package pages
+
+import "github.com/sumer312/Health-App-Backend/views/partials"
+
+templ KcalCalc() {
+	<html>
+		@partials.Header("Calories-Calc")
+		<body onload="SetTheme()">
+			<div class="drawer" data-theme="">
+				@partials.Navbar()
+				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
+				<div class="drawer-content">
+					<div class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
+						<form hx-post="" class="flex flex-col">
+							<textarea
+ 								class="mt-4 textarea textarea-md textarea-accent border-2"
+ 								rows="5"
+ 								placeholder="Enter a list of your meal, like '1 cup rice, 10 oz chickpeas', etc.
+Enter each ingredient on a new line."
+							></textarea>
+							<button class="mt-12 btn btn-lg btn-wide btn-outline btn-primary" type="submit">Submit</button>
+						</form>
+					</div>
+				</div>
+				@partials.Drawer()
+			</div>
+			@partials.Footer()
+		</body>
+	</html>
+}
