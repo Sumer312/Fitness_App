@@ -38,7 +38,7 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 
 	if len(email) == 0 || len(password) == 0 {
-		w.Header().Add("HX-Trigger", "EmptyFields")
+    w.Header().Add("HX-Trigger", `{ "warnToast" : "Fields should not be empty" }`)
 		w.WriteHeader(400)
 		return
 	}
@@ -51,7 +51,7 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	passwordCheck := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if passwordCheck != nil {
-		w.Header().Add("HX-Trigger", "WrongPassword")
+    w.Header().Add("HX-Trigger", `{ "errorToast" : "Wrong password" }`)
 		w.WriteHeader(401)
 		return
 	}
@@ -81,13 +81,13 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	confirmPassword := r.FormValue("confirm_password")
 
 	if len(name) == 0 || len(email) == 0 || len(password) == 0 || len(confirmPassword) == 0 {
-		w.Header().Add("HX-Trigger", "EmptyFields")
+    w.Header().Add("HX-Trigger", `{ "warnToast" : "Fields should not be empty" }`)
 		w.WriteHeader(400)
 		return
 	}
 
 	if confirmPassword != password {
-		w.Header().Add("HX-Trigger", "PasswordsNoMatch")
+    w.Header().Add("HX-Trigger", `{ "errorToast" : "Passwords do not match" }`)
 		w.WriteHeader(401)
 		return
 	}

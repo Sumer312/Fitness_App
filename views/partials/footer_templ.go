@@ -162,16 +162,16 @@ func Footer() templ.Component {
     })
   }
 
-  document.body.addEventListener("WrongPassword", function(event){
-    Error("Wrong password")
+  document.body.addEventListener("warnToast", function(event){
+    Warning(event.detail.value)
   })
 
-  document.body.addEventListener("PasswordsNoMatch", function(event){
-    Error("Passwords do not match")
+  document.body.addEventListener("errorToast", function(event){
+    Error(event.detail.value)
   })
 
-  document.body.addEventListener("EmptyFields", function(event){
-    Warning("Fields should not be empty")
+  document.body.addEventListener("successToast", function(event){
+    success(event.detail.value)
   })
   
   function Warning(message){
