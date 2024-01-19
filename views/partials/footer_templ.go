@@ -171,7 +171,7 @@ func Footer() templ.Component {
   })
 
   document.body.addEventListener("successToast", function(event){
-    success(event.detail.value)
+    Success(event.detail.value)
   })
   
   function Warning(message){

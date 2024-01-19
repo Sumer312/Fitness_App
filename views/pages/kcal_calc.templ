@@ -1,6 +1,8 @@
 package pages
 
-import "github.com/sumer312/Health-App-Backend/views/partials"
+import (
+	"github.com/sumer312/Health-App-Backend/views/partials"
+)
 
 templ KcalCalc() {
 	<html>
@@ -11,10 +13,11 @@ templ KcalCalc() {
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					<div class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
-						<form hx-post="" class="flex flex-col">
+						<form hx-post="/server/nutrition-api-request" class="flex flex-col" hx-swap="none">
 							<textarea
  								class="mt-4 textarea textarea-md textarea-accent border-2"
  								rows="5"
+ 								name="ingredients"
  								placeholder="Enter a list of your meal, like '1 cup rice, 10 oz chickpeas', etc.
 Enter each ingredient on a new line."
 							></textarea>
