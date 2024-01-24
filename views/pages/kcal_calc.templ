@@ -12,8 +12,17 @@ templ KcalCalc() {
 				@partials.Navbar()
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
-					<div class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
-						<form hx-post="/server/nutrition-api-request" class="flex flex-col" hx-swap="none">
+					<div
+ 						id="calories_calc_form"
+ 						class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen"
+ 						data-theme=""
+					>
+						<form
+ 							hx-post="/server/nutrition-api-request"
+ 							class="flex flex-col"
+ 							hx-swap="innerHTML"
+ 							hx-target="#response_text"
+						>
 							<textarea
  								class="mt-4 textarea textarea-md textarea-accent border-2"
  								rows="5"
@@ -23,6 +32,7 @@ Enter each ingredient on a new line."
 							></textarea>
 							<button class="mt-12 btn btn-lg btn-wide btn-outline btn-primary" type="submit">Submit</button>
 						</form>
+						<h1 id="response_text" class="font-bold"></h1>
 					</div>
 				</div>
 				@partials.Drawer()

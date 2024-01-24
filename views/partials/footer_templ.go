@@ -81,7 +81,7 @@ func Footer() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Var8 := `Go + chi `
+		templ_7745c5c3_Var8 := `Go + chi`
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var8)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -136,20 +136,58 @@ func Footer() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Var14 := `
-  function DrawerClose(){
-     document.getElementById("my-drawer").checked = false
+  document.body.addEventListener("warnToast", function (event) {
+    Warning(event.detail.value)
+  })
+
+  document.body.addEventListener("errorToast", function (event) {
+    Error(event.detail.value)
+  })
+
+  document.body.addEventListener("successToast", function (event) {
+    Success(event.detail.value)
+  })
+
+  document.body.addEventListener("infoToast", function (event) {
+    Info(event.detail.value)
+  })
+
+  document.getElementById("calories_calc_form").addEventListener("htmx:afterSwap", function (event) {
+    console.log(event.detail.target.innerText)
+    let response = JSON.parse(event.detail.target.innerText)
+    console.log(response.calories)
+    event.detail.target.innerHTML = ` + "`" + `
+    <h1>Calories: ${response.calories}</h1>
+    <br>
+    <h1>CarboHydrates: ${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</h1>
+    <br>
+    <h1>Sugar: ${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</h1>
+    <br>
+    <h1>Protien: ${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</h1>
+    <br>
+    <h1>Fats: ${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</h1>
+    <br>
+    <h1>Saturated Fats: ${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</h1>
+    <br>
+    <h1>Fiber: ${response.totalNutrients.FIBGT.quantity} ${response.totalNutrients.FIBGT.unit}</h1>
+    <br>
+    ` + "`" + `
+  })
+
+  function DrawerClose() {
+    document.getElementById("my-drawer").checked = false
   }
 
-  function SetTheme(){
+  function SetTheme() {
     const elements = document.querySelectorAll("[data-theme]")
     elements.forEach(element => {
-        const theme = window.localStorage.getItem("theme") || "retro"
-        element.setAttribute("data-theme", theme)
+      const theme = window.localStorage.getItem("theme") || "retro"
+      element.setAttribute("data-theme", theme)
     })
   }
 
-  function ChangeTheme(){
-    if(window.localStorage.getItem("theme") == "retro"){
+  function ChangeTheme() {
+    if (window.localStorage.getItem("theme") == "retro") {
       current_theme = "coffee"
     } else {
       current_theme = "retro"
@@ -157,24 +195,12 @@ func Footer() templ.Component {
     window.localStorage.setItem("theme", current_theme)
     const elements = document.querySelectorAll("[data-theme]")
     elements.forEach(element => {
-        const theme = window.localStorage.getItem("theme") || "luxury"
-        element.setAttribute("data-theme", theme)
+      const theme = window.localStorage.getItem("theme") || "luxury"
+      element.setAttribute("data-theme", theme)
     })
   }
 
-  document.body.addEventListener("warnToast", function(event){
-    Warning(event.detail.value)
-  })
-
-  document.body.addEventListener("errorToast", function(event){
-    Error(event.detail.value)
-  })
-
-  document.body.addEventListener("successToast", function(event){
-    Success(event.detail.value)
-  })
-  
-  function Warning(message){
+  function Warning(message) {
     Toastify({
       text: message,
       duration: 1500,
@@ -188,7 +214,7 @@ func Footer() templ.Component {
     }).showToast();
   }
 
-  function Success(message){
+  function Success(message) {
     Toastify({
       text: message,
       duration: 1500,
@@ -202,7 +228,7 @@ func Footer() templ.Component {
     }).showToast();
   }
 
-  function Error(message){
+  function Error(message) {
     Toastify({
       text: message,
       duration: 1500,
@@ -216,7 +242,21 @@ func Footer() templ.Component {
     }).showToast();
   }
 
-  `
+  function Info(message) {
+    Toastify({
+      text: message,
+      duration: 1500,
+      close: false,
+      gravity: "bottom", // ` + "`" + `top` + "`" + ` or ` + "`" + `bottom` + "`" + `
+      position: "center", // ` + "`" + `left` + "`" + `, ` + "`" + `center` + "`" + ` or ` + "`" + `right` + "`" + `
+      stopOnFocus: false, // Prevents dismissing of toast on hover
+      style: {
+        background: "oklch(var(--in))",
+      },
+    }).showToast();
+  }
+
+`
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var14)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

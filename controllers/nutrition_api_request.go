@@ -19,6 +19,29 @@ type api_parameters struct {
 	app_id       string
 }
 
+type edamam_response_total_nutrients_element struct {
+	Label    string  `json:"label"`
+	Unit     string  `json:"unit"`
+	Quantity float32 `json:"quantity"`
+}
+
+type total_nutrients struct {
+	Enengc_Kcal edamam_response_total_nutrients_element `json:"ENENGC_KCAL"`
+	Fat         edamam_response_total_nutrients_element `json:"FAT"`
+	Fasat       edamam_response_total_nutrients_element `json:"FASAT"`
+	Fatrn       edamam_response_total_nutrients_element `json:"FATRN"`
+	Fibgt       edamam_response_total_nutrients_element `json:"FIBGT"`
+	Chocdf      edamam_response_total_nutrients_element `json:"CHOCDF"`
+	Sugar       edamam_response_total_nutrients_element `json:"SUGAR"`
+	Procnt      edamam_response_total_nutrients_element `json:"PROCNT"`
+}
+
+type edamam_response struct {
+	Calories       int             `json:"calories"`
+	TotalNutrients total_nutrients `json:"totalNutrients"`
+	TotalWeight    float32         `json:"totalWeight"`
+}
+
 func getEnv() api_parameters {
 	godotenv.Load()
 	accessPoint := os.Getenv("API_ACCESS_POINT")
@@ -54,12 +77,21 @@ func (apiCfg *Api) ApiRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(response.StatusCode)
 	if response.StatusCode == http.StatusOK {
-    body, err := io.ReadAll(response.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-		fmt.Println(string(body))
-		w.Header().Add("HX-Trigger", `{ "successToast" : "Response recorded" }`)
+		var response_variable edamam_response
+		body, err := io.ReadAll(response.Body)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		err = json.Unmarshal(body, &response_variable)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		htmx_response, err := json.Marshal(response_variable)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		w.Header().Add("HX-Trigger", `{ "infoToast" : "Click to copy values" }`)
+		w.Write(htmx_response)
 		w.WriteHeader(200)
 	} else {
 		w.Header().Add("HX-Trigger", `{ "warnToast" : "Input not valid" }`)

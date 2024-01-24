@@ -43,7 +43,7 @@ func KcalCalc() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\"><div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen\" data-theme=\"\"><form hx-post=\"/server/nutrition-api-request\" class=\"flex flex-col\" hx-swap=\"none\"><textarea class=\"mt-4 textarea textarea-md textarea-accent border-2\" rows=\"5\" name=\"ingredients\" placeholder=\"Enter a list of your meal, like &#39;1 cup rice, 10 oz chickpeas&#39;, etc.\nEnter each ingredient on a new line.\"></textarea> <button class=\"mt-12 btn btn-lg btn-wide btn-outline btn-primary\" type=\"submit\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\"><div id=\"calories_calc_form\" class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen\" data-theme=\"\"><form hx-post=\"/server/nutrition-api-request\" class=\"flex flex-col\" hx-swap=\"innerHTML\" hx-target=\"#response_text\"><textarea class=\"mt-4 textarea textarea-md textarea-accent border-2\" rows=\"5\" name=\"ingredients\" placeholder=\"Enter a list of your meal, like &#39;1 cup rice, 10 oz chickpeas&#39;, etc.\nEnter each ingredient on a new line.\"></textarea> <button class=\"mt-12 btn btn-lg btn-wide btn-outline btn-primary\" type=\"submit\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -52,7 +52,7 @@ func KcalCalc() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></form></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</button></form><h1 id=\"response_text\" class=\"font-bold\"></h1></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
