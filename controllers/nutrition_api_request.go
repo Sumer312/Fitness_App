@@ -30,7 +30,7 @@ type total_nutrients struct {
 	Fat         edamam_response_total_nutrients_element `json:"FAT"`
 	Fasat       edamam_response_total_nutrients_element `json:"FASAT"`
 	Fatrn       edamam_response_total_nutrients_element `json:"FATRN"`
-	Fibgt       edamam_response_total_nutrients_element `json:"FIBGT"`
+	Fibtg       edamam_response_total_nutrients_element `json:"FIBTG"`
 	Chocdf      edamam_response_total_nutrients_element `json:"CHOCDF"`
 	Sugar       edamam_response_total_nutrients_element `json:"SUGAR"`
 	Procnt      edamam_response_total_nutrients_element `json:"PROCNT"`

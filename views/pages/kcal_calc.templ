@@ -28,11 +28,11 @@ templ KcalCalc() {
  								rows="5"
  								name="ingredients"
  								placeholder="Enter a list of your meal, like '1 cup rice, 10 oz chickpeas', etc.
-Enter each ingredient on a new line."
+Enter each ingredient on a new line, seperated by a comma."
 							></textarea>
 							<button class="mt-12 btn btn-lg btn-wide btn-outline btn-primary" type="submit">Submit</button>
 						</form>
-						<h1 id="response_text" class="font-bold"></h1>
+						<div id="response_text" class="font-bold"></div>
 					</div>
 				</div>
 				@partials.Drawer()

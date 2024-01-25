@@ -157,19 +157,19 @@ func Footer() templ.Component {
     let response = JSON.parse(event.detail.target.innerText)
     console.log(response.calories)
     event.detail.target.innerHTML = ` + "`" + `
-    <h1>Calories: ${response.calories}</h1>
+    <p>Calories:</p> <p class="text-accent">${response.calories}</p>
     <br>
-    <h1>CarboHydrates: ${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</h1>
+    <p>CarboHydrates:</p> <p class="text-accent">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
     <br>
-    <h1>Sugar: ${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</h1>
+    <p>Sugar:</p> <p class="text-accent">${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</p>
     <br>
-    <h1>Protien: ${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</h1>
+    <p>Protien:</p> <p class="text-accent">${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</p>
     <br>
-    <h1>Fats: ${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</h1>
+    <p>Fats:</p> <p class="text-accent">${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</p>
     <br>
-    <h1>Saturated Fats: ${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</h1>
+    <p>Saturated Fats:</p> <p class="text-accent">${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</p>
     <br>
-    <h1>Fiber: ${response.totalNutrients.FIBGT.quantity} ${response.totalNutrients.FIBGT.unit}</h1>
+    <p>Fiber:</p> <p class="text-accent">${response.totalNutrients.FIBTG.quantity} ${response.totalNutrients.FIBTG.unit}</p>
     <br>
     ` + "`" + `
   })
