@@ -60,16 +60,18 @@ func validateJWT(next func(w http.ResponseWriter, r *http.Request)) http.Handler
 			fmt.Printf("Name: %s, Value: %s\n", cookie.Name, cookie.Value)
 		}
 		if accessToken == nil || err != nil {
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "401 Unauthorized" }`)
+			w.Header().Add("Hx-Redirect", "http://localhost:5000/view/login")
 			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("no access token found"))
 			fmt.Println(err)
 		}
 		if accessToken != nil {
 			token, err := jwt.Parse(accessToken.Value, func(t *jwt.Token) (interface{}, error) {
 				_, ok := t.Method.(*jwt.SigningMethodHMAC)
 				if !ok {
+					w.Header().Add("HX-Trigger", `{ "errorToast" : "401 Unauthorized" }`)
+					w.Header().Add("Hx-Redirect", "http://localhost:5000/view/login")
 					w.WriteHeader(http.StatusUnauthorized)
-					w.Write([]byte("not authorized"))
 					fmt.Println("something is wrong in parsing")
 				}
 				return SECRET, nil
@@ -95,8 +97,9 @@ func validateJWT(next func(w http.ResponseWriter, r *http.Request)) http.Handler
 				next(w, r)
 			}
 		} else {
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "401 Unauthorized" }`)
+			w.Header().Add("Hx-Redirect", "http://localhost:5000/view/login")
 			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("not authorized"))
 		}
 	})
 }

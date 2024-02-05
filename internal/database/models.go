@@ -47,7 +47,7 @@ type UserInput struct {
 	Weight        int32
 	DesiredWeight sql.NullInt32
 	TimeFrame     sql.NullInt32
-	Bmi           int32
+	Bmi           float64
 	CurrKcal      int32
 	Deficit       sql.NullInt32
 }

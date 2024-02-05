@@ -1,0 +1,21 @@
+package pages
+
+import "github.com/sumer312/Health-App-Backend/views/partials"
+
+templ Logs() {
+	<html>
+		@partials.Header("Logs")
+		<body onload="SetTheme()">
+			<div class="drawer" data-theme="">
+				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
+				<div class="drawer-content">
+					@partials.Navbar()
+					<div class="flex flex-col bg-base-100 justify-between items-center min-h-screen" data-theme="">
+					</div>
+					@partials.Footer()
+				</div>
+				@partials.Drawer()
+			</div>
+		</body>
+	</html>
+}

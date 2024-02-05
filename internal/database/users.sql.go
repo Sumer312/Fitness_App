@@ -66,3 +66,21 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email sql.NullString) (Use
 	)
 	return i, err
 }
+
+const getUserById = `-- name: GetUserById :one
+SELECT id, created_at, updated_at, name, email, password FROM users WHERE id = $1
+`
+
+func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserById, id)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.Name,
+		&i.Email,
+		&i.Password,
+	)
+	return i, err
+}

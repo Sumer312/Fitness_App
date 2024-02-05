@@ -10,7 +10,7 @@ CREATE TABLE user_input (
   weight INT NOT NULL,
   desired_weight INT,
   time_frame INT,
-  bmi INT NOT NULL,
+  bmi FLOAT NOT NULL,
   curr_kcal INT NOT NULl,
   deficit INT
 );

@@ -38,7 +38,7 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 
 	if len(email) == 0 || len(password) == 0 {
-    w.Header().Add("HX-Trigger", `{ "warnToast" : "Fields should not be empty" }`)
+		w.Header().Add("HX-Trigger", `{ "warnToast" : "Fields should not be empty" }`)
 		w.WriteHeader(400)
 		return
 	}
@@ -48,10 +48,13 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	)
 	if err != nil {
 		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Cannot connect to database" }`)
+		w.WriteHeader(500)
+		return
 	}
 	passwordCheck := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if passwordCheck != nil {
-    w.Header().Add("HX-Trigger", `{ "errorToast" : "Wrong password" }`)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Wrong password" }`)
 		w.WriteHeader(401)
 		return
 	}
@@ -66,11 +69,11 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	access_cookie := http.Cookie{Name: "access-token", Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 	refresh_cookie := http.Cookie{Name: "refresh-token", Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 	user_id := http.Cookie{Name: "user-id", Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	w.Header().Add("HX-Redirect", "http://localhost:5000")
-	w.WriteHeader(200)
 	http.SetCookie(w, &access_cookie)
 	http.SetCookie(w, &refresh_cookie)
 	http.SetCookie(w, &user_id)
+	/* w.Header().Add("HX-Redirect", "http://localhost:5000") */
+	w.WriteHeader(200)
 }
 
 func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
@@ -81,13 +84,13 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	confirmPassword := r.FormValue("confirm_password")
 
 	if len(name) == 0 || len(email) == 0 || len(password) == 0 || len(confirmPassword) == 0 {
-    w.Header().Add("HX-Trigger", `{ "warnToast" : "Fields should not be empty" }`)
+		w.Header().Add("HX-Trigger", `{ "warnToast" : "Fields should not be empty" }`)
 		w.WriteHeader(400)
 		return
 	}
 
 	if confirmPassword != password {
-    w.Header().Add("HX-Trigger", `{ "errorToast" : "Passwords do not match" }`)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Passwords do not match" }`)
 		w.WriteHeader(401)
 		return
 	}
@@ -105,7 +108,10 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 		Password:  string(hashedPassword),
 	})
 	if err != nil {
-		log.Fatalln("line 117", err)
+		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Cannot connect to database" }`)
+		w.WriteHeader(500)
+		return
 	}
 	accessToken, err := CreateJWT(time.Minute*5, user.Name)
 	if err != nil {

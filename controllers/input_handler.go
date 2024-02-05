@@ -18,7 +18,6 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		Weight         int       `json:"weight"`
 		Desired_Weight *int      `json:"desired_weight"`
 		TimeFrame      *int      `json:"time-frame"`
-		Bmi            int       `json:"bmi"`
 		Program        string    `json:"program"`
 		Curr_Kcal      int       `json:"curr_kcal"`
 	}
@@ -60,10 +59,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		TimeFrameIsEmpty = true
 	}
-	bmi, err := strconv.ParseInt(r.FormValue("bmi"), 10, 32)
-	if err != nil {
-		log.Fatalln(err)
-	}
+	bmi := float64(weight) / (float64(height) * float64(height))
 	currKcal, err := strconv.ParseInt(r.FormValue("curr_kcal"), 10, 32)
 	if err != nil {
 		log.Fatalln(err)
@@ -86,7 +82,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 				DesiredWeight: sql.NullInt32{Int32: int32(desiredWeight), Valid: true},
 				TimeFrame:     sql.NullInt32{Int32: int32(timeFrame), Valid: true},
 				CurrKcal:      int32(currKcal),
-				Bmi:           int32(bmi),
+				Bmi:           bmi,
 				Program:       program,
 				Deficit:       deficit,
 			})
@@ -100,7 +96,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 				Weight:    int32(weight),
 				TimeFrame: sql.NullInt32{Int32: int32(timeFrame), Valid: true},
 				CurrKcal:  int32(currKcal),
-				Bmi:       int32(bmi),
+				Bmi:       bmi,
 				Program:   program,
 			})
 		}
@@ -113,10 +109,10 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 			Height:    int32(height),
 			Weight:    int32(weight),
 			CurrKcal:  int32(currKcal),
-			Bmi:       int32(bmi),
+			Bmi:       bmi,
 			Program:   program,
 		})
 	}
 	w.Header().Add("Hx-Redirect", "http://localhost:5000")
-  w.WriteHeader(200)
+	w.WriteHeader(200)
 }

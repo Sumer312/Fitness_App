@@ -29,10 +29,10 @@ func main() {
 	viewRouter := chi.NewRouter()
 	serverRouter := chi.NewRouter()
 	dbConnString := os.Getenv("DB_URL")
-	log.Println(dbConnString)
 	conn, connerr := sql.Open("postgres",
 		dbConnString,
 	)
+	log.Println(dbConnString)
 	if connerr != nil {
 		log.Fatalln("error conncting", connerr)
 	}
@@ -52,7 +52,7 @@ func main() {
 	viewRouter.Handle("/user-input/muscle", templ.Handler(pages.UserInputMuscle()))
 	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
 	viewRouter.Handle("/kcal-calc", templ.Handler(pages.KcalCalc()))
-	viewRouter.Handle("/swap", templ.Handler(pages.Swap()))
+	viewRouter.Handle("/logs", templ.Handler(pages.Logs()))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
@@ -60,6 +60,7 @@ func main() {
 	serverRouter.Post("/calorie-tracker", validateJWT(apiCfg.CalorieInputHandler))
 	serverRouter.Post("/nutrition-api-request", apiCfg.ApiRequest)
 	serverRouter.HandleFunc("/profile", validateJWT(apiCfg.Profile))
+	serverRouter.Post("/logs", apiCfg.Logs)
 
 	router.Handle("/", templ.Handler(pages.Home()))
 	router.Handle("/swap", http.HandlerFunc(swap))
