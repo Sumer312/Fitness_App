@@ -31,42 +31,44 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	cookieVal, err := r.Cookie("user-id")
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 	height, err := strconv.ParseInt(r.FormValue("height"), 10, 32)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 	weight, err := strconv.ParseInt(r.FormValue("weight"), 10, 32)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 	desiredWeight, err := strconv.ParseInt(r.FormValue("desired_weight"), 10, 32)
 	if err != nil {
 		if r.Form.Has("desired_weight") {
-			log.Fatalln(err)
+			log.Println(err)
+		} else {
+			DesiredWeightIsEmpty = true
 		}
-		DesiredWeightIsEmpty = true
 	}
 	timeFrame, err := strconv.ParseInt(r.FormValue("time_frame"), 10, 32)
 	if err != nil {
 		if r.Form.Has("time_frame") {
-			log.Fatalln(err)
+			log.Println(err)
+		} else {
+			TimeFrameIsEmpty = true
 		}
-		TimeFrameIsEmpty = true
 	}
-	bmi := float64(weight) / (float64(height) * float64(height))
+	bmi := (float64(weight) * 10000) / (float64(height) * float64(height))
 	currKcal, err := strconv.ParseInt(r.FormValue("curr_kcal"), 10, 32)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 	program := r.FormValue("program")
-	if DesiredWeightIsEmpty == true {
-		if TimeFrameIsEmpty == true {
+	if DesiredWeightIsEmpty == false {
+		if TimeFrameIsEmpty == false {
 			TempChan := make(chan sql.NullInt32)
 			go func(w int, dw int, tf int) {
 				TempChan <- DeficitCalc(w, dw, tf)

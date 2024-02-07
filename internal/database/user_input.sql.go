@@ -67,12 +67,12 @@ func (q *Queries) CreateUserInput(ctx context.Context, arg CreateUserInputParams
 	return i, err
 }
 
-const getUserInput = `-- name: GetUserInput :one
+const getUserInputById = `-- name: GetUserInputById :one
 SELECT id, user_id, created_at, updated_at, program, height, weight, desired_weight, time_frame, bmi, curr_kcal, deficit FROM user_input where user_id = $1
 `
 
-func (q *Queries) GetUserInput(ctx context.Context, userID uuid.UUID) (UserInput, error) {
-	row := q.db.QueryRowContext(ctx, getUserInput, userID)
+func (q *Queries) GetUserInputById(ctx context.Context, userID uuid.UUID) (UserInput, error) {
+	row := q.db.QueryRowContext(ctx, getUserInputById, userID)
 	var i UserInput
 	err := row.Scan(
 		&i.ID,

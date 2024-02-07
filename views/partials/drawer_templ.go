@@ -23,7 +23,7 @@ func Drawer() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"drawer-side z-50\"><label for=\"my-drawer\" aria-label=\"close sidebar\" class=\"drawer-overlay\"></label><ul class=\"menu p-4 w-72 h-full bg-base-100/50 text-base-content backdrop-blur-lg\"><button class=\"btn btn-sm btn-circle btn-primary place-self-end mb-4\" onclick=\"DrawerClose()\">X</button><li><a href=\"/view/login\">Login</a></li><li><a href=\"/view/kcal-calc\">Calorie Calculator</a></li><li><a href=\"/view/logs\">Logs</a></li></ul></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"drawer-side z-50\"><label for=\"my-drawer\" aria-label=\"close sidebar\" class=\"drawer-overlay\"></label><ul class=\"menu p-4 w-72 h-full bg-base-100/50 text-base-content backdrop-blur-lg\"><button class=\"btn btn-sm btn-circle btn-primary place-self-end mb-4\" onclick=\"DrawerClose()\">X</button><li><a href=\"/view/login\">Login</a></li><li><a href=\"/view/kcal-calc\">Calorie Calculator</a></li><li><a href=\"/view/logs\">Logs</a></li><li><a href=\"/view/daily-input\">Daily input</a></li><li><a href=\"/view/track-progress\">Track progress</a></li></ul></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

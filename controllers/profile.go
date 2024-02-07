@@ -19,7 +19,7 @@ func (apiCfg *Api) Profile(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("line 20", err)
 	}
-	userInput, err := apiCfg.DB.GetUserInput(r.Context(), params.UserId)
+	userInput, err := apiCfg.DB.GetUserInputById(r.Context(), params.UserId)
 	if err != nil {
 		log.Fatal("line 24", err)
 	}

@@ -17,6 +17,6 @@ func (apiCfg *Api) Logs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	user, err := apiCfg.DB.GetUserById(r.Context(), userId)
+	user, err := apiCfg.DB.GetUserInputById(r.Context(), userId)
 	fmt.Println(user)
 }

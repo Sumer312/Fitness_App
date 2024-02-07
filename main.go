@@ -17,8 +17,8 @@ import (
 )
 
 func swap(w http.ResponseWriter, r *http.Request) {
-  w.Write([]byte("hello"))
-  w.WriteHeader(200)
+	w.Write([]byte("hello"))
+	w.WriteHeader(200)
 }
 
 func main() {
@@ -53,6 +53,7 @@ func main() {
 	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
 	viewRouter.Handle("/kcal-calc", templ.Handler(pages.KcalCalc()))
 	viewRouter.Handle("/logs", templ.Handler(pages.Logs()))
+	viewRouter.Handle("/daily-input", templ.Handler(pages.DailyInput("70", "20", "50", "10")))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
