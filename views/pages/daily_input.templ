@@ -2,57 +2,56 @@ package pages
 
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
-templ DailyInput(caloriePercent string, carbsPercent string, protienPercent string, fatPercent string) {
-	<html>
-		@partials.Header("Daily Input")
-		<body onload="SetTheme()">
-			<div class="drawer" data-theme="">
-				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
-				<div class="drawer-content">
-					@partials.Navbar()
-					<div class="flex flex-col items-center mt-24 gap-8">
-						<div class="gap-2">
-							<progress class="progress progress-primary w-72" value={ caloriePercent } max="100"></progress>
-							<p>Calories</p>
-						</div>
-						<div class="gap-2">
-							<progress class="progress progress-accent w-72" value={ carbsPercent } max="100"></progress>
-							<p>Carbohydrates</p>
-						</div>
-						<div class="gap-2">
-							<progress class="progress progress-success w-72" value={ protienPercent } max="100"></progress>
-							<p>Protien</p>
-						</div>
-						<div class="gap-2">
-							<progress class="progress progress-secondary w-72" value={ fatPercent } max="100"></progress>
-							<p>Fat</p>
-						</div>
-					</div>
-					<form
- 						hx-post="/server/user-input"
- 						class="flex flex-col gap-4 bg-base-100 justify-between items-center p-24 min-h-screen"
- 						data-theme=""
-					>
-						<label for="calories">Calories</label>
-						<input type="number" id="calories" name="calories" class="input input-bordered input-accent w-full max-w-xs"/>
-						<label for="carbohydrates">Carbohydrates (in gms)</label>
-						<input
- 							type="number"
- 							id="carbohydrates"
- 							name="carbohydrates"
- 							class="input input-bordered input-accent w-full max-w-xs"
-						/>
-						<label for="fats">Fats (in gm)</label>
-						<input type="number" id="fats" name="fats" class="input input-bordered input-accent w-full max-w-xs"/>
-						<label for="protien">Protien (in gm)</label>
-						<input type="number" id="protien" name="protien" class="input input-bordered input-accent w-full max-w-xs"/>
-						<input type="hidden" name="program" value="fatloss"/>
-						<button type="submit" class="btn btn-accent btn-lg">Submit</button>
-					</form>
-				</div>
-			</div>
-			@partials.Drawer()
-			@partials.Footer()
-		</body>
-	</html>
+templ DailyInput(caloriePercent string, carbsPercent string, protienPercent string, fatPercent string, fiberPercent string) {
+<html>
+@partials.Header("Daily Input")
+
+<body onload="SetTheme()">
+  <div class="drawer" data-theme="">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      @partials.Navbar()
+      <div class="flex flex-col items-center mt-24 gap-8">
+        <div class="gap-2">
+          <progress class="progress progress-primary w-72" value={ caloriePercent } max="100"></progress>
+          <p>Calories</p>
+        </div>
+        <div class="gap-2">
+          <progress class="progress progress-accent w-72" value={ carbsPercent } max="100"></progress>
+          <p>Carbohydrates</p>
+        </div>
+        <div class="gap-2">
+          <progress class="progress progress-success w-72" value={ protienPercent } max="100"></progress>
+          <p>Protien</p>
+        </div>
+        <div class="gap-2">
+          <progress class="progress progress-info w-72" value={ fatPercent } max="100"></progress>
+          <p>Fat</p>
+        </div>
+        <div class="gap-2">
+          <progress class="progress w-72" value={ fiberPercent } max="100"></progress>
+          <p>Fiber</p>
+        </div>
+      </div>
+      <form hx-post="/server/user-input"
+        class="flex flex-col justify-between py-36 px-12 items-center min-h-screen" data-theme="">
+        <input type="number" id="calories" name="calories" class="input input-bordered input-accent w-full max-w-xs"
+          placeholder="Calories" />
+        <input type="number" id="carbohydrates" name="carbohydrates"
+          class="input input-bordered input-accent w-full max-w-xs" placeholder="Carbohydrates" />
+        <input type="number" id="fats" name="fats" class="input input-bordered input-accent w-full max-w-xs"
+          placeholder="Fats" />
+        <input type="number" id="protien" name="protien" class="input input-bordered input-accent w-full max-w-xs"
+          placeholder="Protien" />
+        <input type="number" id="fiber" name="fiber" class="input input-bordered input-accent w-full max-w-xs"
+          placeholder="Fiber" />
+        <button type="submit" class="btn btn-accent w-full btn-lg max-w-xs">Submit</button>
+      </form>
+    </div>
+  </div>
+  @partials.Drawer()
+  @partials.Footer()
+</body>
+
+</html>
 }

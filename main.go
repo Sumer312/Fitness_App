@@ -53,7 +53,7 @@ func main() {
 	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
 	viewRouter.Handle("/kcal-calc", templ.Handler(pages.KcalCalc()))
 	viewRouter.Handle("/logs", templ.Handler(pages.Logs()))
-	viewRouter.Handle("/daily-input", templ.Handler(pages.DailyInput("70", "20", "50", "10")))
+	viewRouter.Handle("/daily-input", templ.Handler(pages.DailyInput("70", "20", "50", "10", "40")))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)

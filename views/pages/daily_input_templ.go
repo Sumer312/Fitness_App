@@ -12,7 +12,7 @@ import "bytes"
 
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
-func DailyInput(caloriePercent string, carbsPercent string, protienPercent string, fatPercent string) templ.Component {
+func DailyInput(caloriePercent string, carbsPercent string, protienPercent string, fatPercent string, fiberPercent string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -65,7 +65,7 @@ func DailyInput(caloriePercent string, carbsPercent string, protienPercent strin
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Protien</p></div><div class=\"gap-2\"><progress class=\"progress progress-secondary w-72\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Protien</p></div><div class=\"gap-2\"><progress class=\"progress progress-info w-72\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -73,7 +73,15 @@ func DailyInput(caloriePercent string, carbsPercent string, protienPercent strin
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Fat</p></div></div><form hx-post=\"/server/user-input\" class=\"flex flex-col gap-4 bg-base-100 justify-between items-center p-24 min-h-screen\" data-theme=\"\"><label for=\"calories\">Calories</label> <input type=\"number\" id=\"calories\" name=\"calories\" class=\"input input-bordered input-accent w-full max-w-xs\"> <label for=\"carbohydrates\">Carbohydrates (in gms)</label> <input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\"> <label for=\"fats\">Fats (in gm)</label> <input type=\"number\" id=\"fats\" name=\"fats\" class=\"input input-bordered input-accent w-full max-w-xs\"> <label for=\"protien\">Protien (in gm)</label> <input type=\"number\" id=\"protien\" name=\"protien\" class=\"input input-bordered input-accent w-full max-w-xs\"> <input type=\"hidden\" name=\"program\" value=\"fatloss\"> <button type=\"submit\" class=\"btn btn-accent btn-lg\">Submit</button></form></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Fat</p></div><div class=\"gap-2\"><progress class=\"progress w-72\" value=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fiberPercent))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Fiber</p></div></div><form hx-post=\"/server/user-input\" class=\"flex flex-col justify-between py-36 px-12 items-center min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"calories\" name=\"calories\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Calories\"> <input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Carbohydrates\"> <input type=\"number\" id=\"fats\" name=\"fats\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fats\"> <input type=\"number\" id=\"protien\" name=\"protien\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Protien\"> <input type=\"number\" id=\"fiber\" name=\"fiber\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fiber\"> <button type=\"submit\" class=\"btn btn-accent w-full btn-lg max-w-xs\">Submit</button></form></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
