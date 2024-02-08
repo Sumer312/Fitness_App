@@ -12,11 +12,15 @@ import (
 )
 
 type DailyCalorieIntake struct {
-	ID        uuid.UUID
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Calories  int32
-	UserID    uuid.UUID
+	ID            uuid.UUID
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+	UserID        uuid.UUID
+	Calories      int32
+	Carbohydrates int32
+	Protien       int32
+	Fat           int32
+	Fiber         int32
 }
 
 type TotalCalorieIntake struct {

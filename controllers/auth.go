@@ -124,7 +124,7 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	access_cookie := http.Cookie{Name: "access-token", Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 	refresh_cookie := http.Cookie{Name: "refresh-token", Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 	user_id := http.Cookie{Name: "user_id", Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	w.Header().Add("HX-Redirect", "http://localhost:5000")
+	/* w.Header().Add("HX-Redirect", "http://localhost:5000") */
 	w.WriteHeader(200)
 	http.SetCookie(w, &access_cookie)
 	http.SetCookie(w, &refresh_cookie)
