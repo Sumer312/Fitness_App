@@ -12,15 +12,6 @@ import (
 )
 
 func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
-	type parameters struct {
-		UserId         uuid.UUID `json:"user_id"`
-		Height         int       `json:"height"`
-		Weight         int       `json:"weight"`
-		Desired_Weight *int      `json:"desired_weight"`
-		TimeFrame      *int      `json:"time-frame"`
-		Program        string    `json:"program"`
-		Curr_Kcal      int       `json:"curr_kcal"`
-	}
 	r.ParseForm()
 	DesiredWeightIsEmpty := false
 	TimeFrameIsEmpty := false
@@ -67,6 +58,15 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	program := r.FormValue("program")
+	var sex string
+	switch r.FormValue("sex") {
+	case "Male":
+		sex = sex_male
+	case "Female":
+		sex = sex_female
+	default:
+		sex = sex_none
+	}
 	if DesiredWeightIsEmpty == false {
 		if TimeFrameIsEmpty == false {
 			TempChan := make(chan sql.NullInt32)
@@ -87,6 +87,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 				Bmi:           bmi,
 				Program:       program,
 				Deficit:       deficit,
+				Sex:           sex,
 			})
 		} else {
 			apiCfg.DB.CreateUserInput(r.Context(), database.CreateUserInputParams{
@@ -100,6 +101,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 				CurrKcal:  int32(currKcal),
 				Bmi:       bmi,
 				Program:   program,
+				Sex:       sex,
 			})
 		}
 	} else {
@@ -113,6 +115,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 			CurrKcal:  int32(currKcal),
 			Bmi:       bmi,
 			Program:   program,
+			Sex:       sex,
 		})
 	}
 	w.Header().Add("Hx-Redirect", "http://localhost:5000")

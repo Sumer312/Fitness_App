@@ -11,10 +11,9 @@ import (
 	"github.com/google/uuid"
 )
 
-type DailyCalorieIntake struct {
+type DailyNutritionIntake struct {
 	ID            uuid.UUID
 	CreatedAt     time.Time
-	UpdatedAt     time.Time
 	UserID        uuid.UUID
 	Calories      int32
 	Carbohydrates int32
@@ -24,12 +23,12 @@ type DailyCalorieIntake struct {
 }
 
 type TotalCalorieIntake struct {
-	ID        uuid.UUID
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	Calories  int32
-	Program   string
-	UserID    uuid.UUID
+	ID           uuid.UUID
+	CreatedAt    time.Time
+	Calories     int32
+	TotalDeficit int32
+	TotalSurplus int32
+	UserID       uuid.UUID
 }
 
 type User struct {
@@ -47,6 +46,7 @@ type UserInput struct {
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
 	Program       string
+	Sex           string
 	Height        int32
 	Weight        int32
 	DesiredWeight sql.NullInt32

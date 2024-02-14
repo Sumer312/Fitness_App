@@ -17,6 +17,15 @@ type Api struct {
 	DB *database.Queries
 }
 
+const (
+  program_fatloss = "fatloss"
+  program_muscleGain = "musclegain"
+  program_maintain = "maintaince"
+  sex_male="male"
+  sex_female="female"
+  sex_none="none"
+)
+
 func CreateJWT(expiresIn time.Duration, subject string) (string, error) {
 	godotenv.Load()
 	var SECRET = []byte(os.Getenv("JWT_SECRET"))

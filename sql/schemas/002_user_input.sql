@@ -6,6 +6,7 @@ CREATE TABLE user_input (
   created_at TIMESTAMP NOT NULL,
   updated_at TIMESTAMP NOT NULL,
   program VARCHAR(16) NOT NULL,
+  sex VARCHAR(6) NOT NULl,
   height INT NOT NULL,
   weight INT NOT NULL,
   desired_weight INT,

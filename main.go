@@ -53,14 +53,16 @@ func main() {
 	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
 	viewRouter.Handle("/kcal-calc", templ.Handler(pages.KcalCalc()))
 	viewRouter.Handle("/logs", templ.Handler(pages.Logs()))
-	viewRouter.Handle("/daily-input", templ.Handler(pages.DailyInput("70", "20", "50", "10", "40")))
+	viewRouter.HandleFunc("/daily-input", validateJWT(func(w http.ResponseWriter, r *http.Request) {
+		apiCfg.DailyNutritionRender(w, r)
+	}))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
 	serverRouter.Post("/user-input", validateJWT(apiCfg.InputHandler))
-	serverRouter.Post("/calorie-tracker", validateJWT(apiCfg.CalorieInputHandler))
 	serverRouter.Post("/nutrition-api-request", apiCfg.ApiRequest)
 	serverRouter.HandleFunc("/profile", validateJWT(apiCfg.Profile))
+	serverRouter.HandleFunc("/daily-input", validateJWT(apiCfg.DailyNutritionInputHandler))
 	serverRouter.Post("/logs", apiCfg.Logs)
 
 	router.Handle("/", templ.Handler(pages.Home()))

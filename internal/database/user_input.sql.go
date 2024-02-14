@@ -14,9 +14,9 @@ import (
 )
 
 const createUserInput = `-- name: CreateUserInput :one
-INSERT INTO user_input (id, user_id, created_at, updated_at, height, weight, desired_weight, time_frame, bmi , program, curr_kcal, deficit)
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-RETURNING id, user_id, created_at, updated_at, program, height, weight, desired_weight, time_frame, bmi, curr_kcal, deficit
+INSERT INTO user_input (id, user_id, created_at, updated_at, sex, height, weight, desired_weight, time_frame, bmi , program, curr_kcal, deficit)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+RETURNING id, user_id, created_at, updated_at, program, sex, height, weight, desired_weight, time_frame, bmi, curr_kcal, deficit
 `
 
 type CreateUserInputParams struct {
@@ -24,6 +24,7 @@ type CreateUserInputParams struct {
 	UserID        uuid.UUID
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
+	Sex           string
 	Height        int32
 	Weight        int32
 	DesiredWeight sql.NullInt32
@@ -40,6 +41,7 @@ func (q *Queries) CreateUserInput(ctx context.Context, arg CreateUserInputParams
 		arg.UserID,
 		arg.CreatedAt,
 		arg.UpdatedAt,
+		arg.Sex,
 		arg.Height,
 		arg.Weight,
 		arg.DesiredWeight,
@@ -56,6 +58,7 @@ func (q *Queries) CreateUserInput(ctx context.Context, arg CreateUserInputParams
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Program,
+		&i.Sex,
 		&i.Height,
 		&i.Weight,
 		&i.DesiredWeight,
@@ -68,7 +71,7 @@ func (q *Queries) CreateUserInput(ctx context.Context, arg CreateUserInputParams
 }
 
 const getUserInputById = `-- name: GetUserInputById :one
-SELECT id, user_id, created_at, updated_at, program, height, weight, desired_weight, time_frame, bmi, curr_kcal, deficit FROM user_input where user_id = $1
+SELECT id, user_id, created_at, updated_at, program, sex, height, weight, desired_weight, time_frame, bmi, curr_kcal, deficit FROM user_input where user_id = $1
 `
 
 func (q *Queries) GetUserInputById(ctx context.Context, userID uuid.UUID) (UserInput, error) {
@@ -80,6 +83,7 @@ func (q *Queries) GetUserInputById(ctx context.Context, userID uuid.UUID) (UserI
 		&i.CreatedAt,
 		&i.UpdatedAt,
 		&i.Program,
+		&i.Sex,
 		&i.Height,
 		&i.Weight,
 		&i.DesiredWeight,

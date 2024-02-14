@@ -23,7 +23,7 @@ func Card(title string, imageUrl string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"card h-96 w-96 image-full bg-base-100\"><figure><img src=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"card h-96 w-96 image-full bg-transparent\"><figure><img src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -31,14 +31,14 @@ func Card(title string, imageUrl string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" width=\"400\" height=\"100\" alt=\"image!\"></figure><div class=\"card-body\"><h2 class=\"card-title font-sans text-[24px] font-semibold\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" width=\"400\" height=\"100\" alt=\"image!\"></figure><div class=\"card-body\"><h2 class=\"card-title font-sans text-[24px] \">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/partials/card.templ`, Line: 8, Col: 69}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/partials/card.templ`, Line: 8, Col: 56}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {

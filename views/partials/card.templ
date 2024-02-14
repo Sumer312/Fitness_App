@@ -1,12 +1,12 @@
 package partials
 
 templ Card(title string, imageUrl string) {
-	<div class="card h-96 w-96 image-full bg-base-100">
+	<div class="card h-96 w-96 image-full bg-transparent">
 		<figure>
 			<img src={ imageUrl } width="400" height="100" alt="image!"/>
 		</figure>
 		<div class="card-body">
-			<h2 class="card-title font-sans text-[24px] font-semibold">{ title }</h2>
+			<h2 class="card-title font-sans text-[24px] ">{ title }</h2>
 		</div>
 	</div>
 }

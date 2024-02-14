@@ -13,15 +13,14 @@ import (
 )
 
 const createDailyNutrition = `-- name: CreateDailyNutrition :one
-INSERT INTO daily_calorie_intake(id, created_at, updated_at, user_id, calories, carbohydrates, protien, fat, fiber)
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-RETURNING id, created_at, updated_at, user_id, calories, carbohydrates, protien, fat, fiber
+INSERT INTO daily_nutrition_intake(id, created_at, user_id, calories, carbohydrates, protien, fat, fiber)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING id, created_at, user_id, calories, carbohydrates, protien, fat, fiber
 `
 
 type CreateDailyNutritionParams struct {
 	ID            uuid.UUID
 	CreatedAt     time.Time
-	UpdatedAt     time.Time
 	UserID        uuid.UUID
 	Calories      int32
 	Carbohydrates int32
@@ -30,11 +29,10 @@ type CreateDailyNutritionParams struct {
 	Fiber         int32
 }
 
-func (q *Queries) CreateDailyNutrition(ctx context.Context, arg CreateDailyNutritionParams) (DailyCalorieIntake, error) {
+func (q *Queries) CreateDailyNutrition(ctx context.Context, arg CreateDailyNutritionParams) (DailyNutritionIntake, error) {
 	row := q.db.QueryRowContext(ctx, createDailyNutrition,
 		arg.ID,
 		arg.CreatedAt,
-		arg.UpdatedAt,
 		arg.UserID,
 		arg.Calories,
 		arg.Carbohydrates,
@@ -42,11 +40,10 @@ func (q *Queries) CreateDailyNutrition(ctx context.Context, arg CreateDailyNutri
 		arg.Fat,
 		arg.Fiber,
 	)
-	var i DailyCalorieIntake
+	var i DailyNutritionIntake
 	err := row.Scan(
 		&i.ID,
 		&i.CreatedAt,
-		&i.UpdatedAt,
 		&i.UserID,
 		&i.Calories,
 		&i.Carbohydrates,
@@ -58,7 +55,7 @@ func (q *Queries) CreateDailyNutrition(ctx context.Context, arg CreateDailyNutri
 }
 
 const deleteDailyNutritionOfUserByUserId = `-- name: DeleteDailyNutritionOfUserByUserId :exec
-DELETE FROM daily_calorie_intake WHERE user_id = $1
+DELETE FROM daily_nutrition_intake WHERE user_id = $1
 `
 
 func (q *Queries) DeleteDailyNutritionOfUserByUserId(ctx context.Context, userID uuid.UUID) error {
@@ -67,22 +64,21 @@ func (q *Queries) DeleteDailyNutritionOfUserByUserId(ctx context.Context, userID
 }
 
 const getDailyNutritionOfUserByUserId = `-- name: GetDailyNutritionOfUserByUserId :many
-SELECT id, created_at, updated_at, user_id, calories, carbohydrates, protien, fat, fiber FROM daily_calorie_intake WHERE user_id = $1
+SELECT id, created_at, user_id, calories, carbohydrates, protien, fat, fiber FROM daily_nutrition_intake WHERE user_id = $1
 `
 
-func (q *Queries) GetDailyNutritionOfUserByUserId(ctx context.Context, userID uuid.UUID) ([]DailyCalorieIntake, error) {
+func (q *Queries) GetDailyNutritionOfUserByUserId(ctx context.Context, userID uuid.UUID) ([]DailyNutritionIntake, error) {
 	rows, err := q.db.QueryContext(ctx, getDailyNutritionOfUserByUserId, userID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []DailyCalorieIntake
+	var items []DailyNutritionIntake
 	for rows.Next() {
-		var i DailyCalorieIntake
+		var i DailyNutritionIntake
 		if err := rows.Scan(
 			&i.ID,
 			&i.CreatedAt,
-			&i.UpdatedAt,
 			&i.UserID,
 			&i.Calories,
 			&i.Carbohydrates,

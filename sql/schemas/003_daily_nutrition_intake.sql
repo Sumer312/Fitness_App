@@ -1,9 +1,8 @@
 -- +goose Up 
 
-CREATE TABLE daily_calorie_intake(
+CREATE TABLE daily_nutrition_intake(
   id UUID PRIMARY KEY,
   created_at TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP NOT NULL,
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   calories INT NOT NULL,
   carbohydrates INT NOT NULL,
@@ -13,4 +12,4 @@ CREATE TABLE daily_calorie_intake(
 );
 
 -- +goose Down
-DROP TABLE daily_calorie_intake;
+DROP TABLE daily_nutrition_intake;

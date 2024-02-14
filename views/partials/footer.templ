@@ -86,7 +86,10 @@ templ Footer() {
   function SetTheme() {
     const elements = document.querySelectorAll("[data-theme]")
     elements.forEach(element => {
-      const theme = window.localStorage.getItem("theme") || "retro"
+      let theme = window.localStorage.getItem("theme")
+      if (theme === null) {
+        theme = "retro"
+      }
       element.setAttribute("data-theme", theme)
     })
   }
