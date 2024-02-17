@@ -5,6 +5,7 @@ import "github.com/sumer312/Health-App-Backend/views/partials"
 templ DailyInput(caloriePercent string, carbsPercent string, protienPercent string, fatPercent string, fiberPercent string) {
 <html>
 @partials.Header("Daily Input")
+
 <body onload="SetTheme()">
   <div class="drawer" data-theme="">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
@@ -47,10 +48,9 @@ templ DailyInput(caloriePercent string, carbsPercent string, protienPercent stri
         <button type="submit" class="btn btn-accent w-full btn-lg max-w-xs">Submit</button>
       </form>
     </div>
+    @partials.Drawer()
   </div>
-  @partials.Drawer()
   @partials.Footer()
 </body>
-
 </html>
 }

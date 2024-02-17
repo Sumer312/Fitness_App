@@ -2,6 +2,8 @@ package pages
 
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
+var DrawerFlag bool = false
+
 templ Home() {
 	<html>
 		@partials.Header("Home")
@@ -10,7 +12,7 @@ templ Home() {
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
-					<div class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
+					<div class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen overflow-x-hidden" data-theme="">
 						<div class="xl:mt-36">
 							<div hx-boost="false" class="grid gap-16 xl:grid-cols-3 xl:gap-8 xs:grid-col-1 sm:grid-cols-1 sm:gap-16 md:grid-cols-1 md:gap-16 lg:grid-cols-2 lg:gap-16">
 								<a href="view/user-input/fatloss" class="border-4 rounded-xl border-neutral hover:border-primary">

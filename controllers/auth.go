@@ -2,28 +2,17 @@ package controllers
 
 import (
 	"database/sql"
-	"github.com/golang-jwt/jwt/v5"
-	"github.com/google/uuid"
-	"github.com/joho/godotenv"
-	"github.com/sumer312/Health-App-Backend/internal/database"
-	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
 	"os"
 	"time"
-)
 
-type Api struct {
-	DB *database.Queries
-}
-
-const (
-  program_fatloss = "fatloss"
-  program_muscleGain = "musclegain"
-  program_maintain = "maintaince"
-  sex_male="male"
-  sex_female="female"
-  sex_none="none"
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
+	"github.com/joho/godotenv"
+	"github.com/sumer312/Health-App-Backend/internal/database"
+	"github.com/sumer312/Health-App-Backend/views/partials"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func CreateJWT(expiresIn time.Duration, subject string) (string, error) {
@@ -75,14 +64,24 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	access_cookie := http.Cookie{Name: "access-token", Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	refresh_cookie := http.Cookie{Name: "refresh-token", Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	user_id := http.Cookie{Name: "user-id", Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	http.SetCookie(w, &access_cookie)
-	http.SetCookie(w, &refresh_cookie)
-	http.SetCookie(w, &user_id)
-	/* w.Header().Add("HX-Redirect", "http://localhost:5000") */
-	w.WriteHeader(200)
+	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	TempChan := make(chan bool)
+	go func() {
+		TempChan <- func(tempW http.ResponseWriter, ac http.Cookie, rc http.Cookie, uid http.Cookie) bool {
+			http.SetCookie(tempW, &ac)
+			http.SetCookie(tempW, &rc)
+			http.SetCookie(tempW, &uid)
+			return true
+		}(w, access_cookie, refresh_cookie, user_id)
+	}()
+	flag := <-TempChan
+	if flag {
+		partials.DrawerAuthFlag = true
+		w.Header().Add("HX-Redirect", "http://localhost:5000")
+		w.WriteHeader(200)
+	}
 }
 
 func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
@@ -130,12 +129,35 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln("refresh token signup err ", err)
 	}
-	access_cookie := http.Cookie{Name: "access-token", Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	refresh_cookie := http.Cookie{Name: "refresh-token", Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	user_id := http.Cookie{Name: "user_id", Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	/* w.Header().Add("HX-Redirect", "http://localhost:5000") */
-	w.WriteHeader(200)
+	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	TempChan := make(chan bool)
+	go func() {
+		TempChan <- func(tempW http.ResponseWriter, ac http.Cookie, rc http.Cookie, uid http.Cookie) bool {
+			http.SetCookie(tempW, &ac)
+			http.SetCookie(tempW, &rc)
+			http.SetCookie(tempW, &uid)
+			return true
+		}(w, access_cookie, refresh_cookie, user_id)
+	}()
+	flag := <-TempChan
+	if flag {
+		partials.DrawerAuthFlag = true
+		w.Header().Add("HX-Redirect", "http://localhost:5000")
+		w.WriteHeader(200)
+	}
+}
+
+func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: "", MaxAge: 0}
+	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: "", MaxAge: 0}
+	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: "", MaxAge: 0}
 	http.SetCookie(w, &access_cookie)
 	http.SetCookie(w, &refresh_cookie)
 	http.SetCookie(w, &user_id)
+	partials.DrawerAuthFlag = false
+	w.Header().Add("HX-Redirect", "http://localhost:5000")
+	w.WriteHeader(200)
+	return
 }

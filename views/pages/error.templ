@@ -2,7 +2,7 @@ package pages
 
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
-templ NotFound() {
+templ Error(message string) {
 	<html>
 		@partials.Header("Home")
 		<body onload="SetTheme()">
@@ -11,7 +11,7 @@ templ NotFound() {
 				<div class="drawer-content">
 					@partials.Navbar()
 					<div class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen" data-theme="">
-						<h1 class="text-6xl font-mono mt-64 text-error text-bold">404 not found</h1>
+						<h1 class="text-6xl font-mono mt-64 text-error text-bold">{ message }</h1>
 					</div>
 				</div>
 				@partials.Drawer()

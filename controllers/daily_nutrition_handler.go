@@ -13,21 +13,6 @@ import (
 	"github.com/sumer312/Health-App-Backend/views/pages"
 )
 
-type nutritionParams struct {
-	calories float32
-	carbs    float32
-	protien  float32
-	fat      float32
-	fiber    float32
-}
-
-type totalCalorieIntakeParams struct {
-	calories_you_ate               float32
-	calories_you_should_have_eaten float32
-	deficit_for_the_day            float32
-	surplus_the_day                float32
-}
-
 func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) {
 	cookieVal, err := r.Cookie("user-id")
 	if err != nil {
@@ -119,19 +104,6 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		fmt.Println(err)
 	}
 
-	_, daily_create_err := apiCfg.DB.CreateDailyNutrition(r.Context(), database.CreateDailyNutritionParams{
-		ID:            uuid.New(),
-		CreatedAt:     time.Now().UTC(),
-		UserID:        userId,
-		Calories:      int32(kCal),
-		Carbohydrates: int32(carbs),
-		Protien:       int32(protien),
-		Fat:           int32(fat),
-		Fiber:         int32(fiber),
-	})
-	if err != nil {
-		log.Println(daily_create_err)
-	}
 	var most_recent database.TotalCalorieIntake
 	user_total, err := apiCfg.DB.GetMostRecentUserKcal(r.Context(), userId)
 	if err == sql.ErrNoRows {
@@ -187,6 +159,18 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 			CreatedAt:    time.Now(),
 		})
 		apiCfg.DB.DeleteDailyNutritionOfUserByUserId(r.Context(), userId)
-		apiCfg.DB.DeleteRedundantRows(r.Context())
+	}
+	_, daily_create_err := apiCfg.DB.CreateDailyNutrition(r.Context(), database.CreateDailyNutritionParams{
+		ID:            uuid.New(),
+		CreatedAt:     time.Now().UTC(),
+		UserID:        userId,
+		Calories:      int32(kCal),
+		Carbohydrates: int32(carbs),
+		Protien:       int32(protien),
+		Fat:           int32(fat),
+		Fiber:         int32(fiber),
+	})
+	if daily_create_err != nil {
+		log.Println(daily_create_err)
 	}
 }

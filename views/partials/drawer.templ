@@ -5,11 +5,15 @@ templ Drawer() {
 		<label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 		<ul class="menu p-4 w-72 h-full bg-base-100/50 text-base-content backdrop-blur-lg">
 			<button class="btn btn-sm btn-circle btn-primary place-self-end mb-4" onclick="DrawerClose()">X</button>
-			<li><a href="/view/login">Login</a></li>
 			<li><a href="/view/kcal-calc">Calorie Calculator</a></li>
-			<li><a href="/view/logs">Logs</a></li>
-			<li><a href="/view/daily-input">Daily input</a></li>
-			<li><a href="/view/track-progress">Track progress</a></li>
+			if !DrawerAuthFlag {
+				<li><a href="/view/login">Login</a></li>
+			} else {
+				<li><a href="/view/logs">Logs</a></li>
+				<li><a href="/view/daily-input">Daily input</a></li>
+				<li><a href="/view/track-progress">Track progress</a></li>
+				<li><a hx-post="/server/logout">Logout</a></li>
+			}
 		</ul>
 	</div>
 }

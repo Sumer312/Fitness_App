@@ -13,35 +13,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type api_parameters struct {
-	access_point string
-	app_key      string
-	app_id       string
-}
-
-type edamam_response_total_nutrients_element struct {
-	Label    string  `json:"label"`
-	Unit     string  `json:"unit"`
-	Quantity float32 `json:"quantity"`
-}
-
-type total_nutrients struct {
-	Enengc_Kcal edamam_response_total_nutrients_element `json:"ENENGC_KCAL"`
-	Fat         edamam_response_total_nutrients_element `json:"FAT"`
-	Fasat       edamam_response_total_nutrients_element `json:"FASAT"`
-	Fatrn       edamam_response_total_nutrients_element `json:"FATRN"`
-	Fibtg       edamam_response_total_nutrients_element `json:"FIBTG"`
-	Chocdf      edamam_response_total_nutrients_element `json:"CHOCDF"`
-	Sugar       edamam_response_total_nutrients_element `json:"SUGAR"`
-	Procnt      edamam_response_total_nutrients_element `json:"PROCNT"`
-}
-
-type edamam_response struct {
-	Calories       int             `json:"calories"`
-	TotalNutrients total_nutrients `json:"totalNutrients"`
-	TotalWeight    float32         `json:"totalWeight"`
-}
-
 func getEnv() api_parameters {
 	godotenv.Load()
 	accessPoint := os.Getenv("API_ACCESS_POINT")

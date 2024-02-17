@@ -1,21 +1,67 @@
 package pages
 
-import "github.com/sumer312/Health-App-Backend/views/partials"
+import (
+"github.com/sumer312/Health-App-Backend/views/partials"
+"time"
+"github.com/google/uuid"
+"fmt"
+)
 
-templ Logs() {
-	<html>
-		@partials.Header("Logs")
-		<body onload="SetTheme()">
-			<div class="drawer" data-theme="">
-				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
-				<div class="drawer-content">
-					@partials.Navbar()
-					<div class="flex flex-col bg-base-100 justify-between items-center min-h-screen" data-theme="">
-					</div>
-					@partials.Footer()
-				</div>
-				@partials.Drawer()
-			</div>
-		</body>
-	</html>
+type DailyLogs struct {
+Id uuid.UUID
+CreatedAt time.Time
+Calories float32
+Carbs float32
+Protien float32
+Fat float32
+Fiber float32
+}
+
+
+templ Logs(list []DailyLogs) {
+<html>
+@partials.Header("Logs")
+
+<body onload="SetTheme()">
+  <div class="drawer" data-theme="">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      @partials.Navbar()
+      <div class="flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto" data-theme="">
+        <table class="table mt-36 text-primary xl:text-[30px] text-[12px]">
+          <thead>
+            <tr class="xl:text-[24px] text-[12px]">
+              <th>Time</th>
+              <th>Kcal</th>
+              <th>Carbs</th>
+              <th>Protien</th>
+              <th>Fiber</th>
+              <th>Fat</th>
+            </tr>
+          </thead>
+          <tbody>
+            for i:= 0; i < len(list); i++{ 
+              <tr class="font-mono hover:text-error hover:font-semibold cursor-pointer" hx-post="">
+              <td> { fmt.Sprintf("%d : %02d", list[i].CreatedAt.Local().Hour(), list[i].CreatedAt.Local().Minute()) }
+              </td>
+              <td>{ fmt.Sprintf("%.0f", list[i].Calories) }</td>
+              <td>{ fmt.Sprintf("%.0f", list[i].Carbs) }</td>
+              <td>{ fmt.Sprintf("%.0f", list[i].Protien) }</td>
+              <td>{ fmt.Sprintf("%.0f", list[i].Fiber) }</td>
+              <td>{ fmt.Sprintf("%.0f", list[i].Fat) }</td>
+              <form>
+                <input hidden value={list[i].Id}> </input>
+              </form>
+              </tr>
+              }
+          </tbody>
+        </table>
+      </div>
+      @partials.Footer()
+    </div>
+    @partials.Drawer()
+  </div>
+</body>
+
+</html>
 }

@@ -12,6 +12,8 @@ import "bytes"
 
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
+var DrawerFlag bool = false
+
 func Home() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -41,7 +43,7 @@ func Home() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen\" data-theme=\"\"><div class=\"xl:mt-36\"><div hx-boost=\"false\" class=\"grid gap-16 xl:grid-cols-3 xl:gap-8 xs:grid-col-1 sm:grid-cols-1 sm:gap-16 md:grid-cols-1 md:gap-16 lg:grid-cols-2 lg:gap-16\"><a href=\"view/user-input/fatloss\" class=\"border-4 rounded-xl border-neutral hover:border-primary\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen overflow-x-hidden\" data-theme=\"\"><div class=\"xl:mt-36\"><div hx-boost=\"false\" class=\"grid gap-16 xl:grid-cols-3 xl:gap-8 xs:grid-col-1 sm:grid-cols-1 sm:gap-16 md:grid-cols-1 md:gap-16 lg:grid-cols-2 lg:gap-16\"><a href=\"view/user-input/fatloss\" class=\"border-4 rounded-xl border-neutral hover:border-primary\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

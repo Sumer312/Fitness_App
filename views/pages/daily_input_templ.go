@@ -81,11 +81,15 @@ func DailyInput(caloriePercent string, carbsPercent string, protienPercent strin
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Fiber</p></div></div><form hx-post=\"/server/daily-input\" hx-swap=\"none\" class=\"flex flex-col justify-between py-36 px-12 items-center min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"calories\" name=\"calories\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Calories\"> <input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Carbohydrates\"> <input type=\"number\" id=\"fat\" name=\"fat\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fat\"> <input type=\"number\" id=\"protien\" name=\"protien\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Protien\"> <input type=\"number\" id=\"fiber\" name=\"fiber\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fiber\"> <button type=\"submit\" class=\"btn btn-accent w-full btn-lg max-w-xs\">Submit</button></form></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Fiber</p></div></div><form hx-post=\"/server/daily-input\" hx-swap=\"none\" class=\"flex flex-col justify-between py-36 px-12 items-center min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"calories\" name=\"calories\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Calories\"> <input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Carbohydrates\"> <input type=\"number\" id=\"fat\" name=\"fat\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fat\"> <input type=\"number\" id=\"protien\" name=\"protien\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Protien\"> <input type=\"number\" id=\"fiber\" name=\"fiber\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fiber\"> <button type=\"submit\" class=\"btn btn-accent w-full btn-lg max-w-xs\">Submit</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = partials.Drawer().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

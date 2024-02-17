@@ -3,6 +3,10 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
+	"net/http"
+	"os"
+
 	"github.com/a-h/templ"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
@@ -11,28 +15,19 @@ import (
 	"github.com/sumer312/Health-App-Backend/controllers"
 	"github.com/sumer312/Health-App-Backend/internal/database"
 	"github.com/sumer312/Health-App-Backend/views/pages"
-	"log"
-	"net/http"
-	"os"
+	"github.com/sumer312/Health-App-Backend/views/partials"
 )
-
-func swap(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("hello"))
-	w.WriteHeader(200)
-}
 
 func main() {
 	godotenv.Load()
 	port := "5000"
 	router := chi.NewRouter()
-	fmt.Println("using chi")
 	viewRouter := chi.NewRouter()
 	serverRouter := chi.NewRouter()
 	dbConnString := os.Getenv("DB_URL")
 	conn, connerr := sql.Open("postgres",
 		dbConnString,
 	)
-	log.Println(dbConnString)
 	if connerr != nil {
 		log.Fatalln("error conncting", connerr)
 	}
@@ -46,37 +41,56 @@ func main() {
 		MaxAge:           3600,
 	}))
 
-	viewRouter.Handle("/login", templ.Handler(pages.Login()))
-	viewRouter.Handle("/signup", templ.Handler(pages.Signup()))
+	viewRouter.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
+		if partials.DrawerAuthFlag {
+			pages.Error("Already Logged In").Render(r.Context(), w)
+		} else {
+			pages.Login().Render(r.Context(), w)
+		}
+	})
+	viewRouter.HandleFunc("/signup", func(w http.ResponseWriter, r *http.Request) {
+		if partials.DrawerAuthFlag {
+			pages.Error("Already Logged In").Render(r.Context(), w)
+		} else {
+			templ.Handler(pages.Signup())
+		}
+	})
+	viewRouter.HandleFunc("/logs", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		apiCfg.LogsRender(w, r)
+	}))
+	viewRouter.HandleFunc("/daily-input", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		apiCfg.DailyNutritionRender(w, r)
+	}))
 	viewRouter.Handle("/user-input/fatloss", templ.Handler(pages.UserInputFatloss()))
 	viewRouter.Handle("/user-input/muscle", templ.Handler(pages.UserInputMuscle()))
 	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
 	viewRouter.Handle("/kcal-calc", templ.Handler(pages.KcalCalc()))
-	viewRouter.Handle("/logs", templ.Handler(pages.Logs()))
-	viewRouter.HandleFunc("/daily-input", validateJWT(func(w http.ResponseWriter, r *http.Request) {
-		apiCfg.DailyNutritionRender(w, r)
-	}))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
-	serverRouter.Post("/user-input", validateJWT(apiCfg.InputHandler))
+	serverRouter.Post("/logout", apiCfg.LogoutHandler)
+	serverRouter.Post("/user-input", controllerMiddleware(apiCfg.InputHandler))
 	serverRouter.Post("/nutrition-api-request", apiCfg.ApiRequest)
-	serverRouter.HandleFunc("/profile", validateJWT(apiCfg.Profile))
-	serverRouter.HandleFunc("/daily-input", validateJWT(apiCfg.DailyNutritionInputHandler))
-	serverRouter.Post("/logs", apiCfg.Logs)
+	serverRouter.HandleFunc("/profile", controllerMiddleware(apiCfg.Profile))
+	serverRouter.HandleFunc("/daily-input", controllerMiddleware(apiCfg.DailyNutritionInputHandler))
 
-	router.Handle("/", templ.Handler(pages.Home()))
-	router.Handle("/swap", http.HandlerFunc(swap))
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if partials.DrawerAuthFlag {
+			apiCfg.LogsRender(w, r)
+		} else {
+			pages.Home().Render(r.Context(), w)
+		}
+	})
 	router.Mount("/view", viewRouter)
 	router.Mount("/server", serverRouter)
 
-	router.Handle("/*", templ.Handler(pages.NotFound()))
+	router.Handle("/*", templ.Handler(pages.Error("404 not found")))
 
 	srv := &http.Server{
 		Handler: router,
 		Addr:    ":" + port,
 	}
-	log.Println("Server starting on port " + port)
+	fmt.Printf("using chi \nServer starting on port %s\n", port)
 	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatal("OOPs something went wrong")
