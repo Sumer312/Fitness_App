@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -18,10 +19,12 @@ func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) 
 	if err != nil {
 		log.Println(err)
 	}
+
 	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
 		log.Println(err)
 	}
+
 	user, err := apiCfg.DB.GetUserInputById(r.Context(), userId)
 	if err != nil {
 		log.Println(err)
@@ -48,7 +51,7 @@ func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) 
 	}
 
 	program := user.Program
-	if program == program_fatloss {
+	if program == program_fatLoss {
 		total.protien = float32(user.Weight)
 		total.calories = float32(user.CurrKcal - user.Deficit.Int32)
 		total.carbs = 0.45 * float32(total.calories/4)
@@ -78,66 +81,96 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 	cookieVal, err := r.Cookie("user-id")
 	if err != nil {
 		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
 		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 	kCal, err := strconv.ParseInt(r.FormValue("calories"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 	carbs, err := strconv.ParseInt(r.FormValue("carbohydrates"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 	protien, err := strconv.ParseInt(r.FormValue("protien"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 	fat, err := strconv.ParseInt(r.FormValue("fat"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 	fiber, err := strconv.ParseInt(r.FormValue("fiber"), 10, 32)
 	if err != nil {
 		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 
 	var most_recent database.TotalCalorieIntake
-	user_total, err := apiCfg.DB.GetMostRecentUserKcal(r.Context(), userId)
+	user_total, err := apiCfg.DB.GetMostRecentUserKcalByUserId(r.Context(), userId)
 	if err == sql.ErrNoRows {
 		user_create_total, err := apiCfg.DB.CreateTotalCalorieIntake(r.Context(), database.CreateTotalCalorieIntakeParams{
 			ID:           uuid.New(),
 			UserID:       userId,
+			CreatedAt:    time.Now().UTC(),
 			Calories:     0,
 			TotalDeficit: 0,
 			TotalSurplus: 0,
-			CreatedAt:    time.Now().UTC(),
 		})
 		if err != nil {
 			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
+			w.WriteHeader(500)
+			return
 		} else {
 			most_recent = user_create_total
-			fmt.Println(user_create_total.CreatedAt.Unix())
 		}
 	} else if err != nil {
-		log.Println(err)
+			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
+			w.WriteHeader(500)
+			return
 	} else {
 		most_recent = user_total
-		fmt.Println(most_recent)
 	}
-	fmt.Println(most_recent.CreatedAt.Unix())
 	if time.Now().Unix() >= most_recent.CreatedAt.Unix()+(24*60*60) {
 		fmt.Println("about to write to total nutrition database")
 		var curr totalCalorieIntakeParams
 		user_daily, err := apiCfg.DB.GetDailyNutritionOfUserByUserId(r.Context(), userId)
 		if err != nil {
 			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
+			w.WriteHeader(500)
+			return
 		}
 		user, err := apiCfg.DB.GetUserInputById(r.Context(), userId)
 		if err != nil {
 			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
+			w.WriteHeader(500)
+			return
 		}
 		curr.calories_you_should_have_eaten = float32(user.CurrKcal)
 		for i := 0; i < len(user_daily); i++ {
@@ -172,5 +205,39 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 	})
 	if daily_create_err != nil {
 		log.Println(daily_create_err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not save to DB" }`)
+		w.WriteHeader(500)
+		return
+	}
+	w.Header().Add("HX-Refresh", "true")
+	w.WriteHeader(200)
+}
+
+func (apiCfg *Api) DailyNutritionDeleteRowById(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	var temp string = ""
+	for k := range r.Form {
+		if strings.Contains(k, "rowId") {
+			temp = r.FormValue(k)
+			break
+		}
+	}
+	if len(temp) == 0 {
+		w.Header().Add("Hx-Redirect", "http://localhost:5000")
+		w.WriteHeader(400)
+	} else {
+		rowId, err := uuid.Parse(temp)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		err = apiCfg.DB.DeleteRowFromDailyNutritionTableById(r.Context(), rowId)
+		if err != nil {
+			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not delete row" }`)
+			w.WriteHeader(500)
+		}
+		w.Header().Add("HX-Refresh", "true")
+		w.WriteHeader(200)
 	}
 }

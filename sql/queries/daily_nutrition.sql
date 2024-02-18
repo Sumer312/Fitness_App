@@ -8,3 +8,6 @@ SELECT * FROM daily_nutrition_intake WHERE user_id = $1;
 
 -- name: DeleteDailyNutritionOfUserByUserId :exec
 DELETE FROM daily_nutrition_intake WHERE user_id = $1;
+
+-- name: DeleteRowFromDailyNutritionTableById :exec
+DELETE FROM daily_nutrition_intake WHERE id = $1;

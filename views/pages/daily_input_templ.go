@@ -73,7 +73,7 @@ func DailyInput(caloriePercent string, carbsPercent string, protienPercent strin
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Fat</p></div><div class=\"gap-2\"><progress class=\"progress w-72\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Fat</p></div><div class=\"gap-2\"><progress class=\"progress progress-secondary w-72\" value=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

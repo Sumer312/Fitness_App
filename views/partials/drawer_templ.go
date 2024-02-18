@@ -33,7 +33,7 @@ func Drawer() templ.Component {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li><a href=\"/view/logs\">Logs</a></li><li><a href=\"/view/daily-input\">Daily input</a></li><li><a href=\"/view/track-progress\">Track progress</a></li><li><a hx-post=\"/server/logout\">Logout</a></li>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li><a href=\"/view/logs\">Logs</a></li><li><a href=\"/view/daily-input\">Daily input</a></li><li><a href=\"/view/profile\">Track progress</a></li><li><a hx-post=\"/server/logout\">Logout</a></li>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

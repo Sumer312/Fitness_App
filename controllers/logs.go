@@ -31,5 +31,6 @@ func (apiCfg *Api) LogsRender(w http.ResponseWriter, r *http.Request) {
 		}
     list = append(list, cur)
 	}
+  w.Header().Add("HX-Trigger", `{ "successToast" : "Tap to delete row" }`)
 	pages.Logs(list).Render(r.Context(), w)
 }

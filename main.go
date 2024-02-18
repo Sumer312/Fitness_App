@@ -52,13 +52,16 @@ func main() {
 		if partials.DrawerAuthFlag {
 			pages.Error("Already Logged In").Render(r.Context(), w)
 		} else {
-			templ.Handler(pages.Signup())
+			pages.Signup().Render(r.Context(), w)
 		}
 	})
 	viewRouter.HandleFunc("/logs", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		apiCfg.LogsRender(w, r)
 	}))
 	viewRouter.HandleFunc("/daily-input", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		apiCfg.DailyNutritionRender(w, r)
+	}))
+	viewRouter.HandleFunc("/profile", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		apiCfg.DailyNutritionRender(w, r)
 	}))
 	viewRouter.Handle("/user-input/fatloss", templ.Handler(pages.UserInputFatloss()))
@@ -71,8 +74,9 @@ func main() {
 	serverRouter.Post("/logout", apiCfg.LogoutHandler)
 	serverRouter.Post("/user-input", controllerMiddleware(apiCfg.InputHandler))
 	serverRouter.Post("/nutrition-api-request", apiCfg.ApiRequest)
-	serverRouter.HandleFunc("/profile", controllerMiddleware(apiCfg.Profile))
-	serverRouter.HandleFunc("/daily-input", controllerMiddleware(apiCfg.DailyNutritionInputHandler))
+	serverRouter.Post("/daily-input-delete", controllerMiddleware(apiCfg.DailyNutritionDeleteRowById))
+	serverRouter.Post("/daily-input", controllerMiddleware(apiCfg.DailyNutritionInputHandler))
+	serverRouter.Post("/profile", controllerMiddleware(apiCfg.ProfileHandler))
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {

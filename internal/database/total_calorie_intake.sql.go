@@ -66,12 +66,12 @@ func (q *Queries) DeleteUserRecord(ctx context.Context, userID uuid.UUID) error 
 	return err
 }
 
-const getMostRecentUserKcal = `-- name: GetMostRecentUserKcal :one
+const getMostRecentUserKcalByUserId = `-- name: GetMostRecentUserKcalByUserId :one
 SELECT id, created_at, calories, total_deficit, total_surplus, user_id FROM total_calorie_intake WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1
 `
 
-func (q *Queries) GetMostRecentUserKcal(ctx context.Context, userID uuid.UUID) (TotalCalorieIntake, error) {
-	row := q.db.QueryRowContext(ctx, getMostRecentUserKcal, userID)
+func (q *Queries) GetMostRecentUserKcalByUserId(ctx context.Context, userID uuid.UUID) (TotalCalorieIntake, error) {
+	row := q.db.QueryRowContext(ctx, getMostRecentUserKcalByUserId, userID)
 	var i TotalCalorieIntake
 	err := row.Scan(
 		&i.ID,
@@ -84,12 +84,12 @@ func (q *Queries) GetMostRecentUserKcal(ctx context.Context, userID uuid.UUID) (
 	return i, err
 }
 
-const getTotalCalories = `-- name: GetTotalCalories :many
+const getTotalCalorieIntakeByUserId = `-- name: GetTotalCalorieIntakeByUserId :many
 SELECT id, created_at, calories, total_deficit, total_surplus, user_id FROM total_calorie_intake WHERE user_id = $1
 `
 
-func (q *Queries) GetTotalCalories(ctx context.Context, userID uuid.UUID) ([]TotalCalorieIntake, error) {
-	rows, err := q.db.QueryContext(ctx, getTotalCalories, userID)
+func (q *Queries) GetTotalCalorieIntakeByUserId(ctx context.Context, userID uuid.UUID) ([]TotalCalorieIntake, error) {
+	rows, err := q.db.QueryContext(ctx, getTotalCalorieIntakeByUserId, userID)
 	if err != nil {
 		return nil, err
 	}

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"github.com/sumer312/Health-App-Backend/internal/database"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -22,40 +21,51 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	cookieVal, err := r.Cookie("user-id")
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
 	}
 	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
+		w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+		w.WriteHeader(500)
 	}
 	height, err := strconv.ParseInt(r.FormValue("height"), 10, 32)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
 	}
 	weight, err := strconv.ParseInt(r.FormValue("weight"), 10, 32)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
 	}
 	desiredWeight, err := strconv.ParseInt(r.FormValue("desired_weight"), 10, 32)
-	if err != nil {
-		if r.Form.Has("desired_weight") {
-			log.Println(err)
-		} else {
-			DesiredWeightIsEmpty = true
-		}
+	if err != nil && r.Form.Has("desired_weight") {
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+	} else {
+		DesiredWeightIsEmpty = true
 	}
 	timeFrame, err := strconv.ParseInt(r.FormValue("time_frame"), 10, 32)
-	if err != nil {
-		if r.Form.Has("time_frame") {
-			log.Println(err)
-		} else {
-			TimeFrameIsEmpty = true
-		}
+	if err != nil && r.Form.Has("time_frame") {
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+	} else {
+		TimeFrameIsEmpty = true
 	}
 	bmi := (float64(weight) * 10000) / (float64(height) * float64(height))
 	currKcal, err := strconv.ParseInt(r.FormValue("curr_kcal"), 10, 32)
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
 	}
 	program := r.FormValue("program")
 	var sex string
@@ -69,6 +79,12 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if DesiredWeightIsEmpty == false {
 		if TimeFrameIsEmpty == false {
+			if desiredWeight > weight {
+				fmt.Println(err)
+				w.Header().Add("HX-Trigger", `{ "errorToast" : "Desired weight cannot be greater than weight" }`)
+				w.WriteHeader(400)
+        return
+			}
 			TempChan := make(chan sql.NullInt32)
 			go func(w int, dw int, tf int) {
 				TempChan <- DeficitCalc(w, dw, tf)

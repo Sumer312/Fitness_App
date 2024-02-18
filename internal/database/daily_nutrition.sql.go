@@ -63,6 +63,15 @@ func (q *Queries) DeleteDailyNutritionOfUserByUserId(ctx context.Context, userID
 	return err
 }
 
+const deleteRowFromDailyNutritionTableById = `-- name: DeleteRowFromDailyNutritionTableById :exec
+DELETE FROM daily_nutrition_intake WHERE id = $1
+`
+
+func (q *Queries) DeleteRowFromDailyNutritionTableById(ctx context.Context, id uuid.UUID) error {
+	_, err := q.db.ExecContext(ctx, deleteRowFromDailyNutritionTableById, id)
+	return err
+}
+
 const getDailyNutritionOfUserByUserId = `-- name: GetDailyNutritionOfUserByUserId :many
 SELECT id, created_at, user_id, calories, carbohydrates, protien, fat, fiber FROM daily_nutrition_intake WHERE user_id = $1
 `

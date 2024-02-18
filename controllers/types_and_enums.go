@@ -51,7 +51,7 @@ type edamam_response struct {
 }
 
 const (
-	program_fatloss    = "fatloss"
+	program_fatLoss    = "fatloss"
 	program_muscleGain = "musclegain"
 	program_maintain   = "maintaince"
 	sex_male           = "male"

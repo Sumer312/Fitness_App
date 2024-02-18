@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -15,145 +14,128 @@ import (
 	"github.com/sumer312/Health-App-Backend/views/partials"
 )
 
-func refresh(w http.ResponseWriter, refreshToken string) (bool, error) {
+func refresh(w http.ResponseWriter, refreshToken string) error {
 	godotenv.Load()
-	var SECRET = []byte(os.Getenv("JWT_SECRET"))
+	var SECRET []byte = []byte(os.Getenv("JWT_SECRET"))
 	token, err := jwt.Parse(refreshToken, func(t *jwt.Token) (interface{}, error) {
 		_, ok := t.Method.(*jwt.SigningMethodHMAC)
 		if !ok {
-			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("not authorized"))
-			fmt.Println("something is wrong in parsing")
+			fmt.Println("malformed refresh token")
 		}
 		return SECRET, nil
 	})
 	if err != nil {
-		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte("not authorized"))
-		fmt.Println("something is wrong in parsing ", err)
+		fmt.Println("something is wrong in parsing refresh token", err)
+		return err
 	}
 	if token.Valid {
 		subject, err := token.Claims.GetSubject()
 		if err != nil {
-			log.Printf("%s\n", err)
-			return false, err
+			fmt.Println(err)
+			return err
 		}
 		newAccessToken, err := controllers.CreateJWT(time.Minute*5, subject)
 		if err != nil {
-			log.Fatal("error creating new access token")
-			return false, err
+			fmt.Println("error createing access token", err)
+			return err
 		}
 		fmt.Println(newAccessToken)
 		cookie := http.Cookie{Name: "access-token", Value: newAccessToken, Path: "/", HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 		http.SetCookie(w, &cookie)
 	} else {
-		log.Fatal("Login again")
-		return false, errors.New("token not valid")
+		fmt.Println("login again")
+		return errors.New("token not valid")
 	}
-	return true, nil
+	return nil
 }
 
 func controllerMiddleware(next func(w http.ResponseWriter, r *http.Request)) http.HandlerFunc {
 	godotenv.Load()
-	var SECRET = []byte(os.Getenv("JWT_SECRET"))
+	var SECRET []byte = []byte(os.Getenv("JWT_SECRET"))
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("access-token")
-		if accessToken == nil || err != nil {
-			w.Header().Add("Hx-Redirect", "http://localhost:5000/view/login")
-			w.WriteHeader(http.StatusUnauthorized)
+		if err != nil {
 			fmt.Println(err)
+			w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-		if accessToken != nil {
-			token, err := jwt.Parse(accessToken.Value, func(t *jwt.Token) (interface{}, error) {
-				_, ok := t.Method.(*jwt.SigningMethodHMAC)
-				if !ok {
-					w.Header().Add("Hx-Redirect", "http://localhost:5000/view/login")
-					w.WriteHeader(http.StatusUnauthorized)
-					fmt.Println("something is wrong in parsing")
-				}
-				return SECRET, nil
-			})
+		token, err := jwt.Parse(accessToken.Value, func(t *jwt.Token) (interface{}, error) {
+			_, ok := t.Method.(*jwt.SigningMethodHMAC)
+			if !ok {
+				fmt.Println("malformed access token")
+			}
+			return SECRET, nil
+		})
+		if err != nil {
+			fmt.Println(err)
+			refresh_token, err := r.Cookie("refresh-token")
 			if err != nil {
 				fmt.Println(err)
-				refresh_token, err := r.Cookie("refresh-token")
-				if err != nil {
-					log.Printf("%s\n", err)
-				}
-				if refresh_token != nil {
-					status_ok, err := refresh(w, refresh_token.Value)
-					if status_ok == false || err != nil {
-						w.WriteHeader(http.StatusUnauthorized)
-						w.Write([]byte(err.Error()))
-						fmt.Println(err)
-						return
-					} else {
-						partials.DrawerAuthFlag = true
-						next(w, r)
-					}
-				}
+				w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+				w.WriteHeader(http.StatusUnauthorized)
+				return
 			}
-			if token.Valid {
-				partials.DrawerAuthFlag = true
-				next(w, r)
+			err = refresh(w, refresh_token.Value)
+			if err != nil {
+				w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+				w.WriteHeader(http.StatusUnauthorized)
+				return
 			}
-		} else {
-			w.Header().Add("Hx-Redirect", "http://localhost:5000/view/login")
-			w.WriteHeader(http.StatusUnauthorized)
-			return
+			partials.DrawerAuthFlag = true
+			next(w, r)
 		}
+		if token.Valid {
+			partials.DrawerAuthFlag = true
+			next(w, r)
+		} else {
+			w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+			w.WriteHeader(http.StatusUnauthorized)
+		}
+		return
 	})
 }
 
 func viewRenderInControllerMiddleware(next func(w http.ResponseWriter, r *http.Request)) http.HandlerFunc {
 	godotenv.Load()
-	var SECRET = []byte(os.Getenv("JWT_SECRET"))
+	var SECRET []byte = []byte(os.Getenv("JWT_SECRET"))
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("access-token")
-		if accessToken == nil || err != nil {
-			pages.Login().Render(r.Context(), w)
-			w.WriteHeader(http.StatusUnauthorized)
+		if err != nil {
 			fmt.Println(err)
+			pages.Login().Render(r.Context(), w)
 			return
 		}
-		if accessToken != nil {
-			token, err := jwt.Parse(accessToken.Value, func(t *jwt.Token) (interface{}, error) {
-				_, ok := t.Method.(*jwt.SigningMethodHMAC)
-				if !ok {
-					pages.Login().Render(r.Context(), w)
-					w.WriteHeader(http.StatusUnauthorized)
-					fmt.Println("something is wrong in parsing")
-				}
-				return SECRET, nil
-			})
+		token, err := jwt.Parse(accessToken.Value, func(t *jwt.Token) (interface{}, error) {
+			_, ok := t.Method.(*jwt.SigningMethodHMAC)
+			if !ok {
+				fmt.Println("malformed access token")
+			}
+			return SECRET, nil
+		})
+		if err != nil {
+			fmt.Println(err)
+			refresh_token, err := r.Cookie("refresh-token")
 			if err != nil {
 				fmt.Println(err)
-				refresh_token, err := r.Cookie("refresh-token")
-				if err != nil {
-					log.Printf("%s\n", err)
-				}
-				if refresh_token != nil {
-					status_ok, err := refresh(w, refresh_token.Value)
-					if status_ok == false || err != nil {
-						pages.Login().Render(r.Context(), w)
-						w.WriteHeader(http.StatusUnauthorized)
-						w.Write([]byte(err.Error()))
-						fmt.Println(err)
-						return
-					} else {
-						partials.DrawerAuthFlag = true
-						next(w, r)
-					}
-				}
+				pages.Login().Render(r.Context(), w)
+				return
 			}
-			if token.Valid {
-				partials.DrawerAuthFlag = true
-				next(w, r)
+			err = refresh(w, refresh_token.Value)
+			if err != nil {
+				pages.Login().Render(r.Context(), w)
+				return
 			}
-		} else {
-			pages.Login().Render(r.Context(), w)
-			w.WriteHeader(http.StatusUnauthorized)
+			partials.DrawerAuthFlag = true
+			next(w, r)
 			return
 		}
+		if token.Valid {
+			partials.DrawerAuthFlag = true
+			next(w, r)
+		} else {
+			pages.Login().Render(r.Context(), w)
+		}
+		return
 	})
 }
