@@ -18,19 +18,19 @@ func (apiCfg *Api) LogsRender(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	user_daily, err := apiCfg.DB.GetDailyNutritionOfUserByUserId(r.Context(), userId)
-  list := make([]pages.DailyLogs, 0);
-	for i := 0; i < len(user_daily); i++ {
-    cur := pages.DailyLogs{
-			Id:        user_daily[i].ID,
-			CreatedAt: user_daily[i].CreatedAt,
-			Calories:  float32(user_daily[i].Calories),
-			Carbs:     float32(user_daily[i].Carbohydrates),
-			Protien:   float32(user_daily[i].Protien),
-			Fat:       float32(user_daily[i].Fat),
-			Fiber:     float32(user_daily[i].Fiber),
+	list := make([]pages.DailyLogs, 0)
+	for _, ele := range user_daily {
+		cur := pages.DailyLogs{
+			Id:        ele.ID,
+			CreatedAt: ele.CreatedAt,
+			Calories:  float32(ele.Calories),
+			Carbs:     float32(ele.Carbohydrates),
+			Protien:   float32(ele.Protien),
+			Fat:       float32(ele.Fat),
+			Fiber:     float32(ele.Fiber),
 		}
-    list = append(list, cur)
+		list = append(list, cur)
 	}
-  w.Header().Add("HX-Trigger", `{ "successToast" : "Tap to delete row" }`)
+	w.Header().Add("HX-Trigger", `{ "successToast" : "Tap to delete row" }`)
 	pages.Logs(list).Render(r.Context(), w)
 }

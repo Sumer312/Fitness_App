@@ -7,11 +7,21 @@ import (
 )
 
 
+const (
+	program_fatLoss    = "fatloss"
+	program_muscleGain = "musclegain"
+	program_maintain   = "maintaince"
+	sex_male           = "male"
+	sex_female         = "female"
+	sex_none           = "none"
+)
+
 type TrackProgress struct {
 	Id        uuid.UUID
 	CreatedAt time.Time
   WeightProgress float32
   TimeFrameProgress float32
+  Program string
 }
 type DailyLogs struct {
 	Id        uuid.UUID

@@ -35,12 +35,12 @@ func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) 
 		log.Println(err)
 	}
 	var total, curr nutritionParams
-	for i := 0; i < len(user_daily); i++ {
-		curr.carbs += float32(user_daily[i].Carbohydrates)
-		curr.protien += float32(user_daily[i].Protien)
-		curr.fat += float32(user_daily[i].Fat)
-		curr.calories += float32(user_daily[i].Calories)
-		curr.fiber += float32(user_daily[i].Fiber)
+	for _, ele := range user_daily {
+		curr.carbs += float32(ele.Carbohydrates)
+		curr.protien += float32(ele.Protien)
+		curr.fat += float32(ele.Fat)
+		curr.calories += float32(ele.Calories)
+		curr.fiber += float32(ele.Fiber)
 	}
 	if user.Sex == sex_male {
 		total.fiber = 31
@@ -148,10 +148,10 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 			most_recent = user_create_total
 		}
 	} else if err != nil {
-			log.Println(err)
-			w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
-			w.WriteHeader(500)
-			return
+		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
+		w.WriteHeader(500)
+		return
 	} else {
 		most_recent = user_total
 	}
@@ -173,8 +173,8 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 			return
 		}
 		curr.calories_you_should_have_eaten = float32(user.CurrKcal)
-		for i := 0; i < len(user_daily); i++ {
-			curr.calories_you_ate += float32(user_daily[i].Calories)
+		for _, ele := range user_daily {
+			curr.calories_you_ate += float32(ele.Calories)
 		}
 		if curr.calories_you_should_have_eaten > curr.calories_you_ate {
 			curr.deficit_for_the_day = curr.calories_you_should_have_eaten - curr.calories_you_ate

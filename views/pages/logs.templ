@@ -26,7 +26,7 @@ templ Logs(list []DailyLogs) {
             </tr>
           </thead>
           <tbody>
-            for i:= 0; i < len(list); i++{ 
+            for i, ele := range list{ 
               <tr
                   hx-post="/server/daily-input-delete" 
                   hx-confirm="Are you sure you wish to delete this row"
@@ -34,13 +34,13 @@ templ Logs(list []DailyLogs) {
                   hx-include={ fmt.Sprintf("[name = '%drowId'", i) } 
                   hx-swap="innerHTML" 
                   class="font-mono hover:text-error hover:font-semibold cursor-pointer">
-              <td> { fmt.Sprintf("%d:%02d", list[i].CreatedAt.Local().Hour(), list[i].CreatedAt.Local().Minute()) } </td>
-              <td>{ fmt.Sprintf("%.0f", list[i].Calories) }</td>
-              <td>{ fmt.Sprintf("%.0f", list[i].Carbs) }</td>
-              <td>{ fmt.Sprintf("%.0f", list[i].Protien) }</td>
-              <td>{ fmt.Sprintf("%.0f", list[i].Fiber) }</td>
-              <td>{ fmt.Sprintf("%.0f", list[i].Fat) }</td>
-              <input name={ fmt.Sprintf("%drowId", i) } type="hidden" value={ list[i].Id.String() } />
+              <td> { fmt.Sprintf("%d:%02d", ele.CreatedAt.Local().Hour(), ele.CreatedAt.Local().Minute()) } </td>
+              <td>{ fmt.Sprintf("%.0f", ele.Calories) }</td>
+              <td>{ fmt.Sprintf("%.0f", ele.Carbs) }</td>
+              <td>{ fmt.Sprintf("%.0f", ele.Protien) }</td>
+              <td>{ fmt.Sprintf("%.0f", ele.Fiber) }</td>
+              <td>{ fmt.Sprintf("%.0f", ele.Fat) }</td>
+              <input name={ fmt.Sprintf("%drowId", i) } type="hidden" value={ ele.Id.String() } />
               </tr>
               }
           </tbody>

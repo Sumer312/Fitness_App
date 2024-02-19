@@ -62,7 +62,7 @@ func main() {
 		apiCfg.DailyNutritionRender(w, r)
 	}))
 	viewRouter.HandleFunc("/profile", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
-		apiCfg.DailyNutritionRender(w, r)
+		apiCfg.ProfileRender(w, r)
 	}))
 	viewRouter.Handle("/user-input/fatloss", templ.Handler(pages.UserInputFatloss()))
 	viewRouter.Handle("/user-input/muscle", templ.Handler(pages.UserInputMuscle()))
