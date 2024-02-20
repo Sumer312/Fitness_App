@@ -42,16 +42,17 @@ func (apiCfg *Api) ProfileRender(w http.ResponseWriter, r *http.Request) {
 	obj.Id = userId
 	obj.CreatedAt = userInput.CreatedAt
 	obj.Program = userInput.Program
-	var current_deficit float32 = (float32(defict) - float32(surplus)) / 7716.0
+	var current_deficit float64 = (float64(defict) - float64(surplus)) / 7716.0
 
 	if userInput.Program == program_fatLoss {
-		obj.WeightProgress = current_deficit / float32(userInput.Weight-userInput.DesiredWeight.Int32) * 100
+		obj.WeightProgress = current_deficit / float64(userInput.Weight-userInput.DesiredWeight.Int32) * 100
 		createdTimePlusTimeFrame := obj.CreatedAt.Add(time.Duration(userInput.TimeFrame.Int32) * 7 * 24 * time.Hour)
-		inversePercentage := float32(createdTimePlusTimeFrame.Local().Sub(time.Now().Local()).Hours()/(7*24)) / float32(userInput.TimeFrame.Int32) * 100
+		inversePercentage := float64(createdTimePlusTimeFrame.Local().Sub(time.Now().Local()).Hours()/(7*24)) / float64(userInput.TimeFrame.Int32) * 100
 		obj.TimeFrameProgress = 100 - inversePercentage
+    fmt.Println(userInput.TimeFrame.Int32)
 	} else if userInput.Program == program_muscleGain {
 		createdTimePlusTimeFrame := obj.CreatedAt.Add(time.Duration(userInput.TimeFrame.Int32) * 7 * 24 * time.Hour)
-		inversePercentage := float32(createdTimePlusTimeFrame.Local().Sub(time.Now().Local()).Hours()/(7*24)) / float32(userInput.TimeFrame.Int32) * 100
+		inversePercentage := float64(createdTimePlusTimeFrame.Local().Sub(time.Now().Local()).Hours()/(7*24)) / float64(userInput.TimeFrame.Int32) * 100
 		obj.TimeFrameProgress = 100 - inversePercentage
 	} else {
 		obj.WeightProgress = current_deficit
@@ -60,5 +61,3 @@ func (apiCfg *Api) ProfileRender(w http.ResponseWriter, r *http.Request) {
 	pages.Profile(obj).Render(r.Context(), w)
 }
 
-func (apiCfg *Api) ProfileHandler(w http.ResponseWriter, r *http.Request) {
-}

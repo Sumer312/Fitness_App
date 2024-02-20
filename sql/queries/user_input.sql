@@ -5,3 +5,6 @@ RETURNING *;
 
 -- name: GetUserInputById :one
 SELECT * FROM user_input where user_id = $1;
+
+-- name: DeleteUserInputByUserId :exec
+DELETE FROM user_input where user_id = $1;

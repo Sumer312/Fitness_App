@@ -74,15 +74,16 @@ func main() {
 	serverRouter.Post("/logout", apiCfg.LogoutHandler)
 	serverRouter.Post("/user-input", controllerMiddleware(apiCfg.InputHandler))
 	serverRouter.Post("/nutrition-api-request", apiCfg.ApiRequest)
-	serverRouter.Post("/daily-input-delete", controllerMiddleware(apiCfg.DailyNutritionDeleteRowById))
 	serverRouter.Post("/daily-input", controllerMiddleware(apiCfg.DailyNutritionInputHandler))
-	serverRouter.Post("/profile", controllerMiddleware(apiCfg.ProfileHandler))
+	serverRouter.Post("/daily-input-delete", controllerMiddleware(apiCfg.DailyNutritionDeleteRowById))
+	serverRouter.Delete("/change-program", controllerMiddleware(apiCfg.ChangeProgram))
+	serverRouter.Delete("/delete-user", (apiCfg.DeleteUser))
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
 			apiCfg.LogsRender(w, r)
 		} else {
-			pages.Home().Render(r.Context(), w)
+			pages.Programs().Render(r.Context(), w)
 		}
 	})
 	router.Mount("/view", viewRouter)

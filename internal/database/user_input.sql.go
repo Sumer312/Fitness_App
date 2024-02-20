@@ -70,6 +70,15 @@ func (q *Queries) CreateUserInput(ctx context.Context, arg CreateUserInputParams
 	return i, err
 }
 
+const deleteUserInputByUserId = `-- name: DeleteUserInputByUserId :exec
+DELETE FROM user_input where user_id = $1
+`
+
+func (q *Queries) DeleteUserInputByUserId(ctx context.Context, userID uuid.UUID) error {
+	_, err := q.db.ExecContext(ctx, deleteUserInputByUserId, userID)
+	return err
+}
+
 const getUserInputById = `-- name: GetUserInputById :one
 SELECT id, user_id, created_at, updated_at, program, sex, height, weight, desired_weight, time_frame, bmi, curr_kcal, deficit FROM user_input where user_id = $1
 `

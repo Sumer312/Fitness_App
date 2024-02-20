@@ -44,12 +44,12 @@ func Profile(obj TrackProgress) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col mt-24 items-center min-h-screen overflow-auto\" data-theme=\"\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"toBeSwapped\" class=\"flex flex-col mt-24 justify-between items-center min-h-screen overflow-auto\" data-theme=\"\"><div class=\"flex flex-col mt-24 mb-8 gap-24\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if obj.Program == program_fatLoss {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"gap-2 mb-24\"><progress class=\"progress progress-accent w-72\" value=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"gap-2\"><progress class=\"progress progress-primary xl:w-96 w-72\" value=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -57,14 +57,14 @@ func Profile(obj TrackProgress) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p class=\"text-[24px] font-semibold text-accent w-72\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p class=\"text-[24px] font-semibold text-primary xl:w-96 w-72\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("Weight target achieved by %.2f%%", obj.WeightProgress))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 24, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 29, Col: 78}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -76,7 +76,7 @@ func Profile(obj TrackProgress) templ.Component {
 			}
 		}
 		if obj.Program == program_fatLoss || obj.Program == program_muscleGain {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"gap-2 mb-24\"><progress class=\"progress progress-primary w-72\" value=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"gap-2\"><progress class=\"progress progress-success xl:w-96 w-72\" value=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -84,14 +84,14 @@ func Profile(obj TrackProgress) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p class=\"text-[24px] font-semibold text-primary w-72\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p class=\"text-[24px] font-semibold text-success xl:w-96 w-72\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("Time frame done by %.2f%%", obj.TimeFrameProgress))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 36, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 41, Col: 74}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -103,7 +103,7 @@ func Profile(obj TrackProgress) templ.Component {
 			}
 		}
 		if obj.Program == program_maintain {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"text-[24px] font-semibold text-accent w-72 mb-24\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"text-[24px] font-semibold text-success xl:w-96 w-72\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -111,19 +111,29 @@ func Profile(obj TrackProgress) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("Weight gained %.2f kg", obj.WeightProgress))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 43, Col: 66}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 48, Col: 67}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-			} else {
+			} else if obj.WeightProgress < 0 {
 				var templ_7745c5c3_Var5 string
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("Weight lost %.2f kg", obj.WeightProgress))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 45, Col: 64}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 50, Col: 65}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			} else {
+				var templ_7745c5c3_Var6 string
+				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("No weight difference"))
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/profile.templ`, Line: 52, Col: 47}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -133,7 +143,15 @@ func Profile(obj TrackProgress) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col gap-8 mb-8 xl:-mb-48\"><button class=\"btn btn-lg btn-outline btn-info w-72\">Change Program</button> <button class=\"btn btn-lg btn-outline btn-warning w-72\">Delete my data</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"btn btn-info btn-outline btn-lg\" onclick=\"my_modal_1.showModal()\">Change Program</button>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = partials.Modal("#toBeSwapped", "http://localhost:5000/server/change-program").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button hx-delete=\"http://localhost:5000/server/delete-user\" hx-confirm=\"Are you sure you want to delete your account\" class=\"btn btn-error btn-outline btn-lg\" onclick=\"my_modal_1.showModal()\">Delete my account</button></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

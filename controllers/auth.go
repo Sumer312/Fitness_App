@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -45,7 +46,11 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 		sql.NullString{String: email, Valid: true},
 	)
 	if err != nil {
-		log.Println(err)
+    if err == sql.ErrNoRows{
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "No such user" }`)
+		w.WriteHeader(400)
+		return
+    }
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Cannot connect to database" }`)
 		w.WriteHeader(500)
 		return
@@ -157,6 +162,7 @@ func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &refresh_cookie)
 	http.SetCookie(w, &user_id)
 	partials.DrawerAuthFlag = false
+	fmt.Println("hi")
 	w.Header().Add("HX-Redirect", "http://localhost:5000")
 	w.WriteHeader(200)
 	return

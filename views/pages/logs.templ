@@ -1,56 +1,56 @@
 package pages
 
 import (
-"github.com/sumer312/Health-App-Backend/views/partials"
-"fmt"
+	"github.com/sumer312/Health-App-Backend/views/partials"
+	"fmt"
 )
 
 templ Logs(list []DailyLogs) {
-<html>
-@partials.Header("Logs")
-<body onload="SetTheme()">
-  <div class="drawer" data-theme="">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
-      @partials.Navbar()
-      <div class="flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto" data-theme="">
-        <table class="table mt-36 text-primary xl:text-[30px] text-[12px]">
-          <thead>
-            <tr class="xl:text-[24px] text-[12px]">
-              <th>Time</th>
-              <th>Kcal</th>
-              <th>Carbs</th>
-              <th>Protien</th>
-              <th>Fiber</th>
-              <th>Fat</th>
-            </tr>
-          </thead>
-          <tbody>
-            for i, ele := range list{ 
-              <tr
-                  hx-post="/server/daily-input-delete" 
-                  hx-confirm="Are you sure you wish to delete this row"
-                  hx-trigger="click" 
-                  hx-include={ fmt.Sprintf("[name = '%drowId'", i) } 
-                  hx-swap="innerHTML" 
-                  class="font-mono hover:text-error hover:font-semibold cursor-pointer">
-              <td> { fmt.Sprintf("%d:%02d", ele.CreatedAt.Local().Hour(), ele.CreatedAt.Local().Minute()) } </td>
-              <td>{ fmt.Sprintf("%.0f", ele.Calories) }</td>
-              <td>{ fmt.Sprintf("%.0f", ele.Carbs) }</td>
-              <td>{ fmt.Sprintf("%.0f", ele.Protien) }</td>
-              <td>{ fmt.Sprintf("%.0f", ele.Fiber) }</td>
-              <td>{ fmt.Sprintf("%.0f", ele.Fat) }</td>
-              <input name={ fmt.Sprintf("%drowId", i) } type="hidden" value={ ele.Id.String() } />
-              </tr>
-              }
-          </tbody>
-        </table>
-      </div>
-      @partials.Footer()
-    </div>
-    @partials.Drawer()
-  </div>
-</body>
-
-</html>
+	<html>
+		@partials.Header("Logs")
+		<body onload="SetTheme();Info('Tap on record to delete it')">
+			<div class="drawer" data-theme="">
+				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
+				<div class="drawer-content">
+					@partials.Navbar()
+					<div class="flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto" data-theme="">
+						<table class="table mt-36 text-primary xl:text-[30px] text-[12px]">
+							<thead>
+								<tr class="xl:text-[24px] text-[12px]">
+									<th>Time</th>
+									<th>Kcal</th>
+									<th>Carbs</th>
+									<th>Protien</th>
+									<th>Fiber</th>
+									<th>Fat</th>
+								</tr>
+							</thead>
+							<tbody>
+								for i, ele := range list {
+									<tr
+ 										hx-post="/server/daily-input-delete"
+ 										hx-confirm="Are you sure you wish to delete this row"
+ 										hx-trigger="click"
+ 										hx-include={ fmt.Sprintf("[name='%drowId'", i) }
+ 										hx-swap=" innerHTML"
+ 										class="font-mono hover:text-error hover:font-semibold cursor-pointer"
+									>
+										<td>{ fmt.Sprintf("%d:%02d", ele.CreatedAt.Local().Hour(), ele.CreatedAt.Local().Minute()) } </td>
+										<td>{ fmt.Sprintf("%.0f", ele.Calories) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Carbs) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Protien) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Fiber) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Fat) }</td>
+										<input name={ fmt.Sprintf("%drowId", i) } type="hidden" value={ ele.Id.String() }/>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					@partials.Footer()
+				</div>
+				@partials.Drawer()
+			</div>
+		</body>
+	</html>
 }

@@ -61,7 +61,6 @@ func (apiCfg *Api) ApiRequest(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		w.Header().Add("HX-Trigger", `{ "infoToast" : "Click to copy values" }`)
 		w.Write(htmx_response)
 		w.WriteHeader(200)
 	} else {

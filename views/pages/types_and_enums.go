@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
+var DrawerFlag bool = false
 
 const (
 	program_fatLoss    = "fatloss"
@@ -19,8 +20,8 @@ const (
 type TrackProgress struct {
 	Id        uuid.UUID
 	CreatedAt time.Time
-  WeightProgress float32
-  TimeFrameProgress float32
+  WeightProgress float64
+  TimeFrameProgress float64
   Program string
 }
 type DailyLogs struct {

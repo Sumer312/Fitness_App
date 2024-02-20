@@ -14,11 +14,8 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	DesiredWeightIsEmpty := false
 	TimeFrameIsEmpty := false
-	for k, vs := range r.Form {
-		for _, v := range vs {
-			fmt.Printf("%s => %s\n", k, v)
-		}
-	}
+	fmt.Println(r.Form.Has("desired_weight"))
+	fmt.Println(r.Form.Has("time_frame"))
 	cookieVal, err := r.Cookie("user-id")
 	if err != nil {
 		fmt.Println(err)
@@ -49,7 +46,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
-	} else {
+	} else if r.Form.Has("desired_weight") == false {
 		DesiredWeightIsEmpty = true
 	}
 	timeFrame, err := strconv.ParseInt(r.FormValue("time_frame"), 10, 32)
@@ -57,7 +54,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
-	} else {
+	} else if r.Form.Has("time_frame") == false {
 		TimeFrameIsEmpty = true
 	}
 	bmi := (float64(weight) * 10000) / (float64(height) * float64(height))
@@ -80,10 +77,9 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	if DesiredWeightIsEmpty == false {
 		if TimeFrameIsEmpty == false {
 			if desiredWeight > weight {
-				fmt.Println(err)
 				w.Header().Add("HX-Trigger", `{ "errorToast" : "Desired weight cannot be greater than weight" }`)
 				w.WriteHeader(400)
-        return
+				return
 			}
 			TempChan := make(chan sql.NullInt32)
 			go func(w int, dw int, tf int) {
