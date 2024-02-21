@@ -49,7 +49,6 @@ func (apiCfg *Api) ProfileRender(w http.ResponseWriter, r *http.Request) {
 		createdTimePlusTimeFrame := obj.CreatedAt.Add(time.Duration(userInput.TimeFrame.Int32) * 7 * 24 * time.Hour)
 		inversePercentage := float64(createdTimePlusTimeFrame.Local().Sub(time.Now().Local()).Hours()/(7*24)) / float64(userInput.TimeFrame.Int32) * 100
 		obj.TimeFrameProgress = 100 - inversePercentage
-    fmt.Println(userInput.TimeFrame.Int32)
 	} else if userInput.Program == program_muscleGain {
 		createdTimePlusTimeFrame := obj.CreatedAt.Add(time.Duration(userInput.TimeFrame.Int32) * 7 * 24 * time.Hour)
 		inversePercentage := float64(createdTimePlusTimeFrame.Local().Sub(time.Now().Local()).Hours()/(7*24)) / float64(userInput.TimeFrame.Int32) * 100

@@ -8,7 +8,7 @@ import (
 templ Profile(obj TrackProgress) {
 	<html>
 		@partials.Header("Profile")
-		<body onload="SetTheme()">
+		<body onload="SetTheme(); Info('Updated every 24 hours')">
 			<div class="drawer" data-theme="">
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">

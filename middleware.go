@@ -39,7 +39,6 @@ func refresh(w http.ResponseWriter, refreshToken string) error {
 			fmt.Println("error createing access token", err)
 			return err
 		}
-		fmt.Println(newAccessToken)
 		cookie := http.Cookie{Name: "access-token", Value: newAccessToken, Path: "/", HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 		http.SetCookie(w, &cookie)
 	} else {

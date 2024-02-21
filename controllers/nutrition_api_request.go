@@ -3,7 +3,6 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -32,7 +31,6 @@ func (apiCfg *Api) ApiRequest(w http.ResponseWriter, r *http.Request) {
 		"ingr": ingredients_array,
 	}
 	json_obj, err := json.Marshal(obj)
-	fmt.Printf("%s\n", json_obj)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -46,7 +44,6 @@ func (apiCfg *Api) ApiRequest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	fmt.Println(response.StatusCode)
 	if response.StatusCode == http.StatusOK {
 		var response_variable edamam_response
 		body, err := io.ReadAll(response.Body)
@@ -61,8 +58,8 @@ func (apiCfg *Api) ApiRequest(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		w.Write(htmx_response)
 		w.WriteHeader(200)
+		w.Write(htmx_response)
 	} else {
 		w.Header().Add("HX-Trigger", `{ "warnToast" : "Input not valid" }`)
 		w.WriteHeader(400)

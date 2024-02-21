@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -162,7 +161,6 @@ func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &refresh_cookie)
 	http.SetCookie(w, &user_id)
 	partials.DrawerAuthFlag = false
-	fmt.Println("hi")
 	w.Header().Add("HX-Redirect", "http://localhost:5000")
 	w.WriteHeader(200)
 	return
