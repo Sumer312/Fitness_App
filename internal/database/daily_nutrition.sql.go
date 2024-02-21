@@ -22,11 +22,11 @@ type CreateDailyNutritionParams struct {
 	ID            uuid.UUID
 	CreatedAt     time.Time
 	UserID        uuid.UUID
-	Calories      int32
-	Carbohydrates int32
-	Protien       int32
-	Fat           int32
-	Fiber         int32
+	Calories      float64
+	Carbohydrates float64
+	Protien       float64
+	Fat           float64
+	Fiber         float64
 }
 
 func (q *Queries) CreateDailyNutrition(ctx context.Context, arg CreateDailyNutritionParams) (DailyNutritionIntake, error) {

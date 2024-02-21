@@ -22,9 +22,9 @@ type CreateTotalCalorieIntakeParams struct {
 	ID           uuid.UUID
 	CreatedAt    time.Time
 	UserID       uuid.UUID
-	Calories     int32
-	TotalDeficit int32
-	TotalSurplus int32
+	Calories     float64
+	TotalDeficit float64
+	TotalSurplus float64
 }
 
 func (q *Queries) CreateTotalCalorieIntake(ctx context.Context, arg CreateTotalCalorieIntakeParams) (TotalCalorieIntake, error) {

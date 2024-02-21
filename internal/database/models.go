@@ -15,19 +15,19 @@ type DailyNutritionIntake struct {
 	ID            uuid.UUID
 	CreatedAt     time.Time
 	UserID        uuid.UUID
-	Calories      int32
-	Carbohydrates int32
-	Protien       int32
-	Fat           int32
-	Fiber         int32
+	Calories      float64
+	Carbohydrates float64
+	Protien       float64
+	Fat           float64
+	Fiber         float64
 }
 
 type TotalCalorieIntake struct {
 	ID           uuid.UUID
 	CreatedAt    time.Time
-	Calories     int32
-	TotalDeficit int32
-	TotalSurplus int32
+	Calories     float64
+	TotalDeficit float64
+	TotalSurplus float64
 	UserID       uuid.UUID
 }
 
@@ -52,6 +52,6 @@ type UserInput struct {
 	DesiredWeight sql.NullInt32
 	TimeFrame     sql.NullInt32
 	Bmi           float64
-	CurrKcal      int32
-	Deficit       sql.NullInt32
+	CurrKcal      float64
+	Deficit       sql.NullFloat64
 }

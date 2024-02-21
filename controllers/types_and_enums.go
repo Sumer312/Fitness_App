@@ -7,18 +7,18 @@ type Api struct {
 }
 
 type nutritionParams struct {
-	calories float32
-	carbs    float32
-	protien  float32
-	fat      float32
-	fiber    float32
+	calories float64
+	carbs    float64
+	protien  float64
+	fat      float64
+	fiber    float64
 }
 
 type totalCalorieIntakeParams struct {
-	calories_you_ate               float32
-	calories_you_should_have_eaten float32
-	deficit_for_the_day            float32
-	surplus_the_day                float32
+	calories_you_ate               float64
+	calories_you_should_have_eaten float64
+	deficit_for_the_day            float64
+	surplus_the_day                float64
 }
 
 type api_parameters struct {
@@ -30,7 +30,7 @@ type api_parameters struct {
 type edamam_response_total_nutrients_element struct {
 	Label    string  `json:"label"`
 	Unit     string  `json:"unit"`
-	Quantity float32 `json:"quantity"`
+	Quantity float64 `json:"quantity"`
 }
 
 type total_nutrients struct {
@@ -47,7 +47,7 @@ type total_nutrients struct {
 type edamam_response struct {
 	Calories       int             `json:"calories"`
 	TotalNutrients total_nutrients `json:"totalNutrients"`
-	TotalWeight    float32         `json:"totalWeight"`
+	TotalWeight    float64         `json:"totalWeight"`
 }
 
 const (

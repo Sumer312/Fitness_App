@@ -12,8 +12,8 @@ CREATE TABLE user_input (
   desired_weight INT,
   time_frame INT,
   bmi FLOAT NOT NULL,
-  curr_kcal INT NOT NULl,
-  deficit INT
+  curr_kcal FLOAT NOT NULl,
+  deficit FLOAT
 );
 
 -- +goose Down

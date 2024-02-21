@@ -14,16 +14,22 @@ templ Footer() {
 				Htmx
 			</a>
 			<a class="link link-hover flex">
-				Go + Templ
+				Go Templ
 			</a>
 			<a class="link link-hover flex">
 				Tailwind
+			</a>
+			<a class="link link-hover flex">
+				Daisy UI
 			</a>
 		</div>
 		<div>
 			<span class="footer-title">BackEnd</span>
 			<a class="link link-hover flex">
-				Go + chi
+				GoLang
+			</a>
+			<a class="link link-hover flex">
+				Chi-Router
 			</a>
 			<a class="link link-hover flex">
 				JWT
@@ -36,6 +42,15 @@ templ Footer() {
 			<span class="footer-title">Tools</span>
 			<a class="link link-hover flex">
 				Docker
+			</a>
+			<a class="link link-hover flex">
+				sqlc
+			</a>
+			<a class="link link-hover flex">
+				goose
+			</a>
+			<a class="link link-hover flex">
+				neovim
 			</a>
 		</div>
 	</footer>
@@ -58,26 +73,55 @@ templ Footer() {
   })
 
   document.getElementById("calories_calc_form").addEventListener("htmx:afterSwap", function (event) {
-    console.log(event.detail.target.innerText)
     let response = JSON.parse(event.detail.target.innerText)
-    console.log(response.calories)
     event.detail.target.innerHTML = `
-    <p>Calories:</p> <p class="text-accent">${response.calories}</p>
+    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+    <form target="dummyframe" id="kcalForm" action="http://localhost:5000/server/daily-input" method="post">
+      <p>Calories:</p> <p class="text-accent">${response.calories}</p>
+      <input name="calories" type="hidden" value=${response.calories} />
     <br>
-    <p>CarboHydrates:</p> <p class="text-accent">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
+      <p>CarboHydrates:</p> <p class="text-accent">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
+      <input name="carbohydrates" type="hidden" value=${response.totalNutrients.CHOCDF.quantity} />
     <br>
-    <p>Sugar:</p> <p class="text-accent">${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</p>
+      <p>Protien:</p> <p class="text-accent">${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</p>
+      <input name="protien" type="hidden" value=${response.totalNutrients.PROCNT.quantity} />
     <br>
-    <p>Protien:</p> <p class="text-accent">${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</p>
+      <p>Fats:</p> <p class="text-accent">${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</p>
+      <input name="fat" type="hidden" value=${response.totalNutrients.FAT.quantity} />
     <br>
-    <p>Fats:</p> <p class="text-accent">${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</p>
+      <p>Fiber:</p> <p class="text-accent">${response.totalNutrients.FIBTG.quantity} ${response.totalNutrients.FIBTG.unit}</p>
+      <input name="fiber" type="hidden" value=${response.totalNutrients.FIBTG.quantity} />
     <br>
-    <p>Saturated Fats:</p> <p class="text-accent">${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</p>
+      <p>Sugar:</p> <p class="text-accent">${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</p>
     <br>
-    <p>Fiber:</p> <p class="text-accent">${response.totalNutrients.FIBTG.quantity} ${response.totalNutrients.FIBTG.unit}</p>
+      <p>Saturated Fats:</p> <p class="text-accent">${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</p>
     <br>
+      <button class="btn btn-lg btn-primary btn-outline" type="button" onclick="submit_form('kcalForm')">Enter into logs</button>
+    </form>
     `
   })
+
+  function submit_form(id) {
+    const form = document.forms[id];
+    const formData = new URLSearchParams(new FormData(form));
+    fetch(form.action, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: formData
+    })
+      .then(response => {
+        if (response.status === 200) {
+          Success("Entered in logs")
+        } else {
+          Error("Couldn't enter in logs")
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
 
   function DrawerClose() {
     document.getElementById("my-drawer").checked = false

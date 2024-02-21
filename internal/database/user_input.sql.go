@@ -31,8 +31,8 @@ type CreateUserInputParams struct {
 	TimeFrame     sql.NullInt32
 	Bmi           float64
 	Program       string
-	CurrKcal      int32
-	Deficit       sql.NullInt32
+	CurrKcal      float64
+	Deficit       sql.NullFloat64
 }
 
 func (q *Queries) CreateUserInput(ctx context.Context, arg CreateUserInputParams) (UserInput, error) {

@@ -36,11 +36,11 @@ func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) 
 	}
 	var total, curr nutritionParams
 	for _, ele := range user_daily {
-		curr.carbs += float32(ele.Carbohydrates)
-		curr.protien += float32(ele.Protien)
-		curr.fat += float32(ele.Fat)
-		curr.calories += float32(ele.Calories)
-		curr.fiber += float32(ele.Fiber)
+		curr.carbs += float64(ele.Carbohydrates)
+		curr.protien += float64(ele.Protien)
+		curr.fat += float64(ele.Fat)
+		curr.calories += float64(ele.Calories)
+		curr.fiber += float64(ele.Fiber)
 	}
 	if user.Sex == sex_male {
 		total.fiber = 31
@@ -52,20 +52,20 @@ func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) 
 
 	program := user.Program
 	if program == program_fatLoss {
-		total.protien = float32(user.Weight)
-		total.calories = float32(user.CurrKcal - user.Deficit.Int32)
-		total.carbs = 0.45 * float32(total.calories/4)
-		total.fat = 0.2 * float32(total.calories/9)
+		total.protien = float64(user.Weight)
+		total.calories = float64(user.CurrKcal - user.Deficit.Float64)
+		total.carbs = 0.45 * float64(total.calories/4)
+		total.fat = 0.2 * float64(total.calories/9)
 	} else if program == program_muscleGain {
-		total.protien = 1.2 * float32(user.Weight)
-		total.calories = float32(user.CurrKcal) + 200
-		total.carbs = 0.4 * float32(total.calories/4)
-		total.fat = 0.2 * float32(total.calories/9)
+		total.protien = 1.2 * float64(user.Weight)
+		total.calories = float64(user.CurrKcal) + 200
+		total.carbs = 0.4 * float64(total.calories/4)
+		total.fat = 0.2 * float64(total.calories/9)
 	} else {
-		total.protien = 0.8 * float32(user.Weight)
-		total.calories = float32(user.CurrKcal)
-		total.carbs = 0.6 * float32(total.calories/4)
-		total.fat = 0.2 * float32(total.calories/9)
+		total.protien = 0.8 * float64(user.Weight)
+		total.calories = float64(user.CurrKcal)
+		total.carbs = 0.6 * float64(total.calories/4)
+		total.fat = 0.2 * float64(total.calories/9)
 	}
 	carbsPercent := fmt.Sprintf("%f", (curr.carbs/total.carbs)*100)
 	caloriesPercent := fmt.Sprintf("%f", (curr.calories/total.calories)*100)
@@ -91,35 +91,35 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		w.WriteHeader(500)
 		return
 	}
-	kCal, err := strconv.ParseInt(r.FormValue("calories"), 10, 32)
+	kCal, err := strconv.ParseFloat(r.FormValue("calories"), 10)
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
 		return
 	}
-	carbs, err := strconv.ParseInt(r.FormValue("carbohydrates"), 10, 32)
+	carbs, err := strconv.ParseFloat(r.FormValue("carbohydrates"), 10)
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
 		return
 	}
-	protien, err := strconv.ParseInt(r.FormValue("protien"), 10, 32)
+	protien, err := strconv.ParseFloat(r.FormValue("protien"), 10)
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
 		return
 	}
-	fat, err := strconv.ParseInt(r.FormValue("fat"), 10, 32)
+	fat, err := strconv.ParseFloat(r.FormValue("fat"), 10)
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
 		return
 	}
-	fiber, err := strconv.ParseInt(r.FormValue("fiber"), 10, 32)
+	fiber, err := strconv.ParseFloat(r.FormValue("fiber"), 10)
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
@@ -171,9 +171,9 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 			w.WriteHeader(500)
 			return
 		}
-		curr.calories_you_should_have_eaten = float32(user.CurrKcal)
+		curr.calories_you_should_have_eaten = float64(user.CurrKcal)
 		for _, ele := range user_daily {
-			curr.calories_you_ate += float32(ele.Calories)
+			curr.calories_you_ate += float64(ele.Calories)
 		}
 		if curr.calories_you_should_have_eaten > curr.calories_you_ate {
 			curr.deficit_for_the_day = curr.calories_you_should_have_eaten - curr.calories_you_ate
@@ -184,9 +184,9 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		}
 		apiCfg.DB.CreateTotalCalorieIntake(r.Context(), database.CreateTotalCalorieIntakeParams{
 			ID:           uuid.New(),
-			Calories:     int32(curr.calories_you_ate),
-			TotalDeficit: int32(curr.deficit_for_the_day),
-			TotalSurplus: int32(curr.surplus_the_day),
+			Calories:     (curr.calories_you_ate),
+			TotalDeficit: (curr.deficit_for_the_day),
+			TotalSurplus: (curr.surplus_the_day),
 			UserID:       userId,
 			CreatedAt:    time.Now(),
 		})
@@ -196,11 +196,11 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		ID:            uuid.New(),
 		CreatedAt:     time.Now().UTC(),
 		UserID:        userId,
-		Calories:      int32(kCal),
-		Carbohydrates: int32(carbs),
-		Protien:       int32(protien),
-		Fat:           int32(fat),
-		Fiber:         int32(fiber),
+		Calories:      (kCal),
+		Carbohydrates: (carbs),
+		Protien:       (protien),
+		Fat:           (fat),
+		Fiber:         (fiber),
 	})
 	if daily_create_err != nil {
 		log.Println(daily_create_err)
@@ -222,7 +222,7 @@ func (apiCfg *Api) DailyNutritionDeleteRowById(w http.ResponseWriter, r *http.Re
 		}
 	}
 	if len(temp) == 0 {
-		w.Header().Add("Hx-Redirect", "http://localhost:5000")
+		w.Header().Add("HX-Redirect", "http://localhost:5000")
 		w.WriteHeader(400)
 	} else {
 		rowId, err := uuid.Parse(temp)
