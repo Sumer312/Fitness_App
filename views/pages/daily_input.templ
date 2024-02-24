@@ -1,11 +1,11 @@
 package pages
 
 import "github.com/sumer312/Health-App-Backend/views/partials"
+import "fmt"
 
-templ DailyInput(caloriePercent string, carbsPercent string, protienPercent string, fatPercent string, fiberPercent string) {
+templ DailyInput(caloriePercent float64, carbsPercent float64, protienPercent float64, fatPercent float64, fiberPercent float64) {
 <html>
 @partials.Header("Daily Input")
-
 <body onload="SetTheme()">
   <div class="drawer" data-theme="">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
@@ -13,24 +13,54 @@ templ DailyInput(caloriePercent string, carbsPercent string, protienPercent stri
       @partials.Navbar()
       <div class="flex flex-col items-center mt-24 gap-8">
         <div class="gap-2">
-          <progress class="progress progress-primary w-72" value={ caloriePercent } max="100"></progress>
-          <p>Calories</p>
+          <progress class="progress progress-primary w-72" value={ fmt.Sprintf("%.2f", caloriePercent) }
+            max="100"></progress>
+          <p>
+            Calories
+            if caloriePercent > 100 {
+          <p class="text-error"> { fmt.Sprintf("+ %.2f %%", caloriePercent - 100) } </p>
+          }
+          </p>
         </div>
         <div class="gap-2">
-          <progress class="progress progress-accent w-72" value={ carbsPercent } max="100"></progress>
-          <p>Carbohydrates</p>
+          <progress class="progress progress-accent w-72" value={ fmt.Sprintf("%.2f", carbsPercent) }
+            max="100"></progress>
+          <p>
+            Carbohydrates
+            if carbsPercent > 100 {
+          <p class="text-error"> { fmt.Sprintf("+ %.2f %%", carbsPercent - 100) } </p>
+          }
+          </p>
         </div>
         <div class="gap-2">
-          <progress class="progress progress-success w-72" value={ protienPercent } max="100"></progress>
-          <p>Protien</p>
+          <progress class="progress progress-success w-72" value={ fmt.Sprintf("%.2f", protienPercent) }
+            max="100"></progress>
+          <p>
+            Protien
+            if protienPercent > 100 {
+          <p class="text-error"> { fmt.Sprintf("+ %.2f %%", protienPercent - 100) } </p>
+          }
+          </p>
         </div>
         <div class="gap-2">
-          <progress class="progress progress-info w-72" value={ fatPercent } max="100"></progress>
-          <p>Fat</p>
+          <progress class="progress progress-info w-72" value={ fmt.Sprintf("%.2f", fatPercent) }
+            max="100"></progress>
+          <p>
+            Fat
+            if fatPercent > 100 {
+          <p class="text-error"> { fmt.Sprintf("+ %.2f %%", fatPercent - 100) } </p>
+          }
+          </p>
         </div>
         <div class="gap-2">
-          <progress class="progress progress-secondary w-72" value={ fiberPercent } max="100"></progress>
-          <p>Fiber</p>
+          <progress class="progress progress-secondary w-72" value={ fmt.Sprintf("%.2f", fiberPercent) }
+            max="100"></progress>
+          <p>
+            Fiber
+            if fiberPercent > 100 {
+          <p class="text-error"> { fmt.Sprintf("+ %.2f %%", fiberPercent - 100) } </p>
+          }
+          </p>
         </div>
       </div>
       <form hx-post="/server/daily-input" hx-swap="none"

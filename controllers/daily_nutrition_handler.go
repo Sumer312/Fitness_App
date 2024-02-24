@@ -67,11 +67,11 @@ func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) 
 		total.carbs = 0.6 * float64(total.calories/4)
 		total.fat = 0.2 * float64(total.calories/9)
 	}
-	carbsPercent := fmt.Sprintf("%f", (curr.carbs/total.carbs)*100)
-	caloriesPercent := fmt.Sprintf("%f", (curr.calories/total.calories)*100)
-	fatPercent := fmt.Sprintf("%f", float32(curr.fat/total.fat)*100)
-	protienPercent := fmt.Sprintf("%f", float32(curr.protien/total.protien)*100)
-	fiberPercent := fmt.Sprintf("%f", (curr.fiber/total.fiber)*100)
+	carbsPercent := (curr.carbs / total.carbs) * 100
+	caloriesPercent := (curr.calories / total.calories) * 100
+	fatPercent := float64(curr.fat/total.fat) * 100
+	protienPercent := float64(curr.protien/total.protien) * 100
+	fiberPercent := (curr.fiber / total.fiber) * 100
 	pages.DailyInput(caloriesPercent, carbsPercent, protienPercent, fatPercent, fiberPercent).Render(r.Context(), w)
 }
 
