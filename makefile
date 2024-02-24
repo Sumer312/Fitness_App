@@ -1,5 +1,3 @@
-include .env
-
 run:
 	@./Health-App-Backend
 build:
