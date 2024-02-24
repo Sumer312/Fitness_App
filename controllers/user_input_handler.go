@@ -26,26 +26,30 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
 		fmt.Println(err)
-		w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Not logged in" }`)
 		w.WriteHeader(500)
+    return
 	}
 	height, err := strconv.ParseFloat(r.FormValue("height"), 10)
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
+    return
 	}
 	weight, err := strconv.ParseFloat(r.FormValue("weight"), 10)
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
+    return
 	}
 	desiredWeight, err := strconv.ParseFloat(r.FormValue("desired_weight"), 10)
 	if err != nil && r.Form.Has("desired_weight") {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
+    return
 	} else if r.Form.Has("desired_weight") == false {
 		DesiredWeightIsEmpty = true
 	}
@@ -54,6 +58,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
+    return
 	} else if r.Form.Has("time_frame") == false {
 		TimeFrameIsEmpty = true
 	}
@@ -63,6 +68,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
+    return
 	}
 	program := r.FormValue("program")
 	var sex string

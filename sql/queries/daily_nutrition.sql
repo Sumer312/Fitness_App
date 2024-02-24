@@ -1,6 +1,6 @@
 -- name: CreateDailyNutrition :one
-INSERT INTO daily_nutrition_intake(id, created_at, user_id, calories, carbohydrates, protien, fat, fiber)
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+INSERT INTO daily_nutrition_intake(id, created_at, user_id, program, calories, carbohydrates, protien, fat, fiber)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 RETURNING *;
 
 -- name: GetDailyNutritionOfUserByUserId :many

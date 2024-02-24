@@ -54,7 +54,13 @@ templ Profile(obj TrackProgress) {
                   }
 								</p>
 							}
-							<button class="btn btn-info btn-outline btn-lg" onclick="my_modal_1.showModal()">Change Program</button>
+							<button class="btn btn-info btn-outline btn-lg" onclick="my_modal_1.showModal()"> 
+              if obj.ProgramSelected == false {
+                Choose Program
+              } else {
+                Change Program
+              }
+                </button>
 							@partials.Modal("#toBeSwapped", "http://localhost:5000/server/change-program")
 							<button hx-delete="http://localhost:5000/server/delete-user" hx-confirm="Are you sure you want to delete your account" class="btn btn-error btn-outline btn-lg" onclick="my_modal_1.showModal()">Delete my account</button>
 						</div>

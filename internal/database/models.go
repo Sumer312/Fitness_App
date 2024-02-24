@@ -15,6 +15,7 @@ type DailyNutritionIntake struct {
 	ID            uuid.UUID
 	CreatedAt     time.Time
 	UserID        uuid.UUID
+	Program       string
 	Calories      float64
 	Carbohydrates float64
 	Protien       float64
@@ -25,10 +26,11 @@ type DailyNutritionIntake struct {
 type TotalCalorieIntake struct {
 	ID           uuid.UUID
 	CreatedAt    time.Time
+	UserID       uuid.UUID
+	Program      string
 	Calories     float64
 	TotalDeficit float64
 	TotalSurplus float64
-	UserID       uuid.UUID
 }
 
 type User struct {

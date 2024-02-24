@@ -1,6 +1,6 @@
 -- name: CreateTotalCalorieIntake :one
-INSERT INTO total_calorie_intake(id, created_at, user_id, calories, total_deficit, total_surplus)
-VALUES ($1, $2, $3, $4, $5, $6)
+INSERT INTO total_calorie_intake(id, created_at, user_id, program, calories, total_deficit, total_surplus)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
 RETURNING *;
  
 -- name: GetTotalCalorieIntakeByUserId :many

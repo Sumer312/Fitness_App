@@ -33,6 +33,11 @@ func (apiCfg *Api) ProfileRender(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	var obj pages.TrackProgress
+	if len(userInput.Program) == 0 {
+		obj.ProgramSelected = false
+	} else {
+		obj.ProgramSelected = true
+	}
 	calories, defict, surplus := 0, 0, 0
 	for _, i := range totalCalories {
 		calories += int(i.Calories)
@@ -59,4 +64,3 @@ func (apiCfg *Api) ProfileRender(w http.ResponseWriter, r *http.Request) {
 	}
 	pages.Profile(obj).Render(r.Context(), w)
 }
-

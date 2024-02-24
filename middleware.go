@@ -55,7 +55,7 @@ func controllerMiddleware(next func(w http.ResponseWriter, r *http.Request)) htt
 		accessToken, err := r.Cookie("access-token")
 		if err != nil {
 			fmt.Println(err)
-			w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "Not logged in" }`)
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
@@ -71,13 +71,13 @@ func controllerMiddleware(next func(w http.ResponseWriter, r *http.Request)) htt
 			refresh_token, err := r.Cookie("refresh-token")
 			if err != nil {
 				fmt.Println(err)
-				w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+				w.Header().Add("HX-Trigger", `{ "errorToast" : "Not logged in" }`)
 				w.WriteHeader(http.StatusUnauthorized)
 				return
 			}
 			err = refresh(w, refresh_token.Value)
 			if err != nil {
-				w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+				w.Header().Add("HX-Trigger", `{ "errorToast" : "Not logged in" }`)
 				w.WriteHeader(http.StatusUnauthorized)
 				return
 			}
@@ -88,7 +88,7 @@ func controllerMiddleware(next func(w http.ResponseWriter, r *http.Request)) htt
 			partials.DrawerAuthFlag = true
 			next(w, r)
 		} else {
-			w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "Not logged in" }`)
 			w.WriteHeader(http.StatusUnauthorized)
 		}
 		return

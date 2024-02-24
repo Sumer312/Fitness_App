@@ -13,15 +13,16 @@ import (
 )
 
 const createTotalCalorieIntake = `-- name: CreateTotalCalorieIntake :one
-INSERT INTO total_calorie_intake(id, created_at, user_id, calories, total_deficit, total_surplus)
-VALUES ($1, $2, $3, $4, $5, $6)
-RETURNING id, created_at, calories, total_deficit, total_surplus, user_id
+INSERT INTO total_calorie_intake(id, created_at, user_id, program, calories, total_deficit, total_surplus)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
+RETURNING id, created_at, user_id, program, calories, total_deficit, total_surplus
 `
 
 type CreateTotalCalorieIntakeParams struct {
 	ID           uuid.UUID
 	CreatedAt    time.Time
 	UserID       uuid.UUID
+	Program      string
 	Calories     float64
 	TotalDeficit float64
 	TotalSurplus float64
@@ -32,6 +33,7 @@ func (q *Queries) CreateTotalCalorieIntake(ctx context.Context, arg CreateTotalC
 		arg.ID,
 		arg.CreatedAt,
 		arg.UserID,
+		arg.Program,
 		arg.Calories,
 		arg.TotalDeficit,
 		arg.TotalSurplus,
@@ -40,10 +42,11 @@ func (q *Queries) CreateTotalCalorieIntake(ctx context.Context, arg CreateTotalC
 	err := row.Scan(
 		&i.ID,
 		&i.CreatedAt,
+		&i.UserID,
+		&i.Program,
 		&i.Calories,
 		&i.TotalDeficit,
 		&i.TotalSurplus,
-		&i.UserID,
 	)
 	return i, err
 }
@@ -67,7 +70,7 @@ func (q *Queries) DeleteUserRecord(ctx context.Context, userID uuid.UUID) error 
 }
 
 const getMostRecentUserKcalByUserId = `-- name: GetMostRecentUserKcalByUserId :one
-SELECT id, created_at, calories, total_deficit, total_surplus, user_id FROM total_calorie_intake WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1
+SELECT id, created_at, user_id, program, calories, total_deficit, total_surplus FROM total_calorie_intake WHERE user_id = $1 ORDER BY created_at DESC LIMIT 1
 `
 
 func (q *Queries) GetMostRecentUserKcalByUserId(ctx context.Context, userID uuid.UUID) (TotalCalorieIntake, error) {
@@ -76,16 +79,17 @@ func (q *Queries) GetMostRecentUserKcalByUserId(ctx context.Context, userID uuid
 	err := row.Scan(
 		&i.ID,
 		&i.CreatedAt,
+		&i.UserID,
+		&i.Program,
 		&i.Calories,
 		&i.TotalDeficit,
 		&i.TotalSurplus,
-		&i.UserID,
 	)
 	return i, err
 }
 
 const getTotalCalorieIntakeByUserId = `-- name: GetTotalCalorieIntakeByUserId :many
-SELECT id, created_at, calories, total_deficit, total_surplus, user_id FROM total_calorie_intake WHERE user_id = $1
+SELECT id, created_at, user_id, program, calories, total_deficit, total_surplus FROM total_calorie_intake WHERE user_id = $1
 `
 
 func (q *Queries) GetTotalCalorieIntakeByUserId(ctx context.Context, userID uuid.UUID) ([]TotalCalorieIntake, error) {
@@ -100,10 +104,11 @@ func (q *Queries) GetTotalCalorieIntakeByUserId(ctx context.Context, userID uuid
 		if err := rows.Scan(
 			&i.ID,
 			&i.CreatedAt,
+			&i.UserID,
+			&i.Program,
 			&i.Calories,
 			&i.TotalDeficit,
 			&i.TotalSurplus,
-			&i.UserID,
 		); err != nil {
 			return nil, err
 		}

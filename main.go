@@ -64,20 +64,22 @@ func main() {
 	viewRouter.HandleFunc("/profile", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		apiCfg.ProfileRender(w, r)
 	}))
+	viewRouter.HandleFunc("/kcal-calc", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+		pages.KcalCalc().Render(r.Context(), w)
+	}))
 	viewRouter.Handle("/user-input/fatloss", templ.Handler(pages.UserInputFatloss()))
 	viewRouter.Handle("/user-input/muscle", templ.Handler(pages.UserInputMuscle()))
 	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
-	viewRouter.Handle("/kcal-calc", templ.Handler(pages.KcalCalc()))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
 	serverRouter.Post("/logout", apiCfg.LogoutHandler)
 	serverRouter.Post("/user-input", controllerMiddleware(apiCfg.InputHandler))
-	serverRouter.Post("/nutrition-api-request", apiCfg.ApiRequest)
+	serverRouter.Post("/nutrition-api-request", controllerMiddleware(apiCfg.ApiRequest))
 	serverRouter.Post("/daily-input", controllerMiddleware(apiCfg.DailyNutritionInputHandler))
 	serverRouter.Post("/daily-input-delete", controllerMiddleware(apiCfg.DailyNutritionDeleteRowById))
 	serverRouter.Delete("/change-program", controllerMiddleware(apiCfg.ChangeProgram))
-	serverRouter.Delete("/delete-user", (apiCfg.DeleteUser))
+	serverRouter.Delete("/delete-user", controllerMiddleware(apiCfg.DeleteUser))
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
@@ -86,6 +88,7 @@ func main() {
 			pages.Programs().Render(r.Context(), w)
 		}
 	})
+	viewRouter.Handle("/*", templ.Handler(pages.Error("404 not found")))
 	router.Mount("/view", viewRouter)
 	router.Mount("/server", serverRouter)
 

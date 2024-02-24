@@ -127,13 +127,32 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		return
 	}
 
+	user, err := apiCfg.DB.GetUserInputById(r.Context(), userId)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "No program selected" }`)
+			w.WriteHeader(500)
+			return
+		}
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
+		w.WriteHeader(500)
+		return
+	} else if len(user.Program) == 0 {
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Choose a program" }`)
+		w.WriteHeader(400)
+		return
+
+	}
+
 	var most_recent database.TotalCalorieIntake
 	user_total, err := apiCfg.DB.GetMostRecentUserKcalByUserId(r.Context(), userId)
 	if err == sql.ErrNoRows {
 		user_create_total, err := apiCfg.DB.CreateTotalCalorieIntake(r.Context(), database.CreateTotalCalorieIntakeParams{
 			ID:           uuid.New(),
-			UserID:       userId,
 			CreatedAt:    time.Now().UTC(),
+			UserID:       userId,
+			Program:      user.Program,
 			Calories:     0,
 			TotalDeficit: 0,
 			TotalSurplus: 0,
@@ -164,13 +183,6 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 			w.WriteHeader(500)
 			return
 		}
-		user, err := apiCfg.DB.GetUserInputById(r.Context(), userId)
-		if err != nil {
-			log.Println(err)
-			w.Header().Add("HX-Trigger", `{ "errorToast" : "DB error" }`)
-			w.WriteHeader(500)
-			return
-		}
 		curr.calories_you_should_have_eaten = float64(user.CurrKcal)
 		for _, ele := range user_daily {
 			curr.calories_you_ate += float64(ele.Calories)
@@ -184,11 +196,12 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		}
 		apiCfg.DB.CreateTotalCalorieIntake(r.Context(), database.CreateTotalCalorieIntakeParams{
 			ID:           uuid.New(),
+			CreatedAt:    time.Now(),
+			UserID:       userId,
+			Program:      user.Program,
 			Calories:     (curr.calories_you_ate),
 			TotalDeficit: (curr.deficit_for_the_day),
 			TotalSurplus: (curr.surplus_the_day),
-			UserID:       userId,
-			CreatedAt:    time.Now(),
 		})
 		apiCfg.DB.DeleteDailyNutritionOfUserByUserId(r.Context(), userId)
 	}
@@ -196,6 +209,7 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		ID:            uuid.New(),
 		CreatedAt:     time.Now().UTC(),
 		UserID:        userId,
+		Program:       user.Program,
 		Calories:      (kCal),
 		Carbohydrates: (carbs),
 		Protien:       (protien),
