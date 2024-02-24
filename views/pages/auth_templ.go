@@ -109,7 +109,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(base_url + "/server/login"))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(base_url + "/server/signup"))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

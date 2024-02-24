@@ -70,9 +70,9 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
+	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
+	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
 	TempChan := make(chan bool)
 	go func() {
 		TempChan <- func(tempW http.ResponseWriter, ac http.Cookie, rc http.Cookie, uid http.Cookie) bool {
@@ -137,9 +137,9 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln("refresh token signup err ", err)
 	}
-	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
-	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
+	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
+	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
+	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: user.ID.String(), HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
 	TempChan := make(chan bool)
 	go func() {
 		TempChan <- func(tempW http.ResponseWriter, ac http.Cookie, rc http.Cookie, uid http.Cookie) bool {

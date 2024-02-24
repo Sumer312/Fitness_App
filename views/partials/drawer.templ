@@ -86,7 +86,7 @@ templ Drawer() {
 					</a>
 				</li>
 				<li>
-					<a href={ templ.SafeURL(base_url + "/server/logout") }>
+					<a hx-post={ base_url + "/server/logout" }>
 						<svg
  							xmlns="http://www.w3.org/2000/svg"
  							width="16"
