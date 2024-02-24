@@ -63,7 +63,7 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 		TimeFrameIsEmpty = true
 	}
 	bmi := (float64(weight) * 10000) / (float64(height) * float64(height))
-	currKcal, err := strconv.ParseFloat(r.FormValue("curr_kcal"), 10)
+  currKcal := weight * 2.204 * 15
 	if err != nil {
 		fmt.Println(err)
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)

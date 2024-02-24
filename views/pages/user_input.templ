@@ -12,14 +12,14 @@ templ UserInputFatloss() {
 					@partials.Navbar()
 					<form
  						hx-post="/server/user-input"
- 						class="flex flex-col justify-between items-center py-36 px-12 min-h-screen"
+ 						class="flex flex-col justify-between items-center py-40 px-12 min-h-screen"
  						data-theme=""
 					>
 						<input
  							type="number"
  							id="height"
  							name="height"
-              min="0"
+ 							min="0"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Height (in cm)"
 						/>
@@ -27,7 +27,7 @@ templ UserInputFatloss() {
  							type="number"
  							id="weight"
  							name="weight"
-              min="0"
+ 							min="0"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Weight (in kg)"
 						/>
@@ -35,25 +35,17 @@ templ UserInputFatloss() {
  							type="number"
  							id="desired_weight"
  							name="desired_weight"
-              min="0"
+ 							min="0"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Desired Weight (in kg)"
 						/>
 						<input
  							type="number"
  							id="time_frame"
-              min="0"
+ 							min="0"
  							name="time_frame"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Time Frame (in weeks)"
-						/>
-						<input
- 							type="number"
- 							id="curr_kcal"
-              min="0"
- 							name="curr_kcal"
- 							class="input input-bordered input-accent w-full max-w-xs"
- 							placeholder="Maintaince Calories"
 						/>
 						<select id="sex" name="sex" class="select select-accent w-full max-w-xs">
 							<option disabled selected>Sex</option>
@@ -64,6 +56,9 @@ templ UserInputFatloss() {
 						</select>
 						<input type="hidden" name="program" value="fatloss"/>
 						<button type="submit" class="btn btn-accent btn-lg w-full max-w-xs">Submit</button>
+						<p class="text-netural text-sm font-mono -mb-12">
+							*Calorie Deficit will be calculated based on weight and desired weight.
+						</p>
 					</form>
 				</div>
 				@partials.Drawer()
@@ -83,13 +78,13 @@ templ UserInputMuscle() {
 					@partials.Navbar()
 					<form
  						hx-post="/server/user-input"
- 						class="flex flex-col justify-between items-center py-36 px-12 min-h-screen"
+ 						class="flex flex-col justify-between items-center py-48 px-12 min-h-screen"
  						data-theme=""
 					>
 						<input
  							type="number"
  							id="height"
-              min="0"
+ 							min="0"
  							name="height"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Height (in cm)"
@@ -98,25 +93,17 @@ templ UserInputMuscle() {
  							type="number"
  							id="weight"
  							name="weight"
-              min="0"
+ 							min="0"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Weight (in kg)"
 						/>
 						<input
  							type="number"
  							id="time_frame"
-              min="0"
+ 							min="0"
  							name="time_frame"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Time Frame (in weeks)"
-						/>
-						<input
- 							type="number"
- 							id="curr_kcal"
-              min="0"
- 							name="curr_kcal"
- 							class="input input-bordered input-accent w-full max-w-xs"
- 							placeholder="Maintaince Calories"
 						/>
 						<select id="sex" name="sex" class="select select-accent w-full max-w-xs">
 							<option disabled selected>Sex</option>
@@ -150,32 +137,24 @@ templ UserInputMaintain() {
 					@partials.Navbar()
 					<form
  						hx-post="/server/user-input"
- 						class="flex flex-col justify-between items-center py-48 px-12 min-h-screen"
+ 						class="flex flex-col justify-between items-center py-56 px-12 min-h-screen"
  						data-theme=""
 					>
 						<input
  							type="number"
  							id="height"
  							name="height"
-              min="0"
+ 							min="0"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Height (in cm)"
 						/>
 						<input
  							type="number"
  							id="weight"
-              min="0"
+ 							min="0"
  							name="weight"
  							class="input input-bordered input-accent w-full max-w-xs"
  							placeholder="Weight (in kg)"
-						/>
-						<input
- 							type="number"
- 							id="curr_kcal"
- 							name="curr_kcal"
- 							class="input input-bordered input-accent w-full max-w-xs"
-              min="0"
- 							placeholder="Maintaince Calories"
 						/>
 						<select id="sex" name="sex" class="select select-accent w-full max-w-xs">
 							<option disabled selected>Sex</option>
