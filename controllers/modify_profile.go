@@ -3,16 +3,20 @@ package controllers
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"github.com/sumer312/Health-App-Backend/views/pages"
 )
 
 func (apiCfg *Api) ChangeProgram(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+	base_url := os.Getenv("BASE_URL")
 	cookieVal, err := r.Cookie("user-id")
 	if err != nil {
 		fmt.Println(err)
-		w.Header().Add("HX-Redirect", "http://localhost:5000/view/login")
+		w.Header().Add("HX-Redirect", fmt.Sprintf("%s/view/login", base_url))
 		w.WriteHeader(500)
 		return
 	}

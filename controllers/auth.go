@@ -31,6 +31,8 @@ func CreateJWT(expiresIn time.Duration, subject string) (string, error) {
 }
 
 func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+	base_url := os.Getenv("BASE_URL")
 	r.ParseForm()
 	email := r.FormValue("email")
 	password := r.FormValue("password")
@@ -45,11 +47,11 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 		sql.NullString{String: email, Valid: true},
 	)
 	if err != nil {
-    if err == sql.ErrNoRows{
-		w.Header().Add("HX-Trigger", `{ "errorToast" : "No such user" }`)
-		w.WriteHeader(400)
-		return
-    }
+		if err == sql.ErrNoRows {
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "No such user" }`)
+			w.WriteHeader(400)
+			return
+		}
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Cannot connect to database" }`)
 		w.WriteHeader(500)
 		return
@@ -83,12 +85,14 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	flag := <-TempChan
 	if flag {
 		partials.DrawerAuthFlag = true
-		w.Header().Add("HX-Redirect", "http://localhost:5000")
+		w.Header().Add("HX-Redirect", base_url)
 		w.WriteHeader(200)
 	}
 }
 
 func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+	base_url := os.Getenv("BASE_URL")
 	r.ParseForm()
 	name := r.FormValue("name")
 	email := r.FormValue("email")
@@ -148,12 +152,14 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	flag := <-TempChan
 	if flag {
 		partials.DrawerAuthFlag = true
-		w.Header().Add("HX-Redirect", "http://localhost:5000")
+		w.Header().Add("HX-Redirect", base_url)
 		w.WriteHeader(200)
 	}
 }
 
 func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+	base_url := os.Getenv("BASE_URL")
 	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: "", MaxAge: 0}
 	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: "", MaxAge: 0}
 	user_id := http.Cookie{Name: user_id_cookie_name, Path: "/", Value: "", MaxAge: 0}
@@ -161,7 +167,7 @@ func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &refresh_cookie)
 	http.SetCookie(w, &user_id)
 	partials.DrawerAuthFlag = false
-	w.Header().Add("HX-Redirect", "http://localhost:5000")
+	w.Header().Add("HX-Redirect", base_url)
 	w.WriteHeader(200)
 	return
 }

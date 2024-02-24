@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"github.com/sumer312/Health-App-Backend/internal/database"
 	"github.com/sumer312/Health-App-Backend/views/pages"
 )
@@ -229,6 +231,8 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 }
 
 func (apiCfg *Api) DailyNutritionDeleteRowById(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+	base_url := os.Getenv("BASE_URL")
 	r.ParseForm()
 	var temp string = ""
 	for k := range r.Form {
@@ -238,7 +242,7 @@ func (apiCfg *Api) DailyNutritionDeleteRowById(w http.ResponseWriter, r *http.Re
 		}
 	}
 	if len(temp) == 0 {
-		w.Header().Add("HX-Redirect", "http://localhost:5000")
+		w.Header().Add("HX-Redirect", base_url)
 		w.WriteHeader(400)
 	} else {
 		rowId, err := uuid.Parse(temp)

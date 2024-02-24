@@ -3,14 +3,19 @@ package controllers
 import (
 	"database/sql"
 	"fmt"
-	"github.com/google/uuid"
-	"github.com/sumer312/Health-App-Backend/internal/database"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
+
+	"github.com/google/uuid"
+	"github.com/joho/godotenv"
+	"github.com/sumer312/Health-App-Backend/internal/database"
 )
 
 func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
+	godotenv.Load()
+	base_url := os.Getenv("BASE_URL")
 	r.ParseForm()
 	DesiredWeightIsEmpty := false
 	TimeFrameIsEmpty := false
@@ -126,6 +131,6 @@ func (apiCfg *Api) InputHandler(w http.ResponseWriter, r *http.Request) {
 			Sex:       sex,
 		})
 	}
-	w.Header().Add("Hx-Redirect", "http://localhost:5000")
+	w.Header().Add("Hx-Redirect", base_url)
 	w.WriteHeader(200)
 }

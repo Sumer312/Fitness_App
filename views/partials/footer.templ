@@ -76,7 +76,7 @@ templ Footer() {
     let response = JSON.parse(event.detail.target.innerText)
     event.detail.target.innerHTML = `
     <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-    <form target="dummyframe" id="kcalForm" action="http://localhost:5000/server/daily-input" method="post">
+    <form target="dummyframe" id="kcalForm" action="/server/daily-input" method="post">
       <p>Calories:</p> <p class="text-accent">${response.calories}</p>
       <input name="calories" type="hidden" value=${response.calories} />
     <br>

@@ -64,10 +64,10 @@ templ Profile(obj TrackProgress) {
                 Change Program
               }
                 </button>
-							@partials.Modal("#toBeSwapped", "http://localhost:5000/server/change-program")
+							@partials.Modal("#toBeSwapped", "/server/change-program")
 							<button 
                 class="btn btn-error btn-outline btn-lg"
-                hx-delete="http://localhost:5000/server/delete-user" 
+                hx-delete="/server/delete-user" 
                 hx-confirm="Are you sure you want to delete your account" 
               >Delete my account</button>
 						</div>

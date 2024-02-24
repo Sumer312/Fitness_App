@@ -181,11 +181,11 @@ func Profile(obj TrackProgress) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Modal("#toBeSwapped", "http://localhost:5000/server/change-program").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.Modal("#toBeSwapped", "/server/change-program").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"btn btn-error btn-outline btn-lg\" hx-delete=\"http://localhost:5000/server/delete-user\" hx-confirm=\"Are you sure you want to delete your account\">Delete my account</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"btn btn-error btn-outline btn-lg\" hx-delete=\"/server/delete-user\" hx-confirm=\"Are you sure you want to delete your account\">Delete my account</button></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
