@@ -119,7 +119,6 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		w.WriteHeader(500)
 		return
 	}
-
 	kCal, err := strconv.ParseFloat(r.FormValue("calories"), 10)
 	if err != nil && r.Form.Has("calories") {
 		fmt.Println(err)
