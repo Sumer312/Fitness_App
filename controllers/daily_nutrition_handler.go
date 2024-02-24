@@ -91,13 +91,6 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		w.WriteHeader(500)
 		return
 	}
-	kCal, err := strconv.ParseFloat(r.FormValue("calories"), 10)
-	if err != nil {
-		fmt.Println(err)
-		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
-		w.WriteHeader(500)
-		return
-	}
 	carbs, err := strconv.ParseFloat(r.FormValue("carbohydrates"), 10)
 	if err != nil {
 		fmt.Println(err)
@@ -125,6 +118,16 @@ func (apiCfg *Api) DailyNutritionInputHandler(w http.ResponseWriter, r *http.Req
 		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
 		w.WriteHeader(500)
 		return
+	}
+
+	kCal, err := strconv.ParseFloat(r.FormValue("calories"), 10)
+	if err != nil && r.Form.Has("calories") {
+		fmt.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not parse data" }`)
+		w.WriteHeader(500)
+		return
+	} else if r.Form.Has("calories") == false {
+		kCal = (carbs * 4) + (protien * 4) + (fat * 9)
 	}
 
 	user, err := apiCfg.DB.GetUserInputById(r.Context(), userId)
