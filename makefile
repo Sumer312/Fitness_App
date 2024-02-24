@@ -1,5 +1,7 @@
 run:
 	@./Health-App-Backend
+install:
+	@go mod vendor && go install github.com/a-h/templ/cmd/templ@latest
 build:
 	@templ generate 
 	@go build
