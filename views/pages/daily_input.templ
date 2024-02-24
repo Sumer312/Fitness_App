@@ -62,7 +62,7 @@ templ DailyInput(caloriePercent float64, carbsPercent float64, protienPercent fl
           </p>
         </div>
       </div>
-      <form hx-post="/server/daily-input" hx-swap="none"
+      <form hx-post={ base_url + "/server/daily-input" } hx-swap="none"
         class="flex flex-col justify-between py-48 px-12 items-center min-h-screen" data-theme="">
         <input type="number" id="carbohydrates" name="carbohydrates"
           class="input input-bordered input-accent w-full max-w-xs" placeholder="Carbohydrates" />

@@ -41,7 +41,15 @@ func UserInputFatloss() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"/server/user-input\" class=\"flex flex-col justify-between items-center py-40 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" name=\"height\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"desired_weight\" name=\"desired_weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Desired Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"fatloss\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calorie Deficit will be calculated based on weight and desired weight.</p></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(base_url + "/server/user-input"))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"flex flex-col justify-between items-center py-40 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" name=\"height\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"desired_weight\" name=\"desired_weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Desired Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"fatloss\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calorie Deficit will be calculated based on weight and desired weight.</p></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -97,7 +105,15 @@ func UserInputMuscle() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"/server/user-input\" class=\"flex flex-col justify-between items-center py-48 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" min=\"0\" name=\"height\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"musclegain\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Amount of muscle gained in a time frame varies from person to person.</p></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(base_url + "/server/user-input"))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"flex flex-col justify-between items-center py-48 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" min=\"0\" name=\"height\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"musclegain\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Amount of muscle gained in a time frame varies from person to person.</p></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -141,7 +157,7 @@ func UserInputMaintain() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Header("Maintaince").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.Header("Maintenance").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -153,7 +169,15 @@ func UserInputMaintain() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"/server/user-input\" class=\"flex flex-col justify-between items-center py-56 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" name=\"height\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" min=\"0\" name=\"weight\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"maintaince\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form hx-post=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(base_url + "/server/user-input"))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"flex flex-col justify-between items-center py-56 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" name=\"height\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" min=\"0\" name=\"weight\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"maintenance\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

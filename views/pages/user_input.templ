@@ -11,7 +11,7 @@ templ UserInputFatloss() {
 				<div class="drawer-content">
 					@partials.Navbar()
 					<form
- 						hx-post="/server/user-input"
+ 						hx-post={ base_url + "/server/user-input" }
  						class="flex flex-col justify-between items-center py-40 px-12 min-h-screen"
  						data-theme=""
 					>
@@ -77,7 +77,7 @@ templ UserInputMuscle() {
 				<div class="drawer-content">
 					@partials.Navbar()
 					<form
- 						hx-post="/server/user-input"
+ 						hx-post={ base_url + "/server/user-input" }
  						class="flex flex-col justify-between items-center py-48 px-12 min-h-screen"
  						data-theme=""
 					>
@@ -129,14 +129,14 @@ templ UserInputMuscle() {
 
 templ UserInputMaintain() {
 	<html>
-		@partials.Header("Maintaince")
+		@partials.Header("Maintenance")
 		<body onload="SetTheme()">
 			<div class="drawer" data-theme="">
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
 					<form
- 						hx-post="/server/user-input"
+ 						hx-post={ base_url + "/server/user-input" }
  						class="flex flex-col justify-between items-center py-56 px-12 min-h-screen"
  						data-theme=""
 					>
@@ -163,7 +163,7 @@ templ UserInputMaintain() {
 							<option>Other</option>
 							<option>Prefer not to say</option>
 						</select>
-						<input type="hidden" name="program" value="maintaince"/>
+						<input type="hidden" name="program" value="maintenance"/>
 						<button type="submit" class="btn btn-accent btn-lg w-full max-w-xs">Submit</button>
 					</form>
 				</div>

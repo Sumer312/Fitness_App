@@ -1,10 +1,14 @@
 package pages
 
 import (
-	"time"
-
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
+	"os"
+	"time"
 )
+
+var err error = godotenv.Load()
+var base_url string = os.Getenv("BASE_URL")
 
 const (
 	program_fatLoss    = "fatloss"
@@ -16,13 +20,13 @@ const (
 )
 
 type TrackProgress struct {
-	Id        uuid.UUID
-	CreatedAt time.Time
-  WeightProgress float64
-  TimeFrameProgress float64
-  ProgramSelected bool
-  Program string
-  ProgramDisplay string
+	Id                uuid.UUID
+	CreatedAt         time.Time
+	WeightProgress    float64
+	TimeFrameProgress float64
+	ProgramSelected   bool
+	Program           string
+	ProgramDisplay    string
 }
 type DailyLogs struct {
 	Id        uuid.UUID

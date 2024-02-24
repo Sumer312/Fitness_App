@@ -28,7 +28,7 @@ templ Logs(list []DailyLogs) {
 							<tbody>
 								for i, ele := range list {
 									<tr
- 										hx-post="/server/daily-input-delete"
+ 										hx-post={ base_url + "/server/daily-input-delete" }
  										hx-confirm="Are you sure you wish to delete this row"
  										hx-trigger="click"
  										hx-include={ fmt.Sprintf("[name='%drowId'", i) }

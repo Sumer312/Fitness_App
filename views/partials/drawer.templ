@@ -11,7 +11,7 @@ templ Drawer() {
 					</svg>
 				</button>
 				<li>
-					<a href="/view/kcal-calc">
+					<a href={ templ.SafeURL(base_url + "/view/kcal-calc") }>
 						<svg
  							xmlns="http://www.w3.org/2000/svg"
  							width="16"
@@ -30,7 +30,7 @@ templ Drawer() {
 					</a>
 				</li>
 				<li>
-					<a href="/view/logs">
+					<a href={ templ.SafeURL(base_url + "/view/logs") }>
 						<svg
  							xmlns="http://www.w3.org/2000/svg"
  							width="16"
@@ -52,7 +52,7 @@ templ Drawer() {
 					</a>
 				</li>
 				<li>
-					<a href="/view/daily-input">
+					<a href={ templ.SafeURL(base_url + "/view/daily-input") }>
 						<svg
  							xmlns="http://www.w3.org/2000/svg"
  							width="16"
@@ -68,7 +68,7 @@ templ Drawer() {
 					</a>
 				</li>
 				<li>
-					<a href="/view/profile">
+					<a href={ templ.SafeURL(base_url + "/view/profile") }>
 						<svg
  							xmlns="http://www.w3.org/2000/svg"
  							width="16"
@@ -86,7 +86,7 @@ templ Drawer() {
 					</a>
 				</li>
 				<li>
-					<a hx-post="/server/logout">
+					<a href={ templ.SafeURL(base_url + "/server/logout") }>
 						<svg
  							xmlns="http://www.w3.org/2000/svg"
  							width="16"

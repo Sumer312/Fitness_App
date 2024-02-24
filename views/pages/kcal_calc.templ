@@ -18,7 +18,7 @@ templ KcalCalc() {
  						data-theme=""
 					>
 						<form
- 							hx-post="/server/nutrition-api-request"
+ 							hx-post={ base_url + "/server/nutrition-api-request" }
  							class="flex flex-col"
  							hx-swap="innerHTML"
  							hx-target="#response_text"

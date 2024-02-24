@@ -44,7 +44,7 @@ func Profile(obj TrackProgress) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"toBeSwapped\" class=\"flex flex-col mt-24 justify-between items-center min-h-screen overflow-auto\" data-theme=\"\"><div class=\"flex flex-col mt-24 mb-8 gap-24\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"toBeSwapped\"><div class=\"flex flex-col mt-24 justify-between items-center min-h-screen overflow-auto\" data-theme=\"\"><div class=\"flex flex-col mt-24 mb-8 gap-24\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -181,11 +181,19 @@ func Profile(obj TrackProgress) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Modal("#toBeSwapped", "/server/change-program").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.Modal("#toBeSwapped", base_url+"/server/change-program").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"btn btn-error btn-outline btn-lg\" hx-delete=\"/server/delete-user\" hx-confirm=\"Are you sure you want to delete your account\">Delete my account</button></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button class=\"btn btn-error btn-outline btn-lg\" hx-delete=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(base_url + "/server/delete-user"))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-confirm=\"Are you sure you want to delete your account\">Delete my account</button></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -193,7 +201,7 @@ func Profile(obj TrackProgress) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

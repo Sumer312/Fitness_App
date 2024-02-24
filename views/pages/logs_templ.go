@@ -49,7 +49,15 @@ func Logs(list []DailyLogs) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		for i, ele := range list {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr hx-post=\"/server/daily-input-delete\" hx-confirm=\"Are you sure you wish to delete this row\" hx-trigger=\"click\" hx-include=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<tr hx-post=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(base_url + "/server/daily-input-delete"))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-confirm=\"Are you sure you wish to delete this row\" hx-trigger=\"click\" hx-include=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
