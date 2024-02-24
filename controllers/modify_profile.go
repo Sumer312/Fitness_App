@@ -44,7 +44,6 @@ func (apiCfg *Api) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-  fmt.Println("hi")
 	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
 		fmt.Println(err)

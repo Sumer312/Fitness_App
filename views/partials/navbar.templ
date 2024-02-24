@@ -3,7 +3,7 @@ package partials
 templ Navbar() {
 	<nav class="fixed z-40 navbar h-20 bg-base-300/20 backdrop-filter backdrop-blur-lg" data-theme="">
 		<div class="navbar-start">
-			if DrawerAuthFlag == false {
+			if !DrawerAuthFlag {
 				<a href="/view/login">
 					<svg
  						xmlns="http://www.w3.org/2000/svg"

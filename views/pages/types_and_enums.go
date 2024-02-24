@@ -9,7 +9,7 @@ import (
 const (
 	program_fatLoss    = "fatloss"
 	program_muscleGain = "musclegain"
-	program_maintain   = "maintaince"
+	program_maintain   = "maintenance"
 	sex_male           = "male"
 	sex_female         = "female"
 	sex_none           = "none"
@@ -22,6 +22,7 @@ type TrackProgress struct {
   TimeFrameProgress float64
   ProgramSelected bool
   Program string
+  ProgramDisplay string
 }
 type DailyLogs struct {
 	Id        uuid.UUID

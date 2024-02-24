@@ -19,6 +19,9 @@ templ Profile(obj TrackProgress) {
  						data-theme=""
 					>
 						<div class="flex flex-col mt-24 mb-8 gap-24">
+            if obj.ProgramSelected {
+              <h1 class="font-bold text-accent text-[24px] xl:text-[36px]">{ fmt.Sprintf("Program: %s", obj.ProgramDisplay) }</h1>
+            }
 							if obj.Program == program_fatLoss {
 								<div class="gap-2">
 									<progress
@@ -62,7 +65,11 @@ templ Profile(obj TrackProgress) {
               }
                 </button>
 							@partials.Modal("#toBeSwapped", "http://localhost:5000/server/change-program")
-							<button hx-delete="http://localhost:5000/server/delete-user" hx-confirm="Are you sure you want to delete your account" class="btn btn-error btn-outline btn-lg" onclick="my_modal_1.showModal()">Delete my account</button>
+							<button 
+                class="btn btn-error btn-outline btn-lg"
+                hx-delete="http://localhost:5000/server/delete-user" 
+                hx-confirm="Are you sure you want to delete your account" 
+              >Delete my account</button>
 						</div>
 					</div>
 					@partials.Footer()

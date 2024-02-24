@@ -29,7 +29,7 @@ func main() {
 		dbConnString,
 	)
 	if connerr != nil {
-		log.Fatalln("error conncting", connerr)
+		log.Fatalln("error connecting", connerr)
 	}
 	db := database.New(conn)
 	apiCfg := controllers.Api{DB: db}

@@ -42,7 +42,7 @@ func refresh(w http.ResponseWriter, refreshToken string) error {
 		cookie := http.Cookie{Name: "access-token", Value: newAccessToken, Path: "/", HttpOnly: true, Secure: false, SameSite: http.SameSiteLaxMode}
 		http.SetCookie(w, &cookie)
 	} else {
-		fmt.Println("login again")
+		fmt.Println("refresh token not valid")
 		return errors.New("token not valid")
 	}
 	return nil
