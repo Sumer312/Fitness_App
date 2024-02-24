@@ -6,8 +6,8 @@ build:
 	@templ generate 
 	@go build
 migrateUp:
-	@cd ./sql/schemas && @goose $(DB_TYPE) $(DB_URL) up
-	@cd ../.. && @sqlc generate
+	@cd ./sql/schemas && goose $(DB_TYPE) $(DB_URL) up
 migrateDown:
-	@cd ./sql/schemas && @goose $(DB_TYPE) $(DB_URL) down
-	@cd ../..
+	@cd ./sql/schemas && goose $(DB_TYPE) $(DB_URL) down
+queries:
+	@sqlc generate
