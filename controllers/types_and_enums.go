@@ -2,6 +2,8 @@ package controllers
 
 import "github.com/sumer312/Health-App-Backend/internal/database"
 
+var theme string
+
 type Api struct {
 	DB *database.Queries
 }

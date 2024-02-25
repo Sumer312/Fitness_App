@@ -1,0 +1,10 @@
+package pages
+
+import "github.com/sumer312/Health-App-Backend/views/partials"
+
+templ wrapper(header string) {
+	<html data-theme="retro">
+		@partials.Header(header)
+		{ children... }
+	</html>
+}

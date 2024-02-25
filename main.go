@@ -43,14 +43,14 @@ func main() {
 
 	viewRouter.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
-			pages.Error("Already Logged In").Render(r.Context(), w)
+			pages.Random("Already Logged In").Render(r.Context(), w)
 		} else {
 			pages.Login().Render(r.Context(), w)
 		}
 	})
 	viewRouter.HandleFunc("/signup", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
-			pages.Error("Already Logged In").Render(r.Context(), w)
+			pages.Random("Already Logged In").Render(r.Context(), w)
 		} else {
 			pages.Signup().Render(r.Context(), w)
 		}
@@ -88,11 +88,11 @@ func main() {
 			pages.Programs().Render(r.Context(), w)
 		}
 	})
-	viewRouter.Handle("/*", templ.Handler(pages.Error("404 not found")))
+	viewRouter.Handle("/*", templ.Handler(pages.Random("404 not found")))
 	router.Mount("/view", viewRouter)
 	router.Mount("/server", serverRouter)
 
-	router.Handle("/*", templ.Handler(pages.Error("404 not found")))
+	router.Handle("/*", templ.Handler(pages.Random("404 not found")))
 
 	srv := &http.Server{
 		Handler: router,

@@ -1,7 +1,7 @@
 package partials
 
 templ Footer() {
-	<footer class="footer -mt-2 p-10 bg-base-300 text-accent-content" data-theme="">
+	<footer class="footer -mt-2 p-10 bg-base-300 text-accent-content">
 		<div>
 			<img src="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png" width="70" height="50"/>
 			<p class="font-extrabold text-[18px]">
@@ -56,6 +56,17 @@ templ Footer() {
 	</footer>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 	<script>
+
+  const elements = document.getElementsByTagName("html")
+  let theme = window.localStorage.getItem("theme")
+  if (theme == null) {
+    window.localStorage.setItem("theme", "retro")
+  }
+  theme = window.localStorage.getItem("theme")
+  for(let i = 0; i < elements.length; i++){
+    elements[i].setAttribute("data-theme", theme)
+  }
+
   document.body.addEventListener("warnToast", function (event) {
     Warning(event.detail.value)
   })
@@ -75,30 +86,30 @@ templ Footer() {
   document.getElementById("calories_calc_form").addEventListener("htmx:afterSwap", function (event) {
     let response = JSON.parse(event.detail.target.innerText)
     event.detail.target.innerHTML = `
-    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-    <form target="dummyframe" id="kcalForm" action="/server/daily-input" method="post">
+      <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+      <form target="dummyframe" id="kcalForm" action="/server/daily-input" method="post">
       <p>Calories:</p> <p class="text-accent">${response.calories}</p>
       <input name="calories" type="hidden" value=${response.calories} />
-    <br>
+      <br>
       <p>CarboHydrates:</p> <p class="text-accent">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
       <input name="carbohydrates" type="hidden" value=${response.totalNutrients.CHOCDF.quantity} />
-    <br>
+      <br>
       <p>Protein:</p> <p class="text-accent">${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</p>
       <input name="protein" type="hidden" value=${response.totalNutrients.PROCNT.quantity} />
-    <br>
+      <br>
       <p>Fats:</p> <p class="text-accent">${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</p>
       <input name="fat" type="hidden" value=${response.totalNutrients.FAT.quantity} />
-    <br>
+      <br>
       <p>Fiber:</p> <p class="text-accent">${response.totalNutrients.FIBTG.quantity} ${response.totalNutrients.FIBTG.unit}</p>
       <input name="fiber" type="hidden" value=${response.totalNutrients.FIBTG.quantity} />
-    <br>
+      <br>
       <p>Sugar:</p> <p class="text-accent">${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</p>
-    <br>
+      <br>
       <p>Saturated Fats:</p> <p class="text-accent">${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</p>
-    <br>
+      <br>
       <button class="btn btn-lg btn-primary btn-outline" type="button" onclick="submit_form('kcalForm')">Enter into logs</button>
-    </form>
-    `
+      </form>
+      `
   })
 
   function submit_form(id) {
@@ -127,17 +138,6 @@ templ Footer() {
     document.getElementById("my-drawer").checked = false
   }
 
-  function SetTheme() {
-    const elements = document.querySelectorAll("[data-theme]")
-    elements.forEach(element => {
-      let theme = window.localStorage.getItem("theme")
-      if (theme === null) {
-        theme = "retro"
-      }
-      element.setAttribute("data-theme", theme)
-    })
-  }
-
   function ChangeTheme() {
     if (window.localStorage.getItem("theme") == "retro") {
       current_theme = "coffee"
@@ -145,10 +145,10 @@ templ Footer() {
       current_theme = "retro"
     }
     window.localStorage.setItem("theme", current_theme)
-    const elements = document.querySelectorAll("[data-theme]")
-    elements.forEach(element => {
+    const list = document.querySelectorAll("[data-theme]")
+    list.forEach(l => {
       const theme = window.localStorage.getItem("theme") || "luxury"
-      element.setAttribute("data-theme", theme)
+      l.setAttribute("data-theme", theme)
     })
   }
 

@@ -3,10 +3,13 @@ package pages
 import "github.com/sumer312/Health-App-Backend/views/partials"
 import "fmt"
 
-templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent float64, fatPercent float64, fiberPercent float64) {
-<html data-theme="retro">
-@partials.Header("Daily Input")
+templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent float64, fatPercent float64, fiberPercent float64){
+@wrapper("Daily-Input"){
+    @dailyInput(caloriePercent, carbsPercent, proteinPercent, fatPercent, fiberPercent)
+  }
+}
 
+templ dailyInput(caloriePercent float64, carbsPercent float64, proteinPercent float64, fatPercent float64, fiberPercent float64) {
 <body>
   <div class="drawer">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
@@ -44,7 +47,7 @@ templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent fl
           </p>
         </div>
         <div class="gap-2">
-          <progress class="progress progress-info w-72" value={ fmt.Sprintf("%.2f", fatPercent) } max="100"></progress>
+          <progress class="progress progress-neutral w-72" value={ fmt.Sprintf("%.2f", fatPercent) } max="100"></progress>
           <p>
             Fat
             if fatPercent > 100 {
@@ -83,6 +86,4 @@ templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent fl
   </div>
   @partials.Footer()
 </body>
-
-</html>
 }
