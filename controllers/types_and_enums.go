@@ -9,7 +9,7 @@ type Api struct {
 type nutritionParams struct {
 	calories float64
 	carbs    float64
-	protien  float64
+	protein  float64
 	fat      float64
 	fiber    float64
 }

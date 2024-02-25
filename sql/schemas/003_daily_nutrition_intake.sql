@@ -7,7 +7,7 @@ CREATE TABLE daily_nutrition_intake(
   program VARCHAR(16) NOT NULL,
   calories FLOAT NOT NULL,
   carbohydrates FLOAT NOT NULL,
-  protien FLOAT NOT NULL,
+  protein FLOAT NOT NULL,
   fat FLOAT NOT NULL,
   fiber FLOAT NOT NULL
 );

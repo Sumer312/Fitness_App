@@ -20,7 +20,7 @@ templ Logs(list []DailyLogs) {
 									<th>Time</th>
 									<th>Kcal</th>
 									<th>Carbs</th>
-									<th>Protien</th>
+									<th>protein</th>
 									<th>Fiber</th>
 									<th>Fat</th>
 								</tr>
@@ -38,7 +38,7 @@ templ Logs(list []DailyLogs) {
 										<td>{ fmt.Sprintf("%d:%02d", ele.CreatedAt.Local().Hour(), ele.CreatedAt.Local().Minute()) } </td>
 										<td>{ fmt.Sprintf("%.0f", ele.Calories) }</td>
 										<td>{ fmt.Sprintf("%.0f", ele.Carbs) }</td>
-										<td>{ fmt.Sprintf("%.0f", ele.Protien) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Protein) }</td>
 										<td>{ fmt.Sprintf("%.0f", ele.Fiber) }</td>
 										<td>{ fmt.Sprintf("%.0f", ele.Fat) }</td>
 										<input name={ fmt.Sprintf("%drowId", i) } type="hidden" value={ ele.Id.String() }/>

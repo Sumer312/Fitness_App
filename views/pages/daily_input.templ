@@ -3,7 +3,7 @@ package pages
 import "github.com/sumer312/Health-App-Backend/views/partials"
 import "fmt"
 
-templ DailyInput(caloriePercent float64, carbsPercent float64, protienPercent float64, fatPercent float64, fiberPercent float64) {
+templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent float64, fatPercent float64, fiberPercent float64) {
 <html>
 @partials.Header("Daily Input")
 <body onload="SetTheme()">
@@ -33,12 +33,12 @@ templ DailyInput(caloriePercent float64, carbsPercent float64, protienPercent fl
           </p>
         </div>
         <div class="gap-2">
-          <progress class="progress progress-success w-72" value={ fmt.Sprintf("%.2f", protienPercent) }
+          <progress class="progress progress-success w-72" value={ fmt.Sprintf("%.2f", proteinPercent) }
             max="100"></progress>
           <p>
-            Protien
-            if protienPercent > 100 {
-          <p class="text-error"> { fmt.Sprintf("+ %.2f %%", protienPercent - 100) } </p>
+            Protein
+            if proteinPercent > 100 {
+          <p class="text-error"> { fmt.Sprintf("+ %.2f %%", proteinPercent - 100) } </p>
           }
           </p>
         </div>
@@ -68,8 +68,8 @@ templ DailyInput(caloriePercent float64, carbsPercent float64, protienPercent fl
           class="input input-bordered input-accent w-full max-w-xs" placeholder="Carbohydrates" />
         <input type="number" id="fat" name="fat" class="input input-bordered input-accent w-full max-w-xs"
           placeholder="Fat" />
-        <input type="number" id="protien" name="protien" class="input input-bordered input-accent w-full max-w-xs"
-          placeholder="Protien" />
+        <input type="number" id="protein" name="protein" class="input input-bordered input-accent w-full max-w-xs"
+          placeholder="protein" />
         <input type="number" id="fiber" name="fiber" class="input input-bordered input-accent w-full max-w-xs"
           placeholder="Fiber" />
         <button type="submit" class="btn btn-accent w-full btn-lg max-w-xs">Submit</button>

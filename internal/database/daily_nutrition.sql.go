@@ -13,9 +13,9 @@ import (
 )
 
 const createDailyNutrition = `-- name: CreateDailyNutrition :one
-INSERT INTO daily_nutrition_intake(id, created_at, user_id, program, calories, carbohydrates, protien, fat, fiber)
+INSERT INTO daily_nutrition_intake(id, created_at, user_id, program, calories, carbohydrates, protein, fat, fiber)
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-RETURNING id, created_at, user_id, program, calories, carbohydrates, protien, fat, fiber
+RETURNING id, created_at, user_id, program, calories, carbohydrates, protein, fat, fiber
 `
 
 type CreateDailyNutritionParams struct {
@@ -25,7 +25,7 @@ type CreateDailyNutritionParams struct {
 	Program       string
 	Calories      float64
 	Carbohydrates float64
-	Protien       float64
+	Protein       float64
 	Fat           float64
 	Fiber         float64
 }
@@ -38,7 +38,7 @@ func (q *Queries) CreateDailyNutrition(ctx context.Context, arg CreateDailyNutri
 		arg.Program,
 		arg.Calories,
 		arg.Carbohydrates,
-		arg.Protien,
+		arg.Protein,
 		arg.Fat,
 		arg.Fiber,
 	)
@@ -50,7 +50,7 @@ func (q *Queries) CreateDailyNutrition(ctx context.Context, arg CreateDailyNutri
 		&i.Program,
 		&i.Calories,
 		&i.Carbohydrates,
-		&i.Protien,
+		&i.Protein,
 		&i.Fat,
 		&i.Fiber,
 	)
@@ -76,7 +76,7 @@ func (q *Queries) DeleteRowFromDailyNutritionTableById(ctx context.Context, id u
 }
 
 const getDailyNutritionOfUserByUserId = `-- name: GetDailyNutritionOfUserByUserId :many
-SELECT id, created_at, user_id, program, calories, carbohydrates, protien, fat, fiber FROM daily_nutrition_intake WHERE user_id = $1
+SELECT id, created_at, user_id, program, calories, carbohydrates, protein, fat, fiber FROM daily_nutrition_intake WHERE user_id = $1
 `
 
 func (q *Queries) GetDailyNutritionOfUserByUserId(ctx context.Context, userID uuid.UUID) ([]DailyNutritionIntake, error) {
@@ -95,7 +95,7 @@ func (q *Queries) GetDailyNutritionOfUserByUserId(ctx context.Context, userID uu
 			&i.Program,
 			&i.Calories,
 			&i.Carbohydrates,
-			&i.Protien,
+			&i.Protein,
 			&i.Fat,
 			&i.Fiber,
 		); err != nil {

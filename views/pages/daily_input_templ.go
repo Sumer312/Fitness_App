@@ -13,7 +13,7 @@ import "bytes"
 import "github.com/sumer312/Health-App-Backend/views/partials"
 import "fmt"
 
-func DailyInput(caloriePercent float64, carbsPercent float64, protienPercent float64, fatPercent float64, fiberPercent float64) templ.Component {
+func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent float64, fatPercent float64, fiberPercent float64) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -108,21 +108,21 @@ func DailyInput(caloriePercent float64, carbsPercent float64, protienPercent flo
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("%.2f", protienPercent)))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("%.2f", proteinPercent)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Protien ")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" max=\"100\"></progress><p>Protein ")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if protienPercent > 100 {
+		if proteinPercent > 100 {
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<p class=\"text-error\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("+ %.2f %%", protienPercent-100))
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("+ %.2f %%", proteinPercent-100))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 40, Col: 81}
 			}
@@ -205,7 +205,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, protienPercent flo
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\" class=\"flex flex-col justify-between py-48 px-12 items-center min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Carbohydrates\"> <input type=\"number\" id=\"fat\" name=\"fat\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fat\"> <input type=\"number\" id=\"protien\" name=\"protien\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Protien\"> <input type=\"number\" id=\"fiber\" name=\"fiber\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fiber\"> <button type=\"submit\" class=\"btn btn-accent w-full btn-lg max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calories will be calculated based on your macros</p></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\" class=\"flex flex-col justify-between py-48 px-12 items-center min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Carbohydrates\"> <input type=\"number\" id=\"fat\" name=\"fat\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fat\"> <input type=\"number\" id=\"protein\" name=\"protein\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"protein\"> <input type=\"number\" id=\"fiber\" name=\"fiber\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fiber\"> <button type=\"submit\" class=\"btn btn-accent w-full btn-lg max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calories will be calculated based on your macros</p></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

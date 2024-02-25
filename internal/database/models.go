@@ -18,7 +18,7 @@ type DailyNutritionIntake struct {
 	Program       string
 	Calories      float64
 	Carbohydrates float64
-	Protien       float64
+	Protein       float64
 	Fat           float64
 	Fiber         float64
 }

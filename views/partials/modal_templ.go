@@ -23,7 +23,7 @@ func Modal(parentId string, url string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<dialog id=\"my_modal_1\" class=\"modal\"><div class=\"modal-box\"><h3 class=\"font-bold text-lg\">Do you wish to proceed ?</h3><p class=\"py-4\">All of your previous data will be earsed.</p><div class=\"modal-action\"><form method=\"dialog\"><button hx-delete=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<dialog id=\"my_modal_1\" class=\"modal\"><div class=\"modal-box\"><h3 class=\"font-bold text-lg\">Do you wish to proceed ?</h3><p class=\"py-4\">All of your previous data will be erased.</p><div class=\"modal-action\"><form method=\"dialog\"><button hx-delete=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

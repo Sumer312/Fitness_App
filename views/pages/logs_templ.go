@@ -44,7 +44,7 @@ func Logs(list []DailyLogs) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto\" data-theme=\"\"><table class=\"table mt-36 text-primary xl:text-[30px] text-[12px]\"><thead><tr class=\"xl:text-[24px] text-[12px]\"><th>Time</th><th>Kcal</th><th>Carbs</th><th>Protien</th><th>Fiber</th><th>Fat</th></tr></thead> <tbody>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto\" data-theme=\"\"><table class=\"table mt-36 text-primary xl:text-[30px] text-[12px]\"><thead><tr class=\"xl:text-[24px] text-[12px]\"><th>Time</th><th>Kcal</th><th>Carbs</th><th>protein</th><th>Fiber</th><th>Fat</th></tr></thead> <tbody>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -109,7 +109,7 @@ func Logs(list []DailyLogs) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%.0f", ele.Protien))
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%.0f", ele.Protein))
 			if templ_7745c5c3_Err != nil {
 				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/logs.templ`, Line: 40, Col: 48}
 			}

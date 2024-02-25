@@ -25,7 +25,7 @@ func (apiCfg *Api) LogsRender(w http.ResponseWriter, r *http.Request) {
 			CreatedAt: ele.CreatedAt,
 			Calories:  float32(ele.Calories),
 			Carbs:     float32(ele.Carbohydrates),
-			Protien:   float32(ele.Protien),
+			Protein:   float32(ele.Protein),
 			Fat:       float32(ele.Fat),
 			Fiber:     float32(ele.Fiber),
 		}

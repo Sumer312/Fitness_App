@@ -33,7 +33,7 @@ type DailyLogs struct {
 	CreatedAt time.Time
 	Calories  float32
 	Carbs     float32
-	Protien   float32
+	Protein   float32
 	Fat       float32
 	Fiber     float32
 }
