@@ -25,7 +25,7 @@ func Login() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -33,7 +33,7 @@ func Login() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,7 +41,7 @@ func Login() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">Login</h1><div class=\"divide-y divide-gray-200\"><div class=\"py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7\"><form hx-post=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"min-h-screen flex flex-col justify-center py-12\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">Login</h1><div class=\"divide-y divide-gray-200\"><div class=\"py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7\"><form hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -89,7 +89,7 @@ func Signup() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -97,7 +97,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -105,7 +105,7 @@ func Signup() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"min-h-screen flex flex-col justify-center py-12\" data-theme=\"\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">Signup</h1><div class=\"divide-y divide-gray-200\"><div class=\"py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7\"><form hx-post=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"min-h-screen flex flex-col justify-center py-12\"><div class=\"relative mx-auto py-3 sm:max-w-xl\"><div class=\"relative bg-primary shadow-lg rounded-xl p-20\"><div class=\"max-w-md mx-auto\"><h1 class=\"text-2xl text-primary-content font-semibold\">Signup</h1><div class=\"divide-y divide-gray-200\"><div class=\"py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7\"><form hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

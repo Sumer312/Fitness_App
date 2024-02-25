@@ -25,7 +25,7 @@ func Programs() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -33,7 +33,7 @@ func Programs() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,7 +41,7 @@ func Programs() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen overflow-x-hidden\" data-theme=\"\"><div class=\"xl:mt-36\"><div hx-boost=\"false\" class=\"grid gap-16 xl:grid-cols-3 xl:gap-8 xs:grid-col-1 sm:grid-cols-1 sm:gap-16 md:grid-cols-1 md:gap-16 lg:grid-cols-2 lg:gap-16\"><a href=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen overflow-x-hidden\"><div class=\"xl:mt-36\"><div class=\"grid gap-16 xl:grid-cols-3 xl:gap-8 xs:grid-col-1 sm:grid-cols-1 sm:gap-16 md:grid-cols-1 md:gap-16 lg:grid-cols-2 lg:gap-16\"><a href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

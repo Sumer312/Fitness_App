@@ -26,7 +26,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -34,7 +34,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -62,7 +62,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 			var templ_7745c5c3_Var2 string
 			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("+ %.2f %%", caloriePercent-100))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 20, Col: 81}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 21, Col: 81}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -93,7 +93,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("+ %.2f %%", carbsPercent-100))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 30, Col: 79}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 31, Col: 79}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -124,7 +124,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("+ %.2f %%", proteinPercent-100))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 40, Col: 81}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 41, Col: 81}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -155,7 +155,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("+ %.2f %%", fatPercent-100))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 49, Col: 77}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 50, Col: 77}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -186,7 +186,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("+ %.2f %%", fiberPercent-100))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 59, Col: 79}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/daily_input.templ`, Line: 60, Col: 79}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -205,7 +205,7 @@ func DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent flo
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\" class=\"flex flex-col justify-between py-48 px-12 items-center min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Carbohydrates\"> <input type=\"number\" id=\"fat\" name=\"fat\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fat\"> <input type=\"number\" id=\"protein\" name=\"protein\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"protein\"> <input type=\"number\" id=\"fiber\" name=\"fiber\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fiber\"> <button type=\"submit\" class=\"btn btn-accent w-full btn-lg max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calories will be calculated based on your macros</p></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-swap=\"none\" class=\"flex flex-col justify-between py-48 px-12 items-center min-h-screen\"><input type=\"number\" id=\"carbohydrates\" name=\"carbohydrates\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Carbohydrates\"> <input type=\"number\" id=\"fat\" name=\"fat\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fat\"> <input type=\"number\" id=\"protein\" name=\"protein\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Protein\"> <input type=\"number\" id=\"fiber\" name=\"fiber\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Fiber\"> <button type=\"submit\" class=\"btn btn-accent w-full btn-lg max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calories will be calculated based on your macros</p></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

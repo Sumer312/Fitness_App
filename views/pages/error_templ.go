@@ -25,7 +25,7 @@ func Error(message string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -33,7 +33,7 @@ func Error(message string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -41,7 +41,7 @@ func Error(message string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen\" data-theme=\"\"><h1 class=\"text-6xl font-mono mt-64 text-error text-bold\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen\"><h1 class=\"text-6xl font-mono mt-64 text-error text-bold\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

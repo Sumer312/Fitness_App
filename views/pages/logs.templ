@@ -6,14 +6,14 @@ import (
 )
 
 templ Logs(list []DailyLogs) {
-	<html>
+	<html data-theme="retro">
 		@partials.Header("Logs")
-		<body onload="SetTheme();Info('Tap on record to delete it')">
-			<div class="drawer" data-theme="">
+		<body onload="Info('Tap on record to delete it')">
+			<div class="drawer">
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
-					<div class="flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto" data-theme="">
+					<div class="flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto">
 						<table class="table mt-36 text-primary xl:text-[30px] text-[12px]">
 							<thead>
 								<tr class="xl:text-[24px] text-[12px]">

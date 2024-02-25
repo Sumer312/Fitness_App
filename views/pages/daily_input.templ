@@ -4,10 +4,11 @@ import "github.com/sumer312/Health-App-Backend/views/partials"
 import "fmt"
 
 templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent float64, fatPercent float64, fiberPercent float64) {
-<html>
+<html data-theme="retro">
 @partials.Header("Daily Input")
-<body onload="SetTheme()">
-  <div class="drawer" data-theme="">
+
+<body>
+  <div class="drawer">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
       @partials.Navbar()
@@ -63,7 +64,7 @@ templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent fl
         </div>
       </div>
       <form hx-post={ base_url + "/server/daily-input" } hx-swap="none"
-        class="flex flex-col justify-between py-48 px-12 items-center min-h-screen" data-theme="">
+        class="flex flex-col justify-between py-48 px-12 items-center min-h-screen">
         <input type="number" id="carbohydrates" name="carbohydrates"
           class="input input-bordered input-accent w-full max-w-xs" placeholder="Carbohydrates" />
         <input type="number" id="fat" name="fat" class="input input-bordered input-accent w-full max-w-xs"
@@ -82,5 +83,6 @@ templ DailyInput(caloriePercent float64, carbsPercent float64, proteinPercent fl
   </div>
   @partials.Footer()
 </body>
+
 </html>
 }

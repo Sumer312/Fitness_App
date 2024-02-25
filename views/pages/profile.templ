@@ -6,17 +6,16 @@ import (
 )
 
 templ Profile(obj TrackProgress) {
-	<html>
+	<html data-theme="retro">
 		@partials.Header("Profile")
 		<body onload="SetTheme(); Info('Updated every 24 hours')">
-			<div class="drawer" data-theme="">
+			<div class="drawer">
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
           <div id="toBeSwapped">
 					<div
  						class="flex flex-col mt-24 justify-between items-center min-h-screen overflow-auto"
- 						data-theme=""
 					>
 						<div class="flex flex-col mt-24 mb-8 gap-24">
             if obj.ProgramSelected {

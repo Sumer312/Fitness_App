@@ -5,17 +5,16 @@ import (
 )
 
 templ KcalCalc() {
-	<html>
+	<html data-theme="retro">
 		@partials.Header("Calories-Calc")
 		<body onload="SetTheme()">
-			<div class="drawer" data-theme="">
+			<div class="drawer">
 				@partials.Navbar()
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					<div
  						id="calories_calc_form"
  						class="flex flex-col bg-base-100 justify-between items-center p-24 min-h-screen"
- 						data-theme=""
 					>
 						<form
  							hx-post={ base_url + "/server/nutrition-api-request" }

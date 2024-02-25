@@ -28,7 +28,7 @@ func Logs(list []DailyLogs) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -36,7 +36,7 @@ func Logs(list []DailyLogs) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme();Info(&#39;Tap on record to delete it&#39;)\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"Info(&#39;Tap on record to delete it&#39;)\"><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -44,7 +44,7 @@ func Logs(list []DailyLogs) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto\" data-theme=\"\"><table class=\"table mt-36 text-primary xl:text-[30px] text-[12px]\"><thead><tr class=\"xl:text-[24px] text-[12px]\"><th>Time</th><th>Kcal</th><th>Carbs</th><th>protein</th><th>Fiber</th><th>Fat</th></tr></thead> <tbody>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto\"><table class=\"table mt-36 text-primary xl:text-[30px] text-[12px]\"><thead><tr class=\"xl:text-[24px] text-[12px]\"><th>Time</th><th>Kcal</th><th>Carbs</th><th>Protein</th><th>Fiber</th><th>Fat</th></tr></thead> <tbody>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

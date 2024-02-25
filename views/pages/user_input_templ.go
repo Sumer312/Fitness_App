@@ -25,7 +25,7 @@ func UserInputFatloss() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -33,7 +33,7 @@ func UserInputFatloss() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -49,7 +49,7 @@ func UserInputFatloss() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"flex flex-col justify-between items-center py-40 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" name=\"height\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"desired_weight\" name=\"desired_weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Desired Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"fatloss\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calorie Deficit will be calculated based on weight and desired weight.</p></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"flex flex-col justify-between items-center py-40 px-12 min-h-screen\"><input type=\"number\" id=\"height\" name=\"height\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"desired_weight\" name=\"desired_weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Desired Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"fatloss\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Calorie Deficit will be calculated based on weight and desired weight.</p></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -89,7 +89,7 @@ func UserInputMuscle() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -97,7 +97,7 @@ func UserInputMuscle() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -113,7 +113,7 @@ func UserInputMuscle() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"flex flex-col justify-between items-center py-48 px-12 min-h-screen\" data-theme=\"\"><input type=\"number\" id=\"height\" min=\"0\" name=\"height\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"musclegain\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Amount of muscle gained in a time frame varies from person to person.</p></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"flex flex-col justify-between items-center py-48 px-12 min-h-screen\"><input type=\"number\" id=\"height\" min=\"0\" name=\"height\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Height (in cm)\"> <input type=\"number\" id=\"weight\" name=\"weight\" min=\"0\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Weight (in kg)\"> <input type=\"number\" id=\"time_frame\" min=\"0\" name=\"time_frame\" class=\"input input-bordered input-accent w-full max-w-xs\" placeholder=\"Time Frame (in weeks)\"> <select id=\"sex\" name=\"sex\" class=\"select select-accent w-full max-w-xs\"><option disabled selected>Sex</option> <option>Male</option> <option>Female</option> <option>Other</option> <option>Prefer not to say</option></select> <input type=\"hidden\" name=\"program\" value=\"musclegain\"> <button type=\"submit\" class=\"btn btn-accent btn-lg w-full max-w-xs\">Submit</button><p class=\"text-netural text-sm font-mono -mb-12\">*Amount of muscle gained in a time frame varies from person to person.</p></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -153,7 +153,7 @@ func UserInputMaintain() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -161,7 +161,7 @@ func UserInputMaintain() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body onload=\"SetTheme()\"><div class=\"drawer\" data-theme=\"\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<body><div class=\"drawer\"><input id=\"my-drawer\" type=\"checkbox\" class=\"drawer-toggle\"><div class=\"drawer-content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

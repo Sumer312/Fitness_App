@@ -3,17 +3,16 @@ package pages
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
 templ UserInputFatloss() {
-	<html>
+	<html data-theme="retro">
 		@partials.Header("Fat Loss")
-		<body onload="SetTheme()">
-			<div class="drawer" data-theme="">
+		<body>
+			<div class="drawer">
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
 					<form
  						hx-post={ base_url + "/server/user-input" }
  						class="flex flex-col justify-between items-center py-40 px-12 min-h-screen"
- 						data-theme=""
 					>
 						<input
  							type="number"
@@ -69,17 +68,16 @@ templ UserInputFatloss() {
 }
 
 templ UserInputMuscle() {
-	<html>
+	<html data-theme="retro">
 		@partials.Header("Muscle Gain")
-		<body onload="SetTheme()">
-			<div class="drawer" data-theme="">
+		<body>
+			<div class="drawer">
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
 					<form
  						hx-post={ base_url + "/server/user-input" }
  						class="flex flex-col justify-between items-center py-48 px-12 min-h-screen"
- 						data-theme=""
 					>
 						<input
  							type="number"
@@ -128,10 +126,10 @@ templ UserInputMuscle() {
 }
 
 templ UserInputMaintain() {
-	<html>
+	<html data-theme="retro">
 		@partials.Header("Maintenance")
-		<body onload="SetTheme()">
-			<div class="drawer" data-theme="">
+		<body>
+			<div class="drawer">
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
