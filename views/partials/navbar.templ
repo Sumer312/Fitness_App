@@ -1,7 +1,7 @@
 package partials
 
 templ Navbar() {
-	<nav class="fixed z-40 navbar h-20 bg-base-300/20 backdrop-filter backdrop-blur-lg" data-theme="">
+	<nav class="fixed z-40 navbar h-20 bg-base-300/20 backdrop-filter backdrop-blur-lg" data-theme="retro">
 		<div class="navbar-start">
 			if !DrawerAuthFlag {
 				<a href={ templ.SafeURL(base_url + "/view/login") }>
@@ -43,7 +43,7 @@ templ Navbar() {
 		</div>
 		<div class="navbar-center">
 			<div class="flex-1">
-				<a class="btn btn-ghost normal-case text-[24px] text-accent-content font-sans font-bold" href="/">
+				<a class="btn btn-ghost no-animation normal-case text-[24px] text-accent-content font-sans font-bold" href="/">
 					<img src="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png" width="30" height="10"/>
 					Fitness App
 				</a>
