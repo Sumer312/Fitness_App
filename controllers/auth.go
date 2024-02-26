@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -34,7 +35,7 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	godotenv.Load()
 	base_url := os.Getenv("BASE_URL")
 	r.ParseForm()
-	email := r.FormValue("email")
+	email := strings.ToLower(r.FormValue("email"))
 	password := r.FormValue("password")
 
 	if len(email) == 0 || len(password) == 0 {
