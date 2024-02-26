@@ -1,4 +1,3 @@
-include .env
 run:
 	@./Fitness
 install:
