@@ -80,7 +80,7 @@ templ Footer() {
       <p>Calories:</p> <p class="text-accent">${response.calories}</p>
       <input name="calories" type="hidden" value=${response.calories} />
       <br>
-      <p>CarboHydrates:</p> <p class="text-accent">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
+      <p>Carbohydrates:</p> <p class="text-accent">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
       <input name="carbohydrates" type="hidden" value=${response.totalNutrients.CHOCDF.quantity} />
       <br>
       <p>Protein:</p> <p class="text-accent">${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</p>
@@ -128,16 +128,10 @@ templ Footer() {
   }
 
   function ChangeTheme() {
-    if (window.localStorage.getItem("theme") == "retro") {
-      current_theme = "coffee"
-    } else {
-      current_theme = "retro"
-    }
+    current_theme = window.localStorage.getItem("theme") == "cupcake"  ? "coffee" : "cupcake"
     window.localStorage.setItem("theme", current_theme)
-    const list = document.querySelectorAll("[data-theme]")
-    list.forEach(l => {
-      const theme = window.localStorage.getItem("theme") || "luxury"
-      l.setAttribute("data-theme", theme)
+    document.querySelectorAll("[data-theme]").forEach(l => {
+      l.setAttribute("data-theme", window.localStorage.getItem("theme"))
     })
   }
 

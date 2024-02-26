@@ -23,7 +23,7 @@ func wrapper(header string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html id=\"ParentHTMLTag\" data-theme=\"retro\"><head><title>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html id=\"ParentHTMLTag\" data-theme=\"cupcake\"><head><title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -36,7 +36,7 @@ func wrapper(header string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title><link href=\"https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css\" rel=\"stylesheet\" type=\"text/css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css\"><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script>\n        let theme = window.localStorage.getItem(\"theme\")\n        if (theme == null) {\n          window.localStorage.setItem(\"theme\", \"retro\")\n        }\n        theme = window.localStorage.getItem(\"theme\")\n        const element = document.getElementById(\"ParentHTMLTag\")\n        element.setAttribute(\"data-theme\", theme)\n      </script><script src=\"https://unpkg.com/htmx.org@1.9.9\"></script><script src=\"https://unpkg.com/htmx.org/dist/ext/json-enc.js\"></script><script src=\"https://cdn.tailwindcss.com\"></script></head>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title><link href=\"https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css\" rel=\"stylesheet\" type=\"text/css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css\"><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script>\n        let theme = window.localStorage.getItem(\"theme\")\n        if (theme == null) {\n          window.localStorage.setItem(\"theme\", \"cupcake\")\n          theme = window.localStorage.getItem(\"theme\")\n        }\n         document.getElementById(\"ParentHTMLTag\").setAttribute(\"data-theme\", theme)\n      </script><script src=\"https://unpkg.com/htmx.org@1.9.9\"></script><script src=\"https://unpkg.com/htmx.org/dist/ext/json-enc.js\"></script><script src=\"https://cdn.tailwindcss.com\"></script></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
