@@ -1,7 +1,7 @@
 package pages
 
 templ wrapper(header string) {
-	<html id="ParentHTMLTag" data-theme="cupcake">
+	<html id="ParentHTMLTag" data-theme="retro">
 		<head>
 			<title>{ header }</title>
 			<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css"/>
@@ -11,7 +11,7 @@ templ wrapper(header string) {
 			<script>
         let theme = window.localStorage.getItem("theme")
         if (theme == null) {
-          window.localStorage.setItem("theme", "cupcake")
+          window.localStorage.setItem("theme", "retro")
           theme = window.localStorage.getItem("theme")
         }
          document.getElementById("ParentHTMLTag").setAttribute("data-theme", theme)
