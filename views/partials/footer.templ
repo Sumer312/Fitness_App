@@ -128,7 +128,7 @@ templ Footer() {
   }
 
   function ChangeTheme() {
-    current_theme = window.localStorage.getItem("theme") == "retro"  ? "coffee" : "retro"
+    current_theme = window.localStorage.getItem("theme") == "fantasy"  ? "coffee" : "fantasy"
     window.localStorage.setItem("theme", current_theme)
     document.querySelectorAll("[data-theme]").forEach(l => {
       l.setAttribute("data-theme", window.localStorage.getItem("theme"))
