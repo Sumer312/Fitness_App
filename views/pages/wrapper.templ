@@ -1,19 +1,26 @@
 package pages
 
-import "github.com/sumer312/Health-App-Backend/views/partials"
-
 templ wrapper(header string) {
 	<html id="ParentHTMLTag" data-theme="retro">
-    <script>
-      let theme = window.localStorage.getItem("theme")
-      if(theme == null){
-        window.localStorage.setItem("theme", "retro")
-      }
-      theme = window.localStorage.getItem("theme")
-      const element = document.getElementById("ParentHTMLTag")
-      element.setAttribute("data-theme", theme)
-    </script>
-      @partials.Header(header)
-      { children... }
+		<head>
+			<title>{ header }</title>
+			<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css"/>
+			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"/>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<script>
+        let theme = window.localStorage.getItem("theme")
+        if (theme == null) {
+          window.localStorage.setItem("theme", "retro")
+        }
+        theme = window.localStorage.getItem("theme")
+        const element = document.getElementById("ParentHTMLTag")
+        element.setAttribute("data-theme", theme)
+      </script>
+			<script src="https://unpkg.com/htmx.org@1.9.9"></script>
+			<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+			<script src="https://cdn.tailwindcss.com"></script>
+		</head>
+		{ children... }
 	</html>
 }

@@ -55,6 +55,27 @@ func main() {
 			pages.Signup().Render(r.Context(), w)
 		}
 	})
+	viewRouter.HandleFunc("/user-input/fatloss", func(w http.ResponseWriter, r *http.Request) {
+		if partials.DrawerAuthFlag {
+			pages.UserInputFatloss().Render(r.Context(), w)
+		} else {
+			pages.Login().Render(r.Context(), w)
+		}
+	})
+	viewRouter.HandleFunc("/user-input/muscle", func(w http.ResponseWriter, r *http.Request) {
+		if partials.DrawerAuthFlag {
+			pages.UserInputMuscle().Render(r.Context(), w)
+		} else {
+			pages.Login().Render(r.Context(), w)
+		}
+	})
+	viewRouter.HandleFunc("/user-input/maintain", func(w http.ResponseWriter, r *http.Request) {
+		if partials.DrawerAuthFlag {
+			pages.UserInputMaintain().Render(r.Context(), w)
+		} else {
+			pages.Login().Render(r.Context(), w)
+		}
+	})
 	viewRouter.HandleFunc("/logs", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		apiCfg.LogsRender(w, r)
 	}))
@@ -67,9 +88,6 @@ func main() {
 	viewRouter.HandleFunc("/kcal-calc", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
 		pages.KcalCalc().Render(r.Context(), w)
 	}))
-	viewRouter.Handle("/user-input/fatloss", templ.Handler(pages.UserInputFatloss()))
-	viewRouter.Handle("/user-input/muscle", templ.Handler(pages.UserInputMuscle()))
-	viewRouter.Handle("/user-input/maintain", templ.Handler(pages.UserInputMaintain()))
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
@@ -83,7 +101,7 @@ func main() {
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
-			apiCfg.LogsRender(w, r)
+      apiCfg.HomeRender(w, r)
 		} else {
 			pages.Programs().Render(r.Context(), w)
 		}
@@ -98,7 +116,7 @@ func main() {
 		Handler: router,
 		Addr:    ":" + port,
 	}
-	fmt.Printf("using chi \nServer starting on port %s\n", port)
+	fmt.Printf("Using chi \nServer starting on port %s\n", port)
 	err := srv.ListenAndServe()
 	if err != nil {
 		log.Fatalln("OOPs something went wrong")

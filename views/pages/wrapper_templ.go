@@ -10,8 +10,6 @@ import "context"
 import "io"
 import "bytes"
 
-import "github.com/sumer312/Health-App-Backend/views/partials"
-
 func wrapper(header string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
@@ -25,11 +23,20 @@ func wrapper(header string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html id=\"ParentHTMLTag\" data-theme=\"retro\"><script>\n      let theme = window.localStorage.getItem(\"theme\")\n      if(theme == null){\n        window.localStorage.setItem(\"theme\", \"retro\")\n      }\n      theme = window.localStorage.getItem(\"theme\")\n      const element = document.getElementById(\"ParentHTMLTag\")\n      element.setAttribute(\"data-theme\", theme)\n    </script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html id=\"ParentHTMLTag\" data-theme=\"retro\"><head><title>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Header(header).Render(ctx, templ_7745c5c3_Buffer)
+		var templ_7745c5c3_Var2 string
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(header)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/wrapper.templ`, Line: 5, Col: 18}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</title><link href=\"https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css\" rel=\"stylesheet\" type=\"text/css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css\"><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script>\n        let theme = window.localStorage.getItem(\"theme\")\n        if (theme == null) {\n          window.localStorage.setItem(\"theme\", \"retro\")\n        }\n        theme = window.localStorage.getItem(\"theme\")\n        const element = document.getElementById(\"ParentHTMLTag\")\n        element.setAttribute(\"data-theme\", theme)\n      </script><script src=\"https://unpkg.com/htmx.org@1.9.9\"></script><script src=\"https://unpkg.com/htmx.org/dist/ext/json-enc.js\"></script><script src=\"https://cdn.tailwindcss.com\"></script></head>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
