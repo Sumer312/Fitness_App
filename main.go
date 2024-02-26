@@ -101,6 +101,6 @@ func main() {
 	fmt.Printf("using chi \nServer starting on port %s\n", port)
 	err := srv.ListenAndServe()
 	if err != nil {
-		log.Fatal("OOPs something went wrong")
+		log.Fatalln("OOPs something went wrong")
 	}
 }

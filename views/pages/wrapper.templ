@@ -3,8 +3,17 @@ package pages
 import "github.com/sumer312/Health-App-Backend/views/partials"
 
 templ wrapper(header string) {
-	<html data-theme="retro">
-		@partials.Header(header)
-		{ children... }
+	<html id="ParentHTMLTag" data-theme="retro">
+    <script>
+      let theme = window.localStorage.getItem("theme")
+      if(theme == null){
+        window.localStorage.setItem("theme", "retro")
+      }
+      theme = window.localStorage.getItem("theme")
+      const element = document.getElementById("ParentHTMLTag")
+      element.setAttribute("data-theme", theme)
+    </script>
+      @partials.Header(header)
+      { children... }
 	</html>
 }

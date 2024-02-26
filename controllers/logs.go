@@ -11,11 +11,17 @@ import (
 func (apiCfg *Api) LogsRender(w http.ResponseWriter, r *http.Request) {
 	cookieVal, err := r.Cookie("user-id")
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Not logged in" }`)
+		w.WriteHeader(400)
+		return
 	}
 	userId, err := uuid.Parse(cookieVal.Value)
 	if err != nil {
 		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Not logged in" }`)
+		w.WriteHeader(400)
+		return
 	}
 	user_daily, err := apiCfg.DB.GetDailyNutritionOfUserByUserId(r.Context(), userId)
 	list := make([]pages.DailyLogs, 0)

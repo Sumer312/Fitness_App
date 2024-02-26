@@ -24,7 +24,7 @@ func CreateJWT(expiresIn time.Duration, subject string) (string, error) {
 	claim["sub"] = subject
 	tokenStr, err := token.SignedString(SECRET)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 		return "", err
 	}
 	return tokenStr, nil
@@ -64,11 +64,11 @@ func (apiCfg *Api) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	accessToken, err := CreateJWT(time.Minute*5, user.Name)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 	refreshToken, err := CreateJWT(time.Hour*840, user.Name)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 	}
 	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
 	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
@@ -113,7 +113,10 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
-		log.Fatal("error storing password")
+		log.Println("error storing password")
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Error storing password" }`)
+		w.WriteHeader(500)
+		return
 	}
 	user, err := apiCfg.DB.CreateUser(r.Context(), database.CreateUserParams{
 		ID:        uuid.New(),
@@ -131,11 +134,17 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	accessToken, err := CreateJWT(time.Minute*5, user.Name)
 	if err != nil {
-		log.Fatalln("access token signup error ", err)
+		log.Println("access token signup error ", err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Server error" }`)
+		w.WriteHeader(500)
+		return
 	}
 	refreshToken, err := CreateJWT(time.Hour*840, user.Name)
 	if err != nil {
-		log.Fatalln("refresh token signup err ", err)
+		log.Println("refresh token signup err ", err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Server error" }`)
+		w.WriteHeader(500)
+		return
 	}
 	access_cookie := http.Cookie{Name: access_token_cookie_name, Path: "/", Value: accessToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}
 	refresh_cookie := http.Cookie{Name: refresh_token_cookie_name, Path: "/", Value: refreshToken, HttpOnly: true, Secure: true, SameSite: http.SameSiteLaxMode}

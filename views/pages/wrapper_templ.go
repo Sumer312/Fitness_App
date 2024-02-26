@@ -25,7 +25,7 @@ func wrapper(header string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html data-theme=\"retro\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<html id=\"ParentHTMLTag\" data-theme=\"retro\"><script>\n      let theme = window.localStorage.getItem(\"theme\")\n      if(theme == null){\n        window.localStorage.setItem(\"theme\", \"retro\")\n      }\n      theme = window.localStorage.getItem(\"theme\")\n      const element = document.getElementById(\"ParentHTMLTag\")\n      element.setAttribute(\"data-theme\", theme)\n    </script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

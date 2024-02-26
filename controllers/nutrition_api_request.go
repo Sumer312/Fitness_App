@@ -32,31 +32,49 @@ func (apiCfg *Api) ApiRequest(w http.ResponseWriter, r *http.Request) {
 	}
 	json_obj, err := json.Marshal(obj)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not marshal json" }`)
+		w.WriteHeader(500)
+		return
 	}
 	client := &http.Client{}
 	request, err := http.NewRequest("POST", url, bytes.NewReader(json_obj))
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Server unable to send request" }`)
+		w.WriteHeader(500)
+		return
 	}
 	request.Header.Set("Content-Type", "application/json; charset=utf-8")
 	response, err := client.Do(request)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "Server error" }`)
+		w.WriteHeader(500)
+		return
 	}
 	if response.StatusCode == http.StatusOK {
 		var response_variable edamam_response
 		body, err := io.ReadAll(response.Body)
 		if err != nil {
-			log.Fatalln(err)
+			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not read response" }`)
+			w.WriteHeader(500)
+			return
 		}
 		err = json.Unmarshal(body, &response_variable)
 		if err != nil {
-			log.Fatalln(err)
+			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not unmarshal json" }`)
+			w.WriteHeader(500)
+			return
 		}
 		htmx_response, err := json.Marshal(response_variable)
 		if err != nil {
-			log.Fatalln(err)
+			log.Println(err)
+			w.Header().Add("HX-Trigger", `{ "errorToast" : "Could not marshal json" }`)
+			w.WriteHeader(500)
+			return
 		}
 		w.WriteHeader(200)
 		w.Write(htmx_response)
