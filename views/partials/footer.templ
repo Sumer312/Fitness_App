@@ -127,14 +127,6 @@ templ Footer() {
     document.getElementById("my-drawer").checked = false
   }
 
-  function ChangeTheme() {
-    current_theme = window.localStorage.getItem("theme") == "fantasy"  ? "coffee" : "fantasy"
-    window.localStorage.setItem("theme", current_theme)
-    document.querySelectorAll("[data-theme]").forEach(l => {
-      l.setAttribute("data-theme", window.localStorage.getItem("theme"))
-    })
-  }
-
   function Warning(message) {
     Toastify({
       text: message,

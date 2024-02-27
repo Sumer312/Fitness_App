@@ -5,55 +5,74 @@ import (
 	"fmt"
 )
 
-templ Logs(list[]DailyLogs) {
+templ Logs(list[]DailyLogs, isEmpty bool) {
 	@wrapper("Logs") {
-		@logs(list)
+		@logs(list, isEmpty)
 	}
 }
 
-templ logs(list []DailyLogs) {
-	<body onload="Info('Tap on record to delete it')">
-		<div class="drawer">
-			<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
-			<div class="drawer-content">
-				@partials.Navbar()
-				<div class="flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto">
-					<table class="table mt-36 text-base-content xl:text-[30px] text-[12px]">
-						<thead>
-							<tr class="xl:text-[24px] text-[12px] text-info">
-								<th>Time</th>
-								<th>Kcal</th>
-								<th>Carbs</th>
-								<th>Protein</th>
-								<th>Fiber</th>
-								<th>Fat</th>
-							</tr>
-						</thead>
-						<tbody>
-							for i, ele := range list {
-								<tr
- 									hx-post={ base_url + "/server/daily-input-delete" }
- 									hx-confirm="Are you sure you wish to delete this row"
- 									hx-trigger="click"
- 									hx-include={ fmt.Sprintf("[name='%drowId'", i) }
- 									hx-swap=" innerHTML"
- 									class="font-mono hover:text-error hover:font-semibold cursor-pointer"
-								>
-									<td>{ fmt.Sprintf("%d:%02d", ele.CreatedAt.Local().Hour(), ele.CreatedAt.Local().Minute()) } </td>
-									<td>{ fmt.Sprintf("%.0f", ele.Calories) }</td>
-									<td>{ fmt.Sprintf("%.0f", ele.Carbs) }</td>
-									<td>{ fmt.Sprintf("%.0f", ele.Protein) }</td>
-									<td>{ fmt.Sprintf("%.0f", ele.Fiber) }</td>
-									<td>{ fmt.Sprintf("%.0f", ele.Fat) }</td>
-									<input name={ fmt.Sprintf("%drowId", i) } type="hidden" value={ ele.Id.String() }/>
-								</tr>
-							}
-						</tbody>
-					</table>
+templ logs(list []DailyLogs, isEmpty bool) {
+	if isEmpty {
+		<body>
+			<div class="drawer">
+				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
+				<div class="drawer-content">
+					@partials.Navbar()
+					<div class="flex justify-center items-center min-h-screen max-w-screen overflow-auto">
+						<h1 class="font-bold text-accent-content text-[24px] xl:text-[36px]">
+							Logs are empty, enter macros from Daily Input or
+							Calorie Calculator
+						</h1>
+					</div>
+					@partials.Footer()
 				</div>
-				@partials.Footer()
+				@partials.Drawer()
 			</div>
-			@partials.Drawer()
-		</div>
-	</body>
+		</body>
+	} else {
+		<body onload="Info('Tap on record to delete it')">
+			<div class="drawer">
+				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
+				<div class="drawer-content">
+					@partials.Navbar()
+					<div class="flex flex-col bg-base-100 justify-between items-center min-h-screen overflow-auto">
+						<table class="table mt-36 text-base-content xl:text-[30px] text-[12px]">
+							<thead>
+								<tr class="xl:text-[24px] text-[12px] text-info">
+									<th>Time</th>
+									<th>Kcal</th>
+									<th>Carbs</th>
+									<th>Protein</th>
+									<th>Fiber</th>
+									<th>Fat</th>
+								</tr>
+							</thead>
+							<tbody>
+								for i, ele := range list {
+									<tr
+ 										hx-post={ base_url + "/server/daily-input-delete" }
+ 										hx-confirm="Are you sure you wish to delete this row"
+ 										hx-trigger="click"
+ 										hx-include={ fmt.Sprintf("[name='%drowId'", i) }
+ 										hx-swap=" innerHTML"
+ 										class="font-mono hover:text-error hover:font-semibold cursor-pointer"
+									>
+										<td>{ fmt.Sprintf("%d:%02d", ele.CreatedAt.Local().Hour(), ele.CreatedAt.Local().Minute()) } </td>
+										<td>{ fmt.Sprintf("%.0f", ele.Calories) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Carbs) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Protein) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Fiber) }</td>
+										<td>{ fmt.Sprintf("%.0f", ele.Fat) }</td>
+										<input name={ fmt.Sprintf("%drowId", i) } type="hidden" value={ ele.Id.String() }/>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					@partials.Footer()
+				</div>
+				@partials.Drawer()
+			</div>
+		</body>
+	}
 }

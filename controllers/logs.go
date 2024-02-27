@@ -37,5 +37,11 @@ func (apiCfg *Api) LogsRender(w http.ResponseWriter, r *http.Request) {
 		}
 		list = append(list, cur)
 	}
-	pages.Logs(list).Render(r.Context(), w)
+  var isEmpty bool
+  if len(list) == 0 {
+    isEmpty = true
+  } else {
+    isEmpty = false
+  }
+	pages.Logs(list, isEmpty).Render(r.Context(), w)
 }
