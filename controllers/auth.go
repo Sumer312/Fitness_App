@@ -100,6 +100,13 @@ func (apiCfg *Api) SignupHandler(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	confirmPassword := r.FormValue("confirm_password")
 
+	_, err := apiCfg.DB.GetUserByEmail(r.Context(), sql.NullString{String: email, Valid: true})
+	if err != sql.ErrNoRows {
+		w.Header().Add("HX-Trigger", `{ "errorToast" : "User already exists" }`)
+		w.WriteHeader(500)
+		return
+	}
+
 	if len(name) == 0 || len(email) == 0 || len(password) == 0 || len(confirmPassword) == 0 {
 		w.Header().Add("HX-Trigger", `{ "warnToast" : "Fields should not be empty" }`)
 		w.WriteHeader(400)
