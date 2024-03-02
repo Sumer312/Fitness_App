@@ -6,16 +6,17 @@ templ wrapper(header string) {
 			<title>{ header }</title>
 			<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css"/>
 			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"/>
+			<link rel="icon" type="image/png" href="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png"/>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<script>
-        let theme = window.localStorage.getItem("theme")
-        if (theme == null) {
-          window.localStorage.setItem("theme", "fantasy")
-          theme = window.localStorage.getItem("theme")
-        }
-         document.getElementById("ParentHTMLTag").setAttribute("data-theme", theme)
-      </script>
+    let theme = window.localStorage.getItem("theme")
+    if (theme == null) {
+      window.localStorage.setItem("theme", "fantasy")
+      theme = window.localStorage.getItem("theme")
+    }
+    document.getElementById("ParentHTMLTag").setAttribute("data-theme", theme)
+  </script>
 			<script src="https://unpkg.com/htmx.org@1.9.9"></script>
 			<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
 			<script src="https://cdn.tailwindcss.com"></script>

@@ -37,17 +37,45 @@ func Navbar() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-box-arrow-in-right\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z\"></path> <path fill-rule=\"evenodd\" d=\"M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z\"></path></svg></a>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = LoginIcon().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<label for=\"my-drawer\" class=\"cursor-pointer drawer-button ml-2\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-list\" viewBox=\"0 0 16 16\"><path fill-rule=\"evenodd\" d=\"M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5\"></path></svg></label>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<label for=\"my-drawer\" class=\"cursor-pointer drawer-button ml-2\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = MenuIcon().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"navbar-center\"><div class=\"flex-1\"><a class=\"btn btn-ghost no-animation normal-case text-[24px] text-accent-content font-sans font-bold\" href=\"/\"><img src=\"https://img.icons8.com/?size=512&amp;id=X3XGYoBQVt1Q&amp;format=png\" width=\"30\" height=\"10\"> Fitness App</a></div></div><div class=\"navbar-end\"><a class=\"cursor-pointer mr-2\" onclick=\"ChangeTheme()\"><svg xmlns=\"http://www.w3.org/2000/svg\" id=\"lowBrightnessIcon\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-brightness-high-fill\" viewBox=\"0 0 16 16\"><path d=\"M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708\"></path></svg> <svg xmlns=\"http://www.w3.org/2000/svg\" id=\"highBrightnessIcon\" width=\"32\" height=\"32\" fill=\"currentColor\" class=\"bi bi-brightness-low-fill\" viewBox=\"0 0 16 16\"><path d=\"M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0M8.5 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 11a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m5-5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m-11 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m9.743-4.036a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707m-7.779 7.779a.5.5 0 1 1-.707-.707.5.5 0 0 1 .707.707m7.072 0a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707M3.757 4.464a.5.5 0 1 1 .707-.707.5.5 0 0 1-.707.707\"></path></svg></a><script>\n      if (window.localStorage.getItem(\"theme\") === \"fantasy\" || window.localStorage.getItem(\"theme\") === null) {\n        document.getElementById(\"lowBrightnessIcon\").style.display = \"none\";\n        document.getElementById(\"highBrightnessIcon\").style.display = \"inline\";\n      } else {\n        document.getElementById(\"lowBrightnessIcon\").style.display = \"inline\";\n        document.getElementById(\"highBrightnessIcon\").style.display = \"none\";\n      }\n      function ChangeTheme() {\n        if (window.localStorage.getItem(\"theme\") === \"fantasy\") {\n          current_theme = \"coffee\"\n          document.getElementById(\"lowBrightnessIcon\").style.display = \"inline\";\n          document.getElementById(\"highBrightnessIcon\").style.display = \"none\";\n        } else {\n          current_theme = \"fantasy\"\n          document.getElementById(\"lowBrightnessIcon\").style.display = \"none\";\n          document.getElementById(\"highBrightnessIcon\").style.display = \"inline\";\n        }\n        window.localStorage.setItem(\"theme\", current_theme)\n        document.querySelectorAll(\"[data-theme]\").forEach(l => {\n          l.setAttribute(\"data-theme\", window.localStorage.getItem(\"theme\"))\n        })\n      }\n    </script></div></nav>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"navbar-center\"><div class=\"flex-1\"><a class=\"btn btn-ghost no-animation normal-case text-[24px] text-accent-content font-sans font-bold\" href=\"/\"><img src=\"https://img.icons8.com/?size=512&amp;id=X3XGYoBQVt1Q&amp;format=png\" width=\"30\" height=\"10\"> Fitness App</a></div></div><div class=\"navbar-end\"><a class=\"cursor-pointer mr-2\" onclick=\"ChangeTheme()\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = LowBrightnessIcon().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = HighBrightnessIcon().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a><script>\n      if (window.localStorage.getItem(\"theme\") === \"fantasy\" || window.localStorage.getItem(\"theme\") === null) {\n        document.getElementById(\"lowBrightnessIcon\").style.display = \"none\";\n        document.getElementById(\"highBrightnessIcon\").style.display = \"inline\";\n      } else {\n        document.getElementById(\"lowBrightnessIcon\").style.display = \"inline\";\n        document.getElementById(\"highBrightnessIcon\").style.display = \"none\";\n      }\n      function ChangeTheme() {\n        if (window.localStorage.getItem(\"theme\") === \"fantasy\") {\n          current_theme = \"coffee\"\n          document.getElementById(\"lowBrightnessIcon\").style.display = \"inline\";\n          document.getElementById(\"highBrightnessIcon\").style.display = \"none\";\n        } else {\n          current_theme = \"fantasy\"\n          document.getElementById(\"lowBrightnessIcon\").style.display = \"none\";\n          document.getElementById(\"highBrightnessIcon\").style.display = \"inline\";\n        }\n        window.localStorage.setItem(\"theme\", current_theme)\n        document.querySelectorAll(\"[data-theme]\").forEach(l => {\n          l.setAttribute(\"data-theme\", window.localStorage.getItem(\"theme\"))\n        })\n      }\n    </script></div></nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

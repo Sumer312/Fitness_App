@@ -80,7 +80,7 @@ func profile(obj TrackProgress) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if obj.ProgramSelected {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1 class=\"font-bold text-accent text-[24px] xl:text-[36px]\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1 class=\"font-bold text-accent text-[36px] xl:text-[48px]\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
