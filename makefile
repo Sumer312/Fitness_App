@@ -1,7 +1,7 @@
 run:
 	@./Fitness
 install:
-	@go mod vendor && go install github.com/a-h/templ/cmd/templ@latest
+	@go mod tidy && go install github.com/a-h/templ/cmd/templ@latest
 build:
 	@templ generate 
 	@go build -o Fitness
