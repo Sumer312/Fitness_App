@@ -13,6 +13,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"reflect"
 	"runtime"
 	"sort"
 	"strconv"
@@ -38,6 +39,23 @@ type ComponentFunc func(ctx context.Context, w io.Writer) error
 // Render the template.
 func (cf ComponentFunc) Render(ctx context.Context, w io.Writer) error {
 	return cf(ctx, w)
+}
+
+// WithNonce sets a CSP nonce on the context and returns it.
+func WithNonce(ctx context.Context, nonce string) context.Context {
+	ctx, v := getContext(ctx)
+	v.nonce = nonce
+	return ctx
+}
+
+// GetNonce returns the CSP nonce value set with WithNonce, or an
+// empty string if none has been set.
+func GetNonce(ctx context.Context) (nonce string) {
+	if ctx == nil {
+		return ""
+	}
+	_, v := getContext(ctx)
+	return v.nonce
 }
 
 func WithChildren(ctx context.Context, children Component) context.Context {
@@ -118,7 +136,7 @@ func WithStatus(status int) func(*ComponentHandler) {
 	}
 }
 
-// WithConentType sets the Content-Type header returned by the ComponentHandler.
+// WithContentType sets the Content-Type header returned by the ComponentHandler.
 func WithContentType(contentType string) func(*ComponentHandler) {
 	return func(ch *ComponentHandler) {
 		ch.ContentType = contentType
@@ -447,30 +465,18 @@ func renderCSSItemsToBuilder(sb *strings.Builder, v *contextValue, classes ...an
 // SafeCSS is CSS that has been sanitized.
 type SafeCSS string
 
+type SafeCSSProperty string
+
+var safeCSSPropertyType = reflect.TypeOf(SafeCSSProperty(""))
+
 // SanitizeCSS sanitizes CSS properties to ensure that they are safe.
-func SanitizeCSS(property, value string) SafeCSS {
-	p, v := safehtml.SanitizeCSS(property, value)
+func SanitizeCSS[T ~string](property string, value T) SafeCSS {
+	if reflect.TypeOf(value) == safeCSSPropertyType {
+		return SafeCSS(safehtml.SanitizeCSSProperty(property) + ":" + string(value) + ";")
+	}
+	p, v := safehtml.SanitizeCSS(property, string(value))
 	return SafeCSS(p + ":" + v + ";")
 }
-
-// Hyperlink sanitization.
-
-// FailedSanitizationURL is returned if a URL fails sanitization checks.
-const FailedSanitizationURL = SafeURL("about:invalid#TemplFailedSanitizationURL")
-
-// URL sanitizes the input string s and returns a SafeURL.
-func URL(s string) SafeURL {
-	if i := strings.IndexRune(s, ':'); i >= 0 && !strings.ContainsRune(s[:i], '/') {
-		protocol := s[:i]
-		if !strings.EqualFold(protocol, "http") && !strings.EqualFold(protocol, "https") && !strings.EqualFold(protocol, "mailto") {
-			return FailedSanitizationURL
-		}
-	}
-	return SafeURL(s)
-}
-
-// SafeURL is a URL that has been sanitized.
-type SafeURL string
 
 // Attributes is an alias to map[string]any made for spread attributes.
 type Attributes map[string]any
@@ -504,8 +510,20 @@ func RenderAttributes(ctx context.Context, w io.Writer, attributes Attributes) (
 			if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(value), `"`); err != nil {
 				return err
 			}
+		case *string:
+			if value != nil {
+				if err = writeStrings(w, ` `, EscapeString(key), `="`, EscapeString(*value), `"`); err != nil {
+					return err
+				}
+			}
 		case bool:
 			if value {
+				if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
+					return err
+				}
+			}
+		case *bool:
+			if value != nil && *value {
 				if err = writeStrings(w, ` `, EscapeString(key)); err != nil {
 					return err
 				}
@@ -575,8 +593,25 @@ type contextKeyType int
 const contextKey = contextKeyType(0)
 
 type contextValue struct {
-	ss       map[string]struct{}
-	children *Component
+	ss          map[string]struct{}
+	onceHandles map[*OnceHandle]struct{}
+	children    *Component
+	nonce       string
+}
+
+func (v *contextValue) setHasBeenRendered(h *OnceHandle) {
+	if v.onceHandles == nil {
+		v.onceHandles = map[*OnceHandle]struct{}{}
+	}
+	v.onceHandles[h] = struct{}{}
+}
+
+func (v *contextValue) getHasBeenRendered(h *OnceHandle) (ok bool) {
+	if v.onceHandles == nil {
+		v.onceHandles = map[*OnceHandle]struct{}{}
+	}
+	_, ok = v.onceHandles[h]
+	return
 }
 
 func (v *contextValue) addScript(s string) {
@@ -662,13 +697,22 @@ type ComponentScript struct {
 
 var _ Component = ComponentScript{}
 
+func writeScriptHeader(ctx context.Context, w io.Writer) (err error) {
+	var nonceAttr string
+	if nonce := GetNonce(ctx); nonce != "" {
+		nonceAttr = " nonce=\"" + EscapeString(nonce) + "\""
+	}
+	_, err = fmt.Fprintf(w, `<script type="text/javascript"%s>`, nonceAttr)
+	return err
+}
+
 func (c ComponentScript) Render(ctx context.Context, w io.Writer) error {
 	err := RenderScriptItems(ctx, w, c)
 	if err != nil {
 		return err
 	}
 	if len(c.Call) > 0 {
-		if _, err = io.WriteString(w, `<script type="text/javascript">`); err != nil {
+		if err = writeScriptHeader(ctx, w); err != nil {
 			return err
 		}
 		if _, err = io.WriteString(w, c.CallInline); err != nil {
@@ -695,7 +739,7 @@ func RenderScriptItems(ctx context.Context, w io.Writer, scripts ...ComponentScr
 		}
 	}
 	if sb.Len() > 0 {
-		if _, err = io.WriteString(w, `<script type="text/javascript">`); err != nil {
+		if err = writeScriptHeader(ctx, w); err != nil {
 			return err
 		}
 		if _, err = io.WriteString(w, sb.String()); err != nil {

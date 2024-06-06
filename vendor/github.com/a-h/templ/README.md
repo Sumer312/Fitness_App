@@ -76,6 +76,16 @@ go run ./cmd/templ generate -include-version=false
 go test ./...
 ```
 
+### test-short
+
+Run Go tests.
+
+```sh
+go run ./get-version > .version
+go run ./cmd/templ generate -include-version=false
+go test ./... -short
+```
+
 ### test-cover
 
 Run Go tests.
@@ -102,6 +112,12 @@ go tool covdata textfmt -i=./coverage/fmt,./coverage/generate,./coverage/version
 go tool cover -func coverage.out | grep total
 ```
 
+### test-cover-watch
+
+```sh
+gotestsum --watch -- -coverprofile=coverage.out
+```
+
 ### benchmark
 
 Run benchmarks.
@@ -125,14 +141,12 @@ go run ./cmd/templ fmt .
 golangci-lint run --verbose
 ```
 
-### release
+### push-release-tag
 
-Create production build with goreleaser.
+Push a semantic version number to Github to trigger the release process.
 
 ```sh
-if [ "${GITHUB_TOKEN}" == "" ]; then echo "No github token, run:"; echo "export GITHUB_TOKEN=`pass github.com/goreleaser_access_token`"; exit 1; fi
 ./push-tag.sh
-goreleaser --clean
 ```
 
 ### docs-run

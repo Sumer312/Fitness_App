@@ -85,7 +85,7 @@ func programs() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Card("Fat Loss", "https://i.pinimg.com/736x/81/85/33/818533c3345787c543e8d01fd0ac7aca.jpg").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.Card("Fat Loss", "https://libreddit.nl/preview/external-pre/RZbkpluoiFPe6YtL88nebV_3ToSC26m5fvuEHidcqiU.jpg?format=pjpg&auto=webp&s=a6f19ebbb30a7993137139a40dd24a7f942b4548").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -102,7 +102,7 @@ func programs() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Card("Muscle Gain", "https://fitnessvolt.com/wp-content/uploads/2023/06/Jay-Cutlers-Quad-Stomp-Pose.jpeg").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.Card("Muscle Gain", "https://i.scdn.co/image/ab67616d0000b273a69be6d139dab8ee2f6b2e5e").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -119,7 +119,7 @@ func programs() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = partials.Card("Maintain", "https://previews.agefotostock.com/previewimage/medibigoff/f12a7b0a5172e7947ef1f54b6a8be005/wen-34061877.jpg").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = partials.Card("Maintain", "https://www.bodybuilding.com/fun/other29fbig.jpg").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

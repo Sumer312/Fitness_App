@@ -2,7 +2,7 @@
   description = "templ";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     gomod2nix = {
       url = "github:nix-community/gomod2nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,16 +55,6 @@
               "-extldflags -static"
             ];
           };
-
-          templ-docs = pkgs.buildNpmPackage {
-            name = "templ-docs";
-            src = gitignore.lib.gitignoreSource ./docs;
-            npmDepsHash = "sha256-i6clvSyHtQEGl2C/wcCXonl1W/Kxq7WPTYH46AhUvDM=";
-            installPhase = ''
-              mkdir -p $out/share
-              cp -r build/ $out/share/docs
-            '';
-          };
         });
 
       # `nix develop` provides a shell containing development tools.
@@ -72,11 +62,15 @@
         pkgs.mkShell {
           buildInputs = with pkgs; [
             (golangci-lint.override { buildGoModule = buildGo121Module; })
+            cosign # Used to sign container images.
+            esbuild # Used to package JS examples.
             go_1_21
+            gomod2nix.legacyPackages.${system}.gomod2nix
             gopls
             goreleaser
-            nodejs
-            gomod2nix.legacyPackages.${system}.gomod2nix
+            gotestsum
+            ko # Used to build Docker images.
+            nodejs # Used to build templ-docs.
             xc.packages.${system}.xc
           ];
         });
