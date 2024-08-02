@@ -47,8 +47,46 @@ if I am cutting or my surplus if I am bulking. I also was learning Go and HTMX a
     <img src="./screenshots/Screenshot from 2024-06-11 15-31-33.png" width="49%"/> 
     <img src="./screenshots/Screenshot from 2024-06-11 15-30-07.png" width="49%"/>
 </p>
-<br>
-<br>
+
+## Run
+#### Setting up environment
+###### Installing Go
+```bash
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gzmake build
+export PATH=$PATH:/usr/local/go/bin
+go version
+```
+###### Installing Docker && postgres
+```bash
+sudo apt update
+sudo apt install curl
+curl -fsSL https://get.docker.com/ | sh
+docker pull postgres
+docker run -d --name <name> -p 5432:5432 -e POSTGRES_PASSWORD=<password> postgres
+docker exec -it <name> bash
+psql -h localhost -U postgres
+CREATE DATABASE fitness;
+```
+###### Create a .env file with these parameters
+```env
+DB_TYPE=postgres
+DB_URL=postgres://postgres:<your-password>@172.17.0.2:5432/fitness?sslmode=disable
+BASE_URL=http://localhost:5000
+JWT_SECRET=<your-secret>
+API_APP_KEY=<your-api-key>
+API_ACCESS_POINT=<your-access-point>
+API_APP_ID=<your-api-id>
+```
+###### For api use [edamam](https://developer.edamam.com/edamam-nutrition-api-demo)
+#### Execution
+```bash
+docker start <name-of-postgres-continer>
+make intall
+make migrageUp
+make queries
+make build
+make run
+```
 
 ## Tech Stack
 + **Frontend**\
