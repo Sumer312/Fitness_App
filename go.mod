@@ -1,6 +1,8 @@
 module github.com/sumer312/Health-App-Backend
 
-go 1.20
+go 1.21
+
+toolchain go1.22.4
 
 require github.com/go-chi/cors v1.2.1
 
