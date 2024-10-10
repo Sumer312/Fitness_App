@@ -76,18 +76,30 @@ func main() {
 			pages.Login().Render(r.Context(), w)
 		}
 	})
-	viewRouter.HandleFunc("/logs", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
-		apiCfg.LogsRender(w, r)
-	}))
-	viewRouter.HandleFunc("/daily-input", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
-		apiCfg.DailyNutritionRender(w, r)
-	}))
-	viewRouter.HandleFunc("/profile", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
-		apiCfg.ProfileRender(w, r)
-	}))
-	viewRouter.HandleFunc("/kcal-calc", viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
-		pages.KcalCalc().Render(r.Context(), w)
-	}))
+	viewRouter.HandleFunc(
+		"/logs",
+		viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+			apiCfg.LogsRender(w, r)
+		}),
+	)
+	viewRouter.HandleFunc(
+		"/daily-input",
+		viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+			apiCfg.DailyNutritionRender(w, r)
+		}),
+	)
+	viewRouter.HandleFunc(
+		"/profile",
+		viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+			apiCfg.ProfileRender(w, r)
+		}),
+	)
+	viewRouter.HandleFunc(
+		"/kcal-calc",
+		viewRenderInControllerMiddleware(func(w http.ResponseWriter, r *http.Request) {
+			pages.KcalCalc().Render(r.Context(), w)
+		}),
+	)
 
 	serverRouter.Post("/login", apiCfg.LoginHandler)
 	serverRouter.Post("/signup", apiCfg.SignupHandler)
@@ -95,13 +107,16 @@ func main() {
 	serverRouter.Post("/user-input", controllerMiddleware(apiCfg.InputHandler))
 	serverRouter.Post("/nutrition-api-request", controllerMiddleware(apiCfg.ApiRequest))
 	serverRouter.Post("/daily-input", controllerMiddleware(apiCfg.DailyNutritionInputHandler))
-	serverRouter.Post("/daily-input-delete", controllerMiddleware(apiCfg.DailyNutritionDeleteRowById))
+	serverRouter.Post(
+		"/daily-input-delete",
+		controllerMiddleware(apiCfg.DailyNutritionDeleteRowById),
+	)
 	serverRouter.Delete("/change-program", controllerMiddleware(apiCfg.ChangeProgram))
 	serverRouter.Delete("/delete-user", controllerMiddleware(apiCfg.DeleteUser))
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
-      apiCfg.HomeRender(w, r)
+			apiCfg.HomeRender(w, r)
 		} else {
 			pages.Programs().Render(r.Context(), w)
 		}
