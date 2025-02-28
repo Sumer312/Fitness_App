@@ -3,6 +3,7 @@ run:
 install:
 	@go mod tidy && go install github.com/a-h/templ/cmd/templ@latest
 build:
+	@go get -u ./...
 	@templ generate 
 	@go build -o Fitness
 migrateUp:
