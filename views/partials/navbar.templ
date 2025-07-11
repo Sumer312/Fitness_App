@@ -16,8 +16,8 @@ templ Navbar() {
 		<div class="navbar-center">
 			<div class="flex-1">
 				<a class="btn btn-ghost no-animation normal-case text-[24px] text-accent-content font-sans font-bold" href="/">
-					<img src="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png" width="30" height="10"/>
-					Fitness App
+					<img src="/static/img.icons8.png" width="30" height="10"/>
+					GoFit
 				</a>
 			</div>
 		</div>
@@ -27,7 +27,7 @@ templ Navbar() {
 				@HighBrightnessIcon()
 			</a>
 			<script>
-      if (window.localStorage.getItem("theme") === "fantasy" || window.localStorage.getItem("theme") === null) {
+      if (window.localStorage.getItem("theme") === "cupcake" || window.localStorage.getItem("theme") === null) {
         document.getElementById("lowBrightnessIcon").style.display = "none";
         document.getElementById("highBrightnessIcon").style.display = "inline";
       } else {
@@ -35,12 +35,12 @@ templ Navbar() {
         document.getElementById("highBrightnessIcon").style.display = "none";
       }
       function ChangeTheme() {
-        if (window.localStorage.getItem("theme") === "fantasy") {
+        if (window.localStorage.getItem("theme") === "cupcake") {
           current_theme = "coffee"
           document.getElementById("lowBrightnessIcon").style.display = "inline";
           document.getElementById("highBrightnessIcon").style.display = "none";
         } else {
-          current_theme = "fantasy"
+          current_theme = "cupcake"
           document.getElementById("lowBrightnessIcon").style.display = "none";
           document.getElementById("highBrightnessIcon").style.display = "inline";
         }

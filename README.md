@@ -1,4 +1,4 @@
-# <img src="./pictures/img.icons8.png" width="50" height="50"/> Fitness App
+# <img src="./static/img.icons8.png" width="50" height="50"/> Fitness App
 
 #### Description
 This is a personal project, it is a full fledged fitness tracker. There are 3 programs a user can select, fat loss, muscle gain and maintenance. Your calorie
@@ -18,34 +18,34 @@ if I am cutting or my surplus if I am bulking. I also was learning Go and HTMX a
 ### Desktop
 *Side menu*
 
-<img src="./pictures/screenshots/side_menu.png" /> 
+<img src="./static/screenshots/side_menu.png" /> 
 
 *Program selection*
 
-<img src="./pictures/screenshots/homepage.png" /> 
+<img src="./static/screenshots/homepage.png" /> 
 
 *User logs*
 
-<img src="./pictures/screenshots/user_logs.png" /> 
+<img src="./static/screenshots/user_logs.png" /> 
 
 *Daily input tracker*
 
-<img src="./pictures/screenshots/daily_input_tracker.png" /> 
+<img src="./static/screenshots/daily_input_tracker.png" /> 
 
 *User profile*
 
-<img src="./pictures/screenshots/user_profile.png" /> 
+<img src="./static/screenshots/user_profile.png" /> 
 
 ### Mobile
 
 <p float="left">
-    <img src="./pictures/screenshots/mobile_daily_input_tracker.png" width="49%"/> 
-    <img src="./pictures/screenshots/mobile_homepage.png" width="49%"/>
+    <img src="./static/screenshots/mobile_daily_input_tracker.png" width="49%"/> 
+    <img src="./static/screenshots/mobile_homepage.png" width="49%"/>
 </p>
 
 <p float="left">
-    <img src="./pictures/screenshots/mobile_calorie_calc.png" width="49%"/> 
-    <img src="./pictures/screenshots/mobile_login.png" width="49%"/>
+    <img src="./static/screenshots/mobile_calorie_calc.png" width="49%"/> 
+    <img src="./static/screenshots/mobile_login.png" width="49%"/>
 </p>
 
 ## Run

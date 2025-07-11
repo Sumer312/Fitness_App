@@ -1,18 +1,18 @@
 package pages
 
 templ wrapper(header string) {
-	<html id="ParentHTMLTag" data-theme="fantasy">
+	<html id="ParentHTMLTag" data-theme="cupcake">
 		<head>
 			<title>{ header }</title>
 			<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css"/>
 			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"/>
-			<link rel="icon" type="image/png" href="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png"/>
+			<link rel="icon" type="image/png" href="/static/img.icons8.png"/>
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<script>
     let theme = window.localStorage.getItem("theme")
     if (theme == null) {
-      window.localStorage.setItem("theme", "fantasy")
+      window.localStorage.setItem("theme", "cupcake")
       theme = window.localStorage.getItem("theme")
     }
     document.getElementById("ParentHTMLTag").setAttribute("data-theme", theme)

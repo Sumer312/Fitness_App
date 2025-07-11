@@ -1,73 +1,109 @@
 package pages
 
 import (
-"github.com/sumer312/Health-App-Backend/views/partials"
-"fmt"
-)
+    "github.com/sumer312/Health-App-Backend/views/partials"
+    "fmt"
+    )
 
 templ Profile(obj TrackProgress){
-@wrapper("Profile"){
-  @profile(obj)
+  @wrapper("Profile"){
+    @profile(obj)
   }
 }
 
 templ profile(obj TrackProgress) {
-<body onload="Info('Updated every 24 hours')">
-  <div class="drawer">
-    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content">
+  if obj.ProgramSelected {
+    <body onload="Info('Updated every 24 hours')" id="toBeSwapped">
+      <div class="drawer">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
       @partials.Navbar()
-      <div id="toBeSwapped">
-        <div class="flex flex-col mt-24 justify-between items-center min-h-screen overflow-auto">
-          <div class="flex flex-col mt-24 mb-8 gap-24">
-            if obj.ProgramSelected {
-            <h1 class="font-bold text-accent text-[36px] xl:text-[48px]">{ fmt.Sprintf("Program: %s",
-              obj.ProgramDisplay) }</h1>
-            }
-            if obj.Program == program_fatLoss {
-            <div class="gap-2">
-              <progress class="progress progress-primary xl:w-96 w-72" value={ fmt.Sprintf("%.2f", obj.WeightProgress) }
-                max="100"></progress>
-              <p class="text-[24px] font-semibold text-primary xl:w-96 w-72">
-                { fmt.Sprintf("Weight target achieved by %.2f%%",obj.WeightProgress) }
-              </p>
-            </div>
-            }
-            if obj.Program == program_fatLoss || obj.Program == program_muscleGain {
-            <div class="gap-2">
-              <progress class="progress progress-success xl:w-96 w-72" value={ fmt.Sprintf("%.2f",
-                obj.TimeFrameProgress) } max="100"></progress>
-              <p class="text-[24px] font-semibold text-success xl:w-96 w-72">
-                { fmt.Sprintf("Time frame done by %.2f%%",obj.TimeFrameProgress) }
-              </p>
-            </div>
-            }
-            if obj.Program == program_maintain {
-            <p class="text-[24px] font-semibold text-success xl:w-96 w-72">
-              if obj.WeightProgress > 0 {
-              { fmt.Sprintf("Weight gained %.2f kg",obj.WeightProgress) }
-              } else if obj.WeightProgress < 0 {
-              { fmt.Sprintf("Weight lost %.2f kg",obj.WeightProgress) } 
-              } else { 
-              { fmt.Sprintf("No weight difference") } 
-              }
-              </p> }
-                <button class="btn btn-info btn-outline btn-lg" onclick="my_modal_1.showModal()">
-                  if obj.ProgramSelected == false {
-                  Choose Program
-                  } else {
-                  Change Program
-                  }
-                </button>
-                @partials.Modal("#toBeSwapped", base_url + "/server/change-program")
-                <button class="btn btn-error btn-outline btn-lg" hx-delete={ base_url + "/server/delete-user" }
-                  hx-confirm="Are you sure you want to delete your account">Delete my account</button>
-          </div>
-        </div>
-        @partials.Footer()
+      <div>
+      <div class="flex flex-col mt-24 justify-between items-center min-h-screen overflow-auto">
+      <div class="flex flex-col mt-24 mb-8 gap-24">
+      <div class="stats stats-vertical bg-base-100 border-base-300 border">
+      <div class="stat">
+      <div class="stat-title">Program</div>
+      <div class="stat-value">{fmt.Sprint(obj.ProgramDisplay)}</div>
+      <div class="stat-actions">
+      <button class="btn btn-xs btn-primary" onclick="my_modal_1.showModal()"> 
+      @partials.SwitchIcon()
+      Change Program
+      </button>
       </div>
+      </div>
+
+      if obj.Program == program_fatLoss {
+        <div class="stat gap-2">
+          <div class="stat-title">Weight Progress</div>
+          <div class="stat-value">
+          <progress class="progress progress-success xl:w-96 w-72" value={ fmt.Sprintf("%.2f",
+              obj.WeightProgress) } max="100"></progress>
+          </div>
+          </div>
+      }
+    if obj.Program == program_fatLoss || obj.Program == program_muscleGain {
+      <div class="stat gap-2">
+        <div class="stat-title">Time Frame</div>
+        <div class="stat-value">
+        <progress class="progress progress-success xl:w-96 w-72" value={ fmt.Sprintf("%.2f",
+            obj.TimeFrameProgress) } max="100"></progress>
+        </div>
+        </div>
+    }
+    if obj.Program == program_maintain {
+      <div class="stat gap-2">
+        <div class="stat-title">Weight difference</div>
+        <div class="stat-value">
+        if obj.WeightProgress > 0 {
+          { fmt.Sprintf("+%.2f kg",obj.WeightProgress) }
+        } else if obj.WeightProgress < 0 {
+          { fmt.Sprintf("-%.2f kg",obj.WeightProgress) } 
+        } else { 
+          { fmt.Sprintf("0 kg") } 
+        } 
+      </div>
+        </div>
+    }
     </div>
-    @partials.Drawer()
-  </div>
-</body>
+      @partials.Modal("#toBeSwapped", base_url + "/server/change-program")
+      <button class="btn btn-error btn-lg -mt-12" hx-delete={ base_url + "/server/delete-user" }
+    hx-confirm="Are you sure you want to delete your account">
+    @partials.DeleteIcon()
+    Delete my account
+    </button>
+      </div>
+      </div>
+      @partials.Footer()
+      </div>
+      </div>
+      @partials.Drawer()
+      </div>
+      </body>
+  } else {
+    <body id="toBeSwapped">
+      <div class="drawer">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+      @partials.Navbar()
+      <div class="flex flex-col mt-24 justify-between items-center min-h-screen overflow-auto">
+      <div class="flex flex-col mt-24 gap-12">
+      <button class="btn btn-info btn-lg" onclick="my_modal_1.showModal()">
+      @partials.ChooseIcon()
+      Choose Program
+      </button>
+      @partials.Modal("#toBeSwapped", base_url + "/server/change-program")
+      <button class="btn btn-error btn-lg" hx-delete={ base_url + "/server/delete-user" }
+    hx-confirm="Are you sure you want to delete your account">
+    @partials.DeleteIcon()
+    Delete my account
+    </button>
+      </div>
+      @partials.Footer()
+      </div>
+      </div>
+      @partials.Drawer()
+      </div>
+      </body>
+  }
 }

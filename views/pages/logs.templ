@@ -1,11 +1,11 @@
 package pages
 
 import (
-	"github.com/sumer312/Health-App-Backend/views/partials"
 	"fmt"
+	"github.com/sumer312/Health-App-Backend/views/partials"
 )
 
-templ Logs(list[]DailyLogs, isEmpty bool) {
+templ Logs(list []DailyLogs, isEmpty bool) {
 	@wrapper("Logs") {
 		@logs(list, isEmpty)
 	}
@@ -18,11 +18,18 @@ templ logs(list []DailyLogs, isEmpty bool) {
 				<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 				<div class="drawer-content">
 					@partials.Navbar()
-					<div class="flex justify-center items-center min-h-screen max-w-screen overflow-auto">
-						<h1 class="font-bold text-accent-content text-[24px] xl:text-[36px]">
-							Logs are empty, enter macros from Daily Input or
-							Calorie Calculator
-						</h1>
+					<div class="hero bg-base-200 min-h-screen">
+						<div class="hero-content text-center">
+							<div class="max-w-md">
+								<h1 class="text-5xl font-bold">Hey there!</h1>
+								<p class="py-6">
+									Your logs are empty, you can add to your logs either through the calorie calculalator,
+                  or you can enter your macros manually.
+								</p>
+								<a class="btn btn-primary" href={ templ.SafeURL(base_url + "/view/kcal-calc") }>Calculate calories</a>
+								<a class="btn btn-primary" href={ templ.SafeURL(base_url + "/view/daily-input") }>Enter macros</a>
+							</div>
+						</div>
 					</div>
 					@partials.Footer()
 				</div>
@@ -50,12 +57,12 @@ templ logs(list []DailyLogs, isEmpty bool) {
 							<tbody>
 								for i, ele := range list {
 									<tr
- 										hx-post={ base_url + "/server/daily-input-delete" }
- 										hx-confirm="Are you sure you wish to delete this row"
- 										hx-trigger="click"
- 										hx-include={ fmt.Sprintf("[name='%drowId'", i) }
- 										hx-swap=" innerHTML"
- 										class="font-mono hover:text-error hover:font-semibold cursor-pointer"
+										hx-post={ base_url + "/server/daily-input-delete" }
+										hx-confirm="Are you sure you wish to delete this row"
+										hx-trigger="click"
+										hx-include={ fmt.Sprintf("[name='%drowId'", i) }
+										hx-swap=" innerHTML"
+										class="font-mono hover:text-error hover:font-semibold cursor-pointer"
 									>
 										<td>{ fmt.Sprintf("%d:%02d", ele.CreatedAt.Local().Hour(), ele.CreatedAt.Local().Minute()) } </td>
 										<td>{ fmt.Sprintf("%.0f", ele.Calories) }</td>

@@ -3,9 +3,9 @@ package partials
 templ Footer() {
 	<footer class="footer -mt-2 p-10 bg-base-300 text-accent-content">
 		<div>
-			<img src="https://img.icons8.com/?size=512&id=X3XGYoBQVt1Q&format=png" width="70" height="50"/>
+			<img src="/static/img.icons8.png" width="70" height="50"/>
 			<p class="font-extrabold text-[18px]">
-				Fitness app
+				GoFit
 			</p>
 		</div>
 		<div class="gap-2">
@@ -89,26 +89,26 @@ templ Footer() {
     event.detail.target.innerHTML = `
       <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
       <form target="dummyframe" id="kcalForm" action="/server/daily-input" method="post">
-      <p>Calories:</p> <p class="text-accent">${response.calories}</p>
+      <p>Calories:</p> <p class="text-primary">${response.calories}</p>
       <input name="calories" type="hidden" value=${response.calories} />
       <br>
-      <p>Carbohydrates:</p> <p class="text-accent">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
+      <p>Carbohydrates:</p> <p class="text-primary">${response.totalNutrients.CHOCDF.quantity} ${response.totalNutrients.CHOCDF.unit}</p>
       <input name="carbohydrates" type="hidden" value=${response.totalNutrients.CHOCDF.quantity} />
       <br>
-      <p>Protein:</p> <p class="text-accent">${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</p>
+      <p>Protein:</p> <p class="text-primary">${response.totalNutrients.PROCNT.quantity} ${response.totalNutrients.PROCNT.unit}</p>
       <input name="protein" type="hidden" value=${response.totalNutrients.PROCNT.quantity} />
       <br>
-      <p>Fats:</p> <p class="text-accent">${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</p>
+      <p>Fats:</p> <p class="text-primary">${response.totalNutrients.FAT.quantity} ${response.totalNutrients.FAT.unit}</p>
       <input name="fat" type="hidden" value=${response.totalNutrients.FAT.quantity} />
       <br>
-      <p>Fiber:</p> <p class="text-accent">${response.totalNutrients.FIBTG.quantity} ${response.totalNutrients.FIBTG.unit}</p>
+      <p>Fiber:</p> <p class="text-primary">${response.totalNutrients.FIBTG.quantity} ${response.totalNutrients.FIBTG.unit}</p>
       <input name="fiber" type="hidden" value=${response.totalNutrients.FIBTG.quantity} />
       <br>
-      <p>Sugar:</p> <p class="text-accent">${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</p>
+      <p>Sugar:</p> <p class="text-primary">${response.totalNutrients.SUGAR.quantity} ${response.totalNutrients.SUGAR.unit}</p>
       <br>
-      <p>Saturated Fats:</p> <p class="text-accent">${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</p>
+      <p>Saturated Fats:</p> <p class="text-primary">${response.totalNutrients.FASAT.quantity} ${response.totalNutrients.FASAT.unit}</p>
       <br>
-      <button class="btn btn-lg btn-primary btn-outline" type="button" onclick="submit_form('kcalForm')">Enter into logs</button>
+      <button class="btn btn-lg btn-primary" type="button" onclick="submit_form('kcalForm')">Enter into logs</button>
       </form>
       `
   })
@@ -149,6 +149,7 @@ templ Footer() {
       stopOnFocus: true, // Prevents dismissing of toast on hover
       style: {
         background: "oklch(var(--wa))",
+        color: "oklch(var(--n))",
       },
     }).showToast();
   }
@@ -163,6 +164,7 @@ templ Footer() {
       stopOnFocus: true, // Prevents dismissing of toast on hover
       style: {
         background: "oklch(var(--su))",
+        color: "oklch(var(--n))",
       },
     }).showToast();
   }
@@ -177,6 +179,7 @@ templ Footer() {
       stopOnFocus: true, // Prevents dismissing of toast on hover
       style: {
         background: "oklch(var(--er))",
+        color: "oklch(var(--n))",
       },
     }).showToast();
   }
@@ -191,6 +194,7 @@ templ Footer() {
       stopOnFocus: false, // Prevents dismissing of toast on hover
       style: {
         background: "oklch(var(--in))",
+        color: "oklch(var(--n))",
       },
     }).showToast();
   }

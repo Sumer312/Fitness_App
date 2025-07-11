@@ -40,7 +40,6 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           3600,
 	}))
-
 	viewRouter.HandleFunc("/login", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
 			pages.Random("Already Logged In").Render(r.Context(), w)
@@ -114,6 +113,7 @@ func main() {
 	serverRouter.Delete("/change-program", controllerMiddleware(apiCfg.ChangeProgram))
 	serverRouter.Delete("/delete-user", controllerMiddleware(apiCfg.DeleteUser))
 
+	router.Handle("/static/*", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if partials.DrawerAuthFlag {
 			apiCfg.HomeRender(w, r)
