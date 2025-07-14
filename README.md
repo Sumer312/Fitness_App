@@ -1,4 +1,4 @@
-# <img src="./static/img.icons8.png" width="50" height="50"/> Fitness App
+# <img src="./static/img.icons8.png" width="50" height="50"/> GoFit
 
 #### Description
 This is a personal project, it is a full fledged fitness tracker. There are 3 programs a user can select, fat loss, muscle gain and maintenance. Your calorie
@@ -16,9 +16,6 @@ if I am cutting or my surplus if I am bulking. I also was learning Go and HTMX a
 
 ## Interface
 ### Desktop
-*Side menu*
-
-<img src="./static/screenshots/side_menu.png" /> 
 
 *Program selection*
 
@@ -28,25 +25,27 @@ if I am cutting or my surplus if I am bulking. I also was learning Go and HTMX a
 
 <img src="./static/screenshots/user_logs.png" /> 
 
-*Daily input tracker*
-
-<img src="./static/screenshots/daily_input_tracker.png" /> 
-
 *User profile*
 
 <img src="./static/screenshots/user_profile.png" /> 
 
+*Daily input tracker*
+
+<img src="./static/screenshots/daily_input_tracker.png" /> 
+
+*Signup page*
+
+<img src="./static/screenshots/signup.png" /> 
+
+*Calorie calculator*
+
+<img src="./static/screenshots/calorie_calc.png" /> 
+
 ### Mobile
 
-<p float="left">
-    <img src="./static/screenshots/mobile_daily_input_tracker.png" width="49%"/> 
-    <img src="./static/screenshots/mobile_homepage.png" width="49%"/>
-</p>
+<img src="./static/screenshots/mobile_interface.png" width="49%"/> 
+<img src="./static/screenshots/mobile_homepage.png" width="49%"/>
 
-<p float="left">
-    <img src="./static/screenshots/mobile_calorie_calc.png" width="49%"/> 
-    <img src="./static/screenshots/mobile_login.png" width="49%"/>
-</p>
 
 ## Run
 #### Setting up environment
