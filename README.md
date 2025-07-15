@@ -43,8 +43,10 @@ if I am cutting or my surplus if I am bulking. I also was learning Go and HTMX a
 
 ### Mobile
 
-<img src="./static/screenshots/mobile_interface.png" width="49%"/> 
-<img src="./static/screenshots/mobile_homepage.png" width="49%"/>
+<p>
+    <img src="./static/screenshots/mobile_interface.png" width="49%" /> 
+    <img src="./static/screenshots/mobile_homepage.png" width="49%"/>
+</p>
 
 
 ## Run
