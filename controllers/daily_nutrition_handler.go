@@ -44,26 +44,28 @@ func (apiCfg *Api) DailyNutritionRender(w http.ResponseWriter, r *http.Request) 
 		curr.calories += float64(ele.Calories)
 		curr.fiber += float64(ele.Fiber)
 	}
-	if user.Sex == sex_male {
+	switch user.Sex {
+	case sex_male:
 		total.fiber = 31
-	} else if user.Sex == sex_female {
+	case sex_female:
 		total.fiber = 21
-	} else {
+	default:
 		total.fiber = 26
 	}
 
 	program := user.Program
-	if program == program_fatLoss {
+	switch program {
+	case program_fatLoss:
 		total.protein = float64(user.Weight)
 		total.calories = float64(user.CurrKcal - user.Deficit.Float64)
 		total.carbs = 0.45 * float64(total.calories/4)
 		total.fat = 0.2 * float64(total.calories/9)
-	} else if program == program_muscleGain {
+	case program_muscleGain:
 		total.protein = 1.2 * float64(user.Weight)
 		total.calories = float64(user.CurrKcal) + 200
 		total.carbs = 0.4 * float64(total.calories/4)
 		total.fat = 0.2 * float64(total.calories/9)
-	} else {
+	default:
 		total.protein = 0.8 * float64(user.Weight)
 		total.calories = float64(user.CurrKcal)
 		total.carbs = 0.6 * float64(total.calories/4)

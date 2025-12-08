@@ -57,14 +57,22 @@ templ login() {
 												>
 													Password
 												</label>
+                        <p class="-mt-2 font-bold"><a class="text-sm text-primary-content fond-bold hover:underline" href="">Forgot password?</a></p>
 											</div>
-											<div class="relative">
-												<button type="submit" class="btn btn-primary text-accent-content mb-4">
-													Login
-												</button>
-												<br/>
+											<div class="mt-6 relative">
+                        <div class="flex gap-2">
+                          <button type="submit" class="btn btn-primary text-accent-content mb-4">
+                            Login
+                          </button>
+                          <button class="btn btn-outline">
+                            <img src="/static/google.png" height="40" width="40"/>
+                          </button>
+                          <button class="btn btn-outline">
+                            <img src="/static/github.png" height="40" width="40"/>
+                          </button>
+                        </div>
 												<p class="mt-4 text-accent-content text-sm">
-													Don't have an account
+													Don't have an account?
 													<a class="ml-1 text-primary-content font-bold hover:underline" href="/view/signup">
 														Register
 													</a>
@@ -159,12 +167,19 @@ templ signup() {
 												</label>
 											</div>
 											<div class="relative">
-												<button type="submit" class="btn btn-primary text-accent-content mb-4">
-													Signup
-												</button>
-												<br/>
+                        <div class="flex gap-2">
+                          <button type="submit" class="btn btn-primary text-accent-content mb-4">
+                            Signup
+                          </button>
+                          <button class="btn btn-outline">
+                            <img src="/static/google.png" height="40" width="40"/>
+                          </button>
+                          <button class="btn btn-outline">
+                            <img src="/static/github.png" height="40" width="40"/>
+                          </button>
+                        </div>
 												<p class="mt-4 text-accent-content text-sm">
-													Already have an account
+													Already have an account?
 													<a class="ml-1 text-primary-content font-bold hover:underline" href="/view/login">
 														Login
 													</a>

@@ -188,3 +188,6 @@ func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 	return
 }
+
+func OAuth2(apiCfg *Api){
+}
