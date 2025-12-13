@@ -17,3 +17,5 @@ require (
 )
 
 require github.com/go-chi/chi/v5 v5.0.12
+
+require golang.org/x/oauth2 v0.34.0 // indirect
