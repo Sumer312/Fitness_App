@@ -10,12 +10,17 @@ require github.com/joho/godotenv v1.5.1
 
 require (
 	github.com/a-h/templ v0.3.960
-	github.com/golang-jwt/jwt/v5 v5.2.0
+	github.com/golang-jwt/jwt/v5 v5.2.2
 	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.10.9
-	golang.org/x/crypto v0.20.0
+	golang.org/x/crypto v0.35.0
 )
 
-require github.com/go-chi/chi/v5 v5.0.12
+require github.com/go-chi/chi/v5 v5.2.2
 
-require golang.org/x/oauth2 v0.34.0 // indirect
+require (
+	github.com/gorilla/securecookie v1.1.2 // indirect
+	github.com/gorilla/sessions v1.4.0 // indirect
+	github.com/markbates/goth v1.82.0 // indirect
+	golang.org/x/oauth2 v0.34.0 // indirect
+)

@@ -5,16 +5,20 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sort"
 	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
+	"github.com/gorilla/pat"
 	"github.com/joho/godotenv"
+	"github.com/markbates/goth"
+	"github.com/markbates/goth/gothic"
+	"github.com/markbates/goth/providers/google"
 	"github.com/sumer312/Health-App-Backend/internal/database"
 	"github.com/sumer312/Health-App-Backend/views/partials"
 	"golang.org/x/crypto/bcrypt"
-	/* "golang.org/x/oauth2" */
 )
 
 func CreateJWT(expiresIn time.Duration, subject string) (string, error) {
@@ -189,24 +193,11 @@ func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 	return
 }
-/*
-func OAuth2(apiCfg *Api) {
-}
 
-var GoogleLoginConfig oauth2.Config
-
-func GoogleConfig() oauth2.Config {
+func (apiCfg *Api)OAuth2() {
 	godotenv.Load()
-
-	GoogleLoginConfig = oauth2.Config{
-		RedirectURL:  "http://localhost:8080/google_callback",
-		ClientID:     os.Getenv("GOOGLE_CLIENT_ID"),
-		ClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
-		Scopes: []string{"https://www.googleapis.com/auth/userinfo.email",
-			"https://www.googleapis.com/auth/userinfo.profile"},
-		Endpoint: "google.Endpoint", // Un stringfigy it later
-	}
-
-	return GoogleLoginConfig
+	goth.UseProviders(
+		google.New(os.Getenv("GOOGLE_KEY"), os.Getenv("GOOGLE_SECRET"), "http://localhost:3000/auth/google/callback"),
+		github.New(os.Getenv("GITHUB_KEY"), os.Getenv("GITHUB_SECRET"), "http://localhost:3000/auth/github/callback")
+	)
 }
-*/
