@@ -22,9 +22,9 @@ templ login() {
 				@partials.Navbar()
 				<div class="min-h-screen flex flex-col justify-center py-12">
 					<div class="relative mx-auto py-3 sm:max-w-xl">
-						<div class="relative bg-accent shadow-lg rounded-xl p-20">
+						<div class="relative bg-primary shadow-lg rounded-xl p-20">
 							<div class="max-w-md mx-auto">
-								<h1 class="text-2xl text-accent-content font-semibold">Login</h1>
+								<h1 class="text-2xl text-primary-content font-semibold">Login</h1>
 								<div class="divide-y divide-gray-200">
 									<div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
 										<form hx-post={ base_url + "/server/login" } hx-swap="none">
@@ -33,12 +33,12 @@ templ login() {
  													id="email"
  													name="email"
  													type="text"
- 													class="peer placeholder-transparent bg-accent h-10 w-full  border-b-2 border-primary text-accent-content focus:outline-none focus:borer-rose-600 mb-4"
+ 													class="peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-base text-primary-content focus:outline-none focus:borer-rose-600 mb-4"
  													placeholder="Email address"
 												/>
 												<label
  													for="email"
- 													class="absolute left-0 -top-3.5 text-accent-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
+ 													class="absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
 												>
 													Email Address
 												</label>
@@ -48,20 +48,20 @@ templ login() {
  													id="password"
  													name="password"
  													type="password"
- 													class="peer placeholder-transparent bg-accent h-10 w-full  border-b-2 border-primary text-accent-content focus:outline-none focus:borer-rose-600 mb-4"
+ 													class="peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-base text-primary-content focus:outline-none focus:borer-rose-600 mb-4"
  													placeholder="Password"
 												/>
 												<label
  													for="password"
- 													class="absolute left-0 -top-3.5 text-accent-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
+ 													class="absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
 												>
 													Password
 												</label>
-                        <p class="-mt-2 font-bold"><a class="text-sm text-accent-content fond-bold hover:underline" href="">Forgot password?</a></p>
+                        <p class="-mt-2 font-bold"><a class="text-sm text-primary-content fond-bold hover:underline" href="">Forgot password?</a></p>
 											</div>
 											<div class="mt-6 relative">
                         <div class="flex gap-2">
-                          <button type="submit" class="btn btn-primary text-accent-content mb-4">
+                          <button type="submit" class="btn mb-4">
                             Login
                           </button>
                           <button class="btn btn-outline">
@@ -71,7 +71,7 @@ templ login() {
                             <img src="/static/github.png" height="40" width="40"/>
                           </button>
                         </div>
-												<p class="mt-4 text-accent-content text-sm">
+												<p class="mt-4 text-primary-content text-sm">
 													Don't have an account?
 													<a class="ml-1 font-bold hover:underline" href="/view/signup">
 														Register
@@ -100,9 +100,9 @@ templ signup() {
 				@partials.Navbar()
 				<div class="min-h-screen flex flex-col justify-center py-12">
 					<div class="relative mx-auto py-3 sm:max-w-xl">
-						<div class="relative bg-accent shadow-lg rounded-xl p-20">
+						<div class="relative bg-primary shadow-lg rounded-xl p-20">
 							<div class="max-w-md mx-auto">
-								<h1 class="text-2xl text-accent-content font-semibold">Signup</h1>
+								<h1 class="text-2xl text-primary-content font-semibold">Signup</h1>
 								<div class="divide-y divide-gray-200">
 									<div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
 										<form hx-post={ base_url + "/server/signup" } hx-swap="none">
@@ -111,12 +111,12 @@ templ signup() {
  													id="name"
  													name="name"
  													type="text"
- 													class="peer placeholder-transparent bg-accent h-10 w-full  border-b-2 border-primary text-accent-content focus:outline-none focus:borer-rose-600 mb-4"
+ 													class="peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-base text-primary-content focus:outline-none focus:borer-rose-600 mb-4"
  													placeholder="Name"
 												/>
 												<label
  													for="email"
- 													class="absolute left-0 -top-3.5 text-accent-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
+ 													class="absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
 												>
 													Name
 												</label>
@@ -126,12 +126,12 @@ templ signup() {
  													id="email"
  													name="email"
  													type="text"
- 													class="peer placeholder-transparent bg-accent h-10 w-full  border-b-2 border-primary text-accent-content focus:outline-none focus:borer-rose-600 mb-4"
+ 													class="peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-base text-primary-content focus:outline-none focus:borer-rose-600 mb-4"
  													placeholder="Email address"
 												/>
 												<label
  													for="email"
- 													class="absolute left-0 -top-3.5 text-accent-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
+ 													class="absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
 												>
 													Email Address
 												</label>
@@ -141,12 +141,12 @@ templ signup() {
  													id="password"
  													name="password"
  													type="password"
- 													class="peer placeholder-transparent bg-accent h-10 w-full  border-b-2 border-primary text-accent-content focus:outline-none focus:borer-rose-600 mb-4"
+ 													class="peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-base text-primary-content focus:outline-none focus:borer-rose-600 mb-4"
  													placeholder="Password"
 												/>
 												<label
  													for="password"
- 													class="absolute left-0 -top-3.5 text-accent-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
+ 													class="absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
 												>
 													Password
 												</label>
@@ -156,19 +156,19 @@ templ signup() {
  													id="confirm_password"
  													name="confirm_password"
  													type="password"
- 													class="peer placeholder-transparent bg-accent h-10 w-full  border-b-2 border-primary text-accent-content focus:outline-none focus:borer-rose-600 mb-4"
+ 													class="peer placeholder-transparent bg-primary h-10 w-full  border-b-2 border-base text-primary-content focus:outline-none focus:borer-rose-600 mb-4"
  													placeholder="Confirm Password"
 												/>
 												<label
  													for="confirm_password"
- 													class="absolute left-0 -top-3.5 text-accent-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
+ 													class="absolute left-0 -top-3.5 text-primary-content text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-secondary-content peer-focus:text-sm"
 												>
 													Confirm Password
 												</label>
 											</div>
 											<div class="relative">
                         <div class="flex gap-2">
-                          <button type="submit" class="btn btn-primary text-accent-content mb-4">
+                          <button type="submit" class="btn mb-4">
                             Signup
                           </button>
                           <button class="btn btn-outline">
@@ -178,7 +178,7 @@ templ signup() {
                             <img src="/static/github.png" height="40" width="40"/>
                           </button>
                         </div>
-												<p class="mt-4 text-accent-content text-sm">
+												<p class="mt-4 text-primary-content text-sm">
 													Already have an account?
 													<a class="ml-1 font-bold hover:underline" href="/view/login">
 														Login

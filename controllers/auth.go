@@ -14,7 +14,7 @@ import (
 	"github.com/sumer312/Health-App-Backend/internal/database"
 	"github.com/sumer312/Health-App-Backend/views/partials"
 	"golang.org/x/crypto/bcrypt"
-	"golang.org/x/oauth2"
+	/* "golang.org/x/oauth2" */
 )
 
 func CreateJWT(expiresIn time.Duration, subject string) (string, error) {
@@ -189,7 +189,7 @@ func (apiCfg *Api) LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 	return
 }
-
+/*
 func OAuth2(apiCfg *Api) {
 }
 
@@ -204,8 +204,9 @@ func GoogleConfig() oauth2.Config {
 		ClientSecret: os.Getenv("GOOGLE_CLIENT_SECRET"),
 		Scopes: []string{"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/userinfo.profile"},
-		Endpoint: google.Endpoint,
+		Endpoint: "google.Endpoint", // Un stringfigy it later
 	}
 
 	return GoogleLoginConfig
 }
+*/

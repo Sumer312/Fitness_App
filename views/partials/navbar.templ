@@ -1,7 +1,7 @@
 package partials
 
 templ Navbar() {
-	<nav class="fixed z-40 navbar h-20 bg-base-300/20 backdrop-filter backdrop-blur-lg">
+	<nav class="fixed z-40 navbar h-20 bg-base-300/50 backdrop-filter backdrop-blur-md">
 		<div class="navbar-start">
 			if !DrawerAuthFlag {
 				<a href={ templ.SafeURL(base_url + "/view/login") }>
